@@ -1,0 +1,59 @@
+@prefix : <http://www.w3id.org/elementary/applications/hvac#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.w3id.org/elementary/applications/hvac#> .
+
+<http://www.w3id.org/elementary/applications/hvac/structural-to-behavioral> rdf:type owl:Ontology ;
+                                                                             owl:imports <http://www.w3id.org/elementary/applications/hvac/behavioral> ,
+                                                                                         <http://www.w3id.org/elementary/applications/hvac/structural> .
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.w3id.org/elementary/applications/hvac#stype-fan
+<http://www.w3id.org/elementary/applications/hvac#stype-fan> <http://www.w3id.org/elementary#hasPhysicalMechanism> <http://www.w3id.org/elementary/applications/hvac/behavioral#pm_air_pressurization> .
+
+
+###  http://www.w3id.org/elementary/applications/hvac#stype-fan-air-inlet
+<http://www.w3id.org/elementary/applications/hvac#stype-fan-air-inlet> <http://www.w3id.org/elementary#isRelatedToVariable> <http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate> ,
+                                                                                                                                                 <http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_pressure> .
+
+
+###  http://www.w3id.org/elementary/applications/hvac#stype-fan-air-outlet
+<http://www.w3id.org/elementary/applications/hvac#stype-fan-air-outlet> <http://www.w3id.org/elementary#isRelatedToVariable> <http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate> ,
+                                                                                                                                                  <http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_pressure> .
+
+
+###  http://www.w3id.org/elementary/applications/hvac#stype-fan-shaft
+<http://www.w3id.org/elementary/applications/hvac#stype-fan-shaft> <http://www.w3id.org/elementary#isRelatedToVariable> <http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_speed> .
+
+
+###  http://www.w3id.org/elementary/applications/hvac#stype-heating-cooling-coil
+<http://www.w3id.org/elementary/applications/hvac#stype-heating-cooling-coil> <http://www.w3id.org/elementary#hasPhysicalMechanism> <http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_to_air_heat_exchange> .
+
+
+###  http://www.w3id.org/elementary/applications/hvac#stype-heating-cooling-coil-air-inlet
+<http://www.w3id.org/elementary/applications/hvac#stype-heating-cooling-coil-air-inlet> <http://www.w3id.org/elementary#isRelatedToVariable> <http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate> ,
+                                                                                                                                                                  <http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_temperature> .
+
+
+###  http://www.w3id.org/elementary/applications/hvac#stype-heating-cooling-coil-air-outlet
+<http://www.w3id.org/elementary/applications/hvac#stype-heating-cooling-coil-air-outlet> <http://www.w3id.org/elementary#isRelatedToVariable> <http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate> ,
+                                                                                                                                                                   <http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_temperature> .
+
+
+###  http://www.w3id.org/elementary/applications/hvac#stype-heating-cooling-coil-water-inlet
+<http://www.w3id.org/elementary/applications/hvac#stype-heating-cooling-coil-water-inlet> <http://www.w3id.org/elementary#isRelatedToVariable> <http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate> ,
+                                                                                                                                                                    <http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_temperature> .
+
+
+###  http://www.w3id.org/elementary/applications/hvac#stype-heating-cooling-coil-water-outlet
+<http://www.w3id.org/elementary/applications/hvac#stype-heating-cooling-coil-water-outlet> <http://www.w3id.org/elementary#isRelatedToVariable> <http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate> ,
+                                                                                                                                                                     <http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_temperature> .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

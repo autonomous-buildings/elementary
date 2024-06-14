@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Imports Wizard Entry" name="http://www.w3id.org/elementary/applications/hvac/structural" uri="hvac-structural-stereotypes.owl.ttl"/>
+    <uri id="Imports Wizard Entry" name="http://www.w3id.org/elementary/applications/hvac/behavioral" uri="hvac-behavioural-stereotypes.owl.ttl"/>
     <uri id="Imports Wizard Entry" name="http://www.w3id.org/elementary" uri="file:/D:/Research/GitHubRepos/open-project/autonomous-buildings/Elementary/elementary.owl.xml"/>
     <uri id="Imports Wizard Entry" name="https://brickschema.org/schema/1.3/Brick" uri="file:/D:/Research/GitHubRepos/open-project/autonomous-buildings/Elementary/referenced-ontologies/Brick.ttl"/>
-    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1713521508142" name="http://www.w3id.org/elmentary/applications/hvac" uri="hvac-v2.owl"/>
-    </group>
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base=""/>
 </catalog>

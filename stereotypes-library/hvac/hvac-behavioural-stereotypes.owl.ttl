@@ -1,1802 +1,652 @@
-<?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.w3id.org/elmentary/applications/hvac#"
-     xml:base="http://www.w3id.org/elmentary/applications/hvac"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:tso="https://w3id.org/tso#"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:qudt="http://qudt.org/schema/qudt/"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-     xmlns:vann="http://purl.org/vocab/vann/"
-     xmlns:Brick="https://brickschema.org/schema/Brick#"
-     xmlns:shacl="http://www.w3.org/ns/shacl#"
-     xmlns:terms="http://purl.org/dc/terms/"
-     xmlns:bacnet="http://data.ashrae.org/bacnet/2020#"
-     xmlns:schema="http://schema.org/"
-     xmlns:elementary="http://www.w3id.org/elementary#">
-    <owl:Ontology rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral">
-        <owl:imports rdf:resource="http://www.w3id.org/elementary"/>
-        <owl:imports rdf:resource="https://brickschema.org/schema/1.3/Brick"/>
-        <owl:imports rdf:resource="https://w3id.org/v0.3/tubes"/>
-    </owl:Ontology>
-    
+@prefix : <http://www.w3id.org/elementary/applications/hvac/behavioral#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix tso: <https://w3id.org/tso#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+@prefix Brick: <https://brickschema.org/schema/Brick#> .
+@prefix shacl: <http://www.w3.org/ns/shacl#> .
+@prefix terms: <http://purl.org/dc/terms/> .
+@prefix bacnet: <http://data.ashrae.org/bacnet/2020#> .
+@prefix schema: <http://schema.org/> .
+@prefix elementary: <http://www.w3id.org/elementary#> .
+@base <http://www.w3id.org/elementary/applications/hvac/behavioral#> .
 
+<http://www.w3id.org/elementary/applications/hvac/behavioral> rdf:type owl:Ontology ;
+                                                               owl:imports <http://www.w3id.org/elementary> ,
+                                                                           <https://brickschema.org/schema/1.3/Brick> .
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Annotation properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+#################################################################
+#    Annotation properties
+#################################################################
 
-    
+###  http://www.w3id.org/elementary#effectiveAt
+elementary:effectiveAt rdf:type owl:AnnotationProperty .
 
 
-    <!-- http://www.w3id.org/elementary#effectiveAt -->
+###  https://w3id.org/tso#hasInput
+tso:hasInput rdf:type owl:AnnotationProperty .
 
-    <owl:AnnotationProperty rdf:about="http://www.w3id.org/elementary#effectiveAt"/>
-    
 
+###  https://w3id.org/tso#hasOutput
+tso:hasOutput rdf:type owl:AnnotationProperty .
 
-    <!-- https://w3id.org/tso#hasInput -->
 
-    <owl:AnnotationProperty rdf:about="https://w3id.org/tso#hasInput"/>
-    
+#################################################################
+#    Classes
+#################################################################
 
+###  http://www.w3id.org/elementary#InletConnectionPointConnectionPoint
+elementary:InletConnectionPointConnectionPoint rdf:type owl:Class .
 
-    <!-- https://w3id.org/tso#hasOutput -->
 
-    <owl:AnnotationProperty rdf:about="https://w3id.org/tso#hasOutput"/>
-    
+###  https://w3id.org/tso#ConnectionPoint
+tso:ConnectionPoint rdf:type owl:Class .
 
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Classes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+#################################################################
+#    Individuals
+#################################################################
 
-    
+###  http://www.w3id.org/elementary#electrical_power
+elementary:electrical_power rdf:type owl:NamedIndividual .
 
 
-    <!-- http://www.w3id.org/elementary#InletConnectionPointConnectionPoint -->
+###  http://www.w3id.org/elementary#var_control_signal
+elementary:var_control_signal rdf:type owl:NamedIndividual ,
+                                       elementary:ProcessVariable .
 
-    <owl:Class rdf:about="http://www.w3id.org/elementary#InletConnectionPointConnectionPoint"/>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#Opening_Ratio
+:Opening_Ratio rdf:type owl:NamedIndividual ,
+                        Brick:Quantity .
 
-    <!-- https://w3id.org/tso#ConnectionPoint -->
 
-    <owl:Class rdf:about="https://w3id.org/tso#ConnectionPoint"/>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#air-side
+:air-side rdf:type owl:NamedIndividual ,
+                   elementary:StreamKind .
 
 
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Individuals
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#bypass
+:bypass rdf:type owl:NamedIndividual ,
+                 elementary:StreamKind .
 
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#contained
+:contained rdf:type owl:NamedIndividual ,
+                    elementary:ProcessPosition .
 
-    <!-- http://www.w3id.org/elementary#electrical_power -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#electrical_power"/>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#downstream
+:downstream rdf:type owl:NamedIndividual ,
+                     elementary:StreamKind .
 
 
-    <!-- http://www.w3id.org/elementary#var_control_signal -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#exhaust
+:exhaust rdf:type owl:NamedIndividual ,
+                  elementary:StreamKind .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary#var_control_signal">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#extract
+:extract rdf:type owl:NamedIndividual ,
+                  elementary:StreamKind .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#Opening_Ratio -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#Opening_Ratio">
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Quantity"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#inlet
+:inlet rdf:type owl:NamedIndividual ,
+                elementary:ProcessPosition ;
+       owl:sameAs :intake .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_damper_position -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#intake
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_damper_position">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ComponentAction"/>
-        <elementary:modulatedBy rdf:resource="http://www.w3id.org/elementary#mechanical_force"/>
-        <elementary:modulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_orifice_opening_ratio"/>
-        <elementary:effectiveAt rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_damper_actuation_input"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#intake
+:intake rdf:type owl:NamedIndividual ,
+                 elementary:ProcessPosition .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_fan_power_input -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#midstream
+:midstream rdf:type owl:NamedIndividual ,
+                    elementary:StreamKind .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_fan_power_input">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ComponentAction"/>
-        <elementary:modulatedBy rdf:resource="http://www.w3id.org/elementary#mechanical_energy"/>
-        <elementary:effectiveAt rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_fan_shaft"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#outlet
+:outlet rdf:type owl:NamedIndividual ,
+                 elementary:ProcessPosition .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_motor_power_output -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_motor_power_output">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ComponentAction"/>
-        <elementary:modulatedBy rdf:resource="http://www.w3id.org/elementary#electrical_energy"/>
-        <elementary:effectiveAt rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_motor_shaft"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#outside-air
+:outside-air rdf:type owl:NamedIndividual ,
+                      elementary:ProcessPosition .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_valve_position -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_air_pressurization
+:pm_air_pressurization rdf:type owl:NamedIndividual ,
+                                elementary:PhysicalMechanism ;
+                       elementary:affectedUpstreamVariable :var_air_flow_rate ;
+                       elementary:hasDependentVariable :var_air_flow_rate ,
+                                                       :var_air_outlet_pressure ;
+                       elementary:hasIndependentVariable :var_air_inlet_pressure ;
+                       elementary:hasManipulatedVariable :var_shaft_speed .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_valve_position">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ComponentAction"/>
-        <elementary:modulatedBy rdf:resource="http://www.w3id.org/elementary#mechanical_force"/>
-        <elementary:effectiveAt rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_valve_actuation_input"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_air_throttling
+:pm_air_throttling rdf:type owl:NamedIndividual ,
+                            elementary:PhysicalMechanism ;
+                   elementary:hasDependentVariable :var_air_flow_rate ;
+                   elementary:hasIndependentVariable :var_air_inlet_pressure ;
+                   elementary:hasManipulatedVariable :var_orifice_opening_ratio .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#air-side -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#StreamKind"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electrical_heat_generation
+:pm_electrical_heat_generation rdf:type owl:NamedIndividual ,
+                                        elementary:PhysicalMechanism ;
+                               elementary:hasDependentVariable :var_water_outlet_temperature ;
+                               elementary:hasIndependentVariable :var_water_flow_rate ,
+                                                                 :var_water_inlet_temperature ;
+                               elementary:hasManipulatedVariable :var_electrical_power_input ;
+                               rdfs:label "heat-generation" .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#bypass -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electrical_power_control
+:pm_electrical_power_control rdf:type owl:NamedIndividual ,
+                                      elementary:PhysicalMechanism ;
+                             elementary:hasDependentVariable :var_electrical_output_power ;
+                             elementary:hasIndependentVariable :var_electrical_input_power ;
+                             elementary:hasManipulatedVariable :var_control_signal .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#bypass">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#StreamKind"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electromotive_force_generation
+:pm_electromotive_force_generation rdf:type owl:NamedIndividual ,
+                                            elementary:PhysicalMechanism ;
+                                   elementary:hasDependentVariable :var_shaft_power ;
+                                   elementary:hasManipulatedVariable :var_electrical_power_input .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#contained -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#contained">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_frequency_modulation
+:pm_frequency_modulation rdf:type owl:NamedIndividual ,
+                                  elementary:PhysicalMechanism ;
+                         elementary:hasDependentVariable :var_electrical_power_output ;
+                         elementary:hasIndependentVariable :var_electrical_power_input ;
+                         elementary:hasManipulatedVariable elementary:var_control_signal .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_actuation_signal_input -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_generic_heat_transfer
+:pm_generic_heat_transfer rdf:type owl:NamedIndividual ,
+                                   elementary:PhysicalMechanism ;
+                          elementary:hasDependentVariable :var_fluid_a_outlet_temperature ,
+                                                          :var_fluid_b_outlet_temperature ;
+                          elementary:hasIndependentVariable :var_fluid_a_through_flowrate ,
+                                                            :var_fluid_b_through_flowrate ;
+                          elementary:hasManipulatedVariable :var_fluid_a_inlet_temperature ,
+                                                            :var_fluid_a_through_flowrate .
+
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_actuation_signal_input">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary#var_control_signal"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_heat_generation
+:pm_heat_generation rdf:type owl:NamedIndividual ,
+                             elementary:PhysicalMechanism ;
+                    elementary:hasDependentVariable :var_fluid_a_outlet_temperature ;
+                    elementary:hasIndependentVariable :var_fluid_a_inlet_temperature ,
+                                                      :var_fluid_a_through_flowrate ,
+                                                      :var_input_energy .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_actuator_electrical_energy_input -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_particulate_separation
+:pm_particulate_separation rdf:type owl:NamedIndividual ,
+                                    elementary:PhysicalMechanism ;
+                           elementary:hasDependentVariable :var_air_outlet_particulate_measurement ;
+                           elementary:hasIndependentVariable :var_air_flow_rate .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_actuator_electrical_energy_input">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Electric_Energy"/>
-        <elementary:hasObservedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_electrical_energy"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_radiative_heating
+:pm_radiative_heating rdf:type owl:NamedIndividual ,
+                               elementary:PhysicalMechanism ;
+                      elementary:hasDependentVariable :var_output_energy ;
+                      elementary:hasIndependentVariable :var_water_temperature ;
+                      elementary:hasManipulatedVariable :var_water_flow_rate .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_actuator_mechanical_output -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_actuator_mechanical_output">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_space_air_handling
+:pm_space_air_handling rdf:type owl:NamedIndividual ,
+                                elementary:PhysicalMechanism ;
+                       elementary:hasDependentVariable :var_air_outlet_temperature ;
+                       elementary:hasIndependentVariable :var_air_flow_rate ,
+                                                         :var_energy_loss ;
+                       elementary:hasManipulatedVariable :var_air_inlet_temperature .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_air_heatexchange_surface -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_space_air_heating_cooling
+:pm_space_air_heating_cooling rdf:type owl:NamedIndividual ,
+                                       elementary:PhysicalMechanism ;
+                              elementary:hasDependentVariable :var_air_temperature ;
+                              elementary:hasIndependentVariable :var_energy_loss ;
+                              elementary:hasManipulatedVariable :var_input_energy .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_air_heatexchange_surface">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_output_energy"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_space_thermal_load
+:pm_space_thermal_load rdf:type owl:NamedIndividual ,
+                                elementary:PhysicalMechanism ;
+                       elementary:hasDependentVariable :var_air_contained_temperature ,
+                                                       :var_air_outlet_temperature ;
+                       elementary:hasIndependentVariable :var_thermal_heat_gain ,
+                                                         :var_thermal_heat_loss ;
+                       elementary:hasManipulatedVariable :var_air_inlet_temperature .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_boiler_electrical_input -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_boiler_electrical_input">
-        <rdf:type rdf:resource="https://w3id.org/tso#ConnectionPoint"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_input"/>
-        <rdfs:label>electrical-input</rdfs:label>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_vapor_humidification
+:pm_vapor_humidification rdf:type owl:NamedIndividual ,
+                                  elementary:PhysicalMechanism ;
+                         elementary:hasDependentVariable :var_air_outlet_humidity ;
+                         elementary:hasIndependentVariable :var_air_flow_rate ,
+                                                           :var_air_inlet_humidity ,
+                                                           :var_water_flow_rate .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_boiler_water_inlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_mixing
+:pm_water_mixing rdf:type owl:NamedIndividual ,
+                          elementary:PhysicalMechanism ;
+                 elementary:hasDependentVariable :var_water_outlet_temperature ;
+                 elementary:hasIndependentVariable :var_bypass_water_inlet_pressure ,
+                                                   :var_bypass_water_inlet_temperature ,
+                                                   :var_water_inlet_pressure ,
+                                                   :var_water_inlet_temperature ;
+                 elementary:hasManipulatedVariable :var_orifice_opening_ratio .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_boiler_water_inlet">
-        <rdf:type rdf:resource="https://w3id.org/tso#ConnectionPoint"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_temperature"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_pressurization
+:pm_water_pressurization rdf:type owl:NamedIndividual ,
+                                  elementary:PhysicalMechanism ;
+                         elementary:hasDependentVariable :var_water_flow_rate ,
+                                                         :var_water_outlet_pressure ;
+                         elementary:hasIndependentVariable :var_water_inlet_pressure ;
+                         elementary:hasManipulatedVariable :var_shaft_speed .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_boiler_water_outlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_boiler_water_outlet">
-        <rdf:type rdf:resource="https://w3id.org/tso#ConnectionPoint"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_temperature"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_throttling
+:pm_water_throttling rdf:type owl:NamedIndividual ,
+                              elementary:PhysicalMechanism ;
+                     elementary:hasDependentVariable :var_water_flow_rate ;
+                     elementary:hasIndependentVariable :var_water_inlet_pressure ;
+                     elementary:hasManipulatedVariable :var_orifice_opening_ratio .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_damper_actuation_input -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_to_air_heat_exchange
+:pm_water_to_air_heat_exchange rdf:type owl:NamedIndividual ,
+                                        elementary:PhysicalMechanism ;
+                               elementary:hasDependentVariable :var_air_outlet_temperature ,
+                                                               :var_water_outlet_temperature ;
+                               elementary:hasIndependentVariable :var_air_flow_rate ,
+                                                                 :var_air_inlet_temperature ;
+                               elementary:hasManipulatedVariable :var_water_flow_rate ,
+                                                                 :var_water_inlet_temperature .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_damper_actuation_input">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ActuationConnectionPoint"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_orifice_opening_ratio"/>
-        <tso:hasInput rdf:resource="http://www.w3id.org/elementary#mechanical_force"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#return
+:return rdf:type owl:NamedIndividual ,
+                 elementary:StreamKind .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_damper_air_inlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_damper_air_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_pressure"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#stream
+:stream rdf:type owl:NamedIndividual ,
+                 elementary:ProcessPosition .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_damper_air_outlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#supply
+:supply rdf:type owl:NamedIndividual ,
+                 elementary:StreamKind .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_damper_air_outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#upstream
+:upstream rdf:type owl:NamedIndividual ,
+                   elementary:StreamKind .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_drive_control_signal_input -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_drive_control_signal_input">
-        <rdf:type rdf:resource="https://w3id.org/tso#ConnectionPoint"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary#var_control_signal"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_contained_temperature
+:var_air_contained_temperature rdf:type owl:NamedIndividual ,
+                                        elementary:ProcessVariable ;
+                               elementary:hasProcessPosition :contained ;
+                               elementary:hasQuantity <http://qudt.org/vocab/quantitykind/Temperature> ;
+                               Brick:hasSubstance Brick:Air .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_elecrical_power_output -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate
+:var_air_flow_rate rdf:type owl:NamedIndividual ;
+                   elementary:dealsWithStuff Brick:Air ;
+                   elementary:hasProcessPosition :contained ,
+                                                 :stream ;
+                   elementary:hasQuantity Brick:Flow .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_elecrical_power_output">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-        <elementary:hasObservedVariable rdf:resource="http://www.w3id.org/elementary#electrical_power"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Voltage"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/BrickTag#Current"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_humidity
+:var_air_inlet_humidity rdf:type owl:NamedIndividual ,
+                                 elementary:ProcessVariable ;
+                        elementary:dealsWithStuff Brick:Air ;
+                        elementary:hasProcessPosition :inlet ;
+                        elementary:hasQuantity Brick:Humidity .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_electrical_power_input -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_electrical_power_input">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:hasObservedVariable rdf:resource="http://www.w3id.org/elementary#electrical_power"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Voltage"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/BrickTag#Current"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_particulate_measurement
+:var_air_inlet_particulate_measurement rdf:type owl:NamedIndividual ,
+                                                elementary:ProcessVariable ;
+                                       elementary:dealsWithStuff Brick:Air ;
+                                       elementary:hasProcessPosition :inlet ;
+                                       elementary:hasQuantity Brick:Air_Quality .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_electrical_power_output -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_pressure
+:var_air_inlet_pressure rdf:type owl:NamedIndividual ,
+                                 elementary:ProcessVariable ;
+                        elementary:dealsWithStuff Brick:Air ;
+                        elementary:hasProcessPosition :inlet ;
+                        elementary:hasQuantity Brick:Pressure .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_electrical_power_output"/>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_temperature
+:var_air_inlet_temperature rdf:type owl:NamedIndividual ,
+                                    elementary:ProcessVariable ;
+                           elementary:hasProcessPosition :inlet ;
+                           elementary:hasQuantity Brick:Temperature ;
+                           elementary:hasSubstance Brick:Air .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_fan_air_inlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_fan_air_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_pressure"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_flow_rate
+:var_air_outlet_flow_rate rdf:type owl:NamedIndividual ,
+                                   elementary:ProcessVariable ;
+                          elementary:hasProcessPosition :outlet ;
+                          elementary:hasQuantity Brick:Flow ;
+                          elementary:hasSubstance Brick:Air .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_fan_air_outlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_humidity
+:var_air_outlet_humidity rdf:type owl:NamedIndividual ,
+                                  elementary:ProcessVariable ;
+                         elementary:dealsWithStuff Brick:Air ;
+                         elementary:hasProcessPosition :outlet ;
+                         elementary:hasQuantity Brick:Humidity ;
+                         elementary:suitableFor :air-side .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_fan_air_outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_pressure"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_particulate_measurement
+:var_air_outlet_particulate_measurement rdf:type owl:NamedIndividual ,
+                                                 elementary:ProcessVariable ;
+                                        elementary:hasProcessPosition :outlet ;
+                                        elementary:hasQuantity Brick:Air_Quality ;
+                                        elementary:hasSubstance Brick:Air .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_fan_shaft -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_fan_shaft">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_speed"/>
-        <tso:hasInput rdf:resource="http://www.w3id.org/elementary#mechanical_force"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_pressure
+:var_air_outlet_pressure rdf:type owl:NamedIndividual ,
+                                  elementary:ProcessVariable ;
+                         elementary:dealsWithStuff Brick:Air ;
+                         elementary:hasProcessPosition :outlet ;
+                         elementary:hasQuantity Brick:Pressure .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_filter_air_inlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_temperature
+:var_air_outlet_temperature rdf:type owl:NamedIndividual ,
+                                     elementary:ProcessVariable ;
+                            elementary:hasProcessPosition :outlet ;
+                            elementary:hasQuantity Brick:Temperature ;
+                            elementary:hasSubstance Brick:Air .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_filter_air_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_particulate_measurement"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_temperature
+:var_air_temperature rdf:type owl:NamedIndividual .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_filter_air_outlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_filter_air_outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_particulate_measurement"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_angular_velocity
+:var_angular_velocity rdf:type owl:NamedIndividual ,
+                               elementary:ProcessVariable ;
+                      elementary:hasQuantity Brick:Rotational_Speed .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_a_inlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_bypass_water_inlet_pressure
+:var_bypass_water_inlet_pressure rdf:type owl:NamedIndividual ,
+                                          elementary:ProcessVariable ;
+                                 elementary:hasProcessPosition :bypass ;
+                                 elementary:hasQuantity Brick:Pressure ;
+                                 elementary:hasSubstance Brick:Water .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_a_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Fluid"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_inlet_temperature"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_through_flowrate"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_bypass_water_inlet_temperature
+:var_bypass_water_inlet_temperature rdf:type owl:NamedIndividual ,
+                                             elementary:ProcessVariable ;
+                                    elementary:hasProcessPosition :inlet ;
+                                    elementary:hasQuantity Brick:Temperature ;
+                                    elementary:hasSubstance Brick:Water .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_a_outlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_a_outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Fluid"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_outlet_temperature"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_through_flowrate"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_control_signal
+:var_control_signal rdf:type owl:NamedIndividual .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_b_inlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_input_power
+:var_electrical_input_power rdf:type owl:NamedIndividual .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_b_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Fluid"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_inlet_temperature"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_through_flowrate"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_output_power
+:var_electrical_output_power rdf:type owl:NamedIndividual .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_b_outlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_b_outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Fluid"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_outlet_temperature"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_through_flowrate"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_input
+:var_electrical_power_input rdf:type owl:NamedIndividual ,
+                                     elementary:ProcessVariable ;
+                            elementary:dealsWithStuff elementary:electrical_power ;
+                            elementary:hasProcessPosition :inlet ;
+                            elementary:hasQuantity <http://qudt.org/vocab/unit/KiloW> ;
+                            rdfs:label "electrical-power" .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_air_inlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_output
+:var_electrical_power_output rdf:type owl:NamedIndividual ,
+                                      elementary:ProcessVariable ;
+                             elementary:dealsWithStuff elementary:electrical_power ;
+                             elementary:hasProcessPosition :outlet ;
+                             elementary:hasQuantity <http://qudt.org/vocab/unit/KiloW> ;
+                             rdfs:label "electrical-power" .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_air_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_temperature"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_energy_loss
+:var_energy_loss rdf:type owl:NamedIndividual .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_air_outlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_air_outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_temperature"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_inlet_temperature
+:var_fluid_a_inlet_temperature rdf:type owl:NamedIndividual ,
+                                        elementary:ProcessVariable ;
+                               elementary:hasProcessPosition :outlet ;
+                               elementary:hasQuantity Brick:Temperature ;
+                               elementary:hasSubstance Brick:Fluid .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_water_inlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_outlet_temperature
+:var_fluid_a_outlet_temperature rdf:type owl:NamedIndividual ,
+                                         elementary:ProcessVariable ;
+                                elementary:hasProcessPosition :outlet ;
+                                elementary:hasQuantity Brick:Temperature ;
+                                elementary:hasSubstance Brick:Fluid .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_water_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_temperature"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#water-side"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_through_flowrate
+:var_fluid_a_through_flowrate rdf:type owl:NamedIndividual ,
+                                       elementary:ProcessVariable ;
+                              elementary:hasProcessPosition :contained ;
+                              elementary:hasQuantity Brick:Flow ;
+                              elementary:hasSubstance Brick:Fluid .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_water_outlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_water_outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_temperature"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#water-side"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_inlet_temperature
+:var_fluid_b_inlet_temperature rdf:type owl:NamedIndividual ,
+                                        elementary:ProcessVariable ;
+                               elementary:hasProcessPosition :outlet ;
+                               elementary:hasQuantity Brick:Temperature ;
+                               elementary:hasSubstance Brick:Fluid .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_humidifier_air_inlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_outlet_temperature
+:var_fluid_b_outlet_temperature rdf:type owl:NamedIndividual ,
+                                         elementary:ProcessVariable ;
+                                elementary:hasProcessPosition :outlet ;
+                                elementary:hasQuantity Brick:Temperature ;
+                                elementary:hasSubstance Brick:Fluid .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_humidifier_air_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_humidity"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#supply"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_through_flowrate
+:var_fluid_b_through_flowrate rdf:type owl:NamedIndividual ,
+                                       elementary:ProcessVariable ;
+                              elementary:hasProcessPosition :contained ;
+                              elementary:hasQuantity Brick:Flow ;
+                              elementary:hasSubstance Brick:Fluid .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_humidifier_air_outlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_humidifier_air_outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_humidity"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_electrical_energy
+:var_input_electrical_energy rdf:type owl:NamedIndividual ,
+                                      elementary:ProcessVariable ;
+                             elementary:dealsWithStuff elementary:electrical_energy ;
+                             elementary:hasProcessPosition :inlet ;
+                             elementary:hasQuantity <https://brickschema.org/schema/BrickTag#Power> .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_humidifier_water_inlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_energy
+:var_input_energy rdf:type owl:NamedIndividual ,
+                           elementary:ProcessVariable ;
+                  elementary:dealsWithStuff Brick:Energy ;
+                  elementary:hasProcessPosition :inlet ;
+                  elementary:hasQuantity <https://brickschema.org/schema/BrickTag#Power> .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_humidifier_water_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Steam"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#water-side"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_orifice_opening_ratio
+:var_orifice_opening_ratio rdf:type owl:NamedIndividual ,
+                                    elementary:ProcessVariable ;
+                           elementary:hasProcessPosition :contained ;
+                           elementary:hasQuantity :Opening_Ratio .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_motor_electrical_input -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_motor_electrical_input">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPointConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="http://www.w3id.org/elementary#electrical_energy"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_electrical_energy"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_output_energy
+:var_output_energy rdf:type owl:NamedIndividual ,
+                            elementary:ProcessVariable ;
+                   elementary:dealsWithStuff Brick:Energy ;
+                   elementary:hasProcessPosition :outlet ;
+                   elementary:hasQuantity <https://brickschema.org/schema/BrickTag#Power> .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_motor_shaft -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_power
+:var_shaft_power rdf:type owl:NamedIndividual ,
+                          elementary:ProcessVariable .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_motor_shaft">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-        <elementary:hasObservedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_angular_velocity"/>
-        <tso:hasOutput rdf:resource="http://www.w3id.org/elementary#mechanical_force"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_speed
+:var_shaft_speed rdf:type owl:NamedIndividual ,
+                          elementary:ProcessVariable ;
+                 elementary:hasQuantity Brick:Rotational_Speed .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_air_contained -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_air_contained">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#MeasurementConnectionPoint"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_contained_temperature"/>
-        <rdfs:label>conditioned-space</rdfs:label>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_torque
+:var_shaft_torque rdf:type owl:NamedIndividual ,
+                           elementary:ProcessVariable ;
+                  elementary:hasQuantity elementary:mechanical_force .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_air_inlet -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_thermal_heat_gain
+:var_thermal_heat_gain rdf:type owl:NamedIndividual ,
+                                elementary:ProcessVariable ;
+                       elementary:dealsWithStuff elementary:thermal_energy .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_air_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_temperature"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_thermal_heat_loss
+:var_thermal_heat_loss rdf:type owl:NamedIndividual ,
+                                elementary:ProcessVariable ;
+                       elementary:dealsWithStuff elementary:thermal_energy .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_air_outlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_air_outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_temperature"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate
+:var_water_flow_rate rdf:type owl:NamedIndividual ,
+                              elementary:ProcessVariable ;
+                     elementary:hasProcessPosition :contained ,
+                                                   :stream ;
+                     elementary:hasQuantity Brick:Flow ;
+                     elementary:hasSubstance Brick:Water .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_energy_leakage_port -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_pressure
+:var_water_inlet_pressure rdf:type owl:NamedIndividual ,
+                                   elementary:ProcessVariable ;
+                          elementary:hasProcessPosition :inlet ;
+                          elementary:hasQuantity Brick:Pressure ;
+                          elementary:hasSubstance Brick:Water .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_energy_leakage_port">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Energy"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_energy"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_output_energy"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outside-air"/>
-    </owl:NamedIndividual>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_temperature
+:var_water_inlet_temperature rdf:type owl:NamedIndividual ,
+                                      elementary:ProcessVariable ;
+                             elementary:hasProcessPosition :inlet ;
+                             elementary:hasQuantity Brick:Temperature ;
+                             elementary:hasSubstance Brick:Water .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_energy_transfer_port -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_energy_transfer_port">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Energy"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_energy"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_output_energy"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_pressure
+:var_water_outlet_pressure rdf:type owl:NamedIndividual ,
+                                    elementary:ProcessVariable .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_thermal_gain -->
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_temperature
+:var_water_outlet_temperature rdf:type owl:NamedIndividual ,
+                                       elementary:ProcessVariable ;
+                              elementary:hasProcessPosition :outlet ;
+                              elementary:hasQuantity Brick:Temperature ;
+                              elementary:hasSubstance Brick:Water .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_thermal_gain"/>
-    
 
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_temperature
+:var_water_temperature rdf:type owl:NamedIndividual .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_thermal_loss -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_thermal_loss"/>
-    
+###  http://www.w3id.org/elementary/applications/hvac/behavioral#water-side
+:water-side rdf:type owl:NamedIndividual ,
+                     elementary:StreamKind .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_valve_actuation_input -->
+###  https://brickschema.org/schema/Brick#Air
+Brick:Air rdf:type owl:NamedIndividual .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_valve_actuation_input">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ActuationConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="http://www.w3id.org/elementary#mechanical_force"/>
-        <elementary:manipulates rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_orifice_opening_ratio"/>
-    </owl:NamedIndividual>
-    
 
+###  https://brickschema.org/schema/Brick#Air_Quality
+Brick:Air_Quality rdf:type owl:NamedIndividual .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_valve_bypass_water_inlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_valve_bypass_water_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_pressure"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#water-side"/>
-    </owl:NamedIndividual>
-    
+###  https://brickschema.org/schema/Brick#Flow
+Brick:Flow rdf:type owl:NamedIndividual .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_heatexchange_surface -->
+###  https://brickschema.org/schema/Brick#Pressure
+Brick:Pressure rdf:type owl:NamedIndividual .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_heatexchange_surface">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_output_energy"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#water-side"/>
-    </owl:NamedIndividual>
-    
 
+###  https://brickschema.org/schema/Brick#Rotational_Speed
+Brick:Rotational_Speed rdf:type owl:NamedIndividual .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_inlet -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#InletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_pressure"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#water-side"/>
-    </owl:NamedIndividual>
-    
+###  https://brickschema.org/schema/Brick#Temperature
+Brick:Temperature rdf:type owl:NamedIndividual .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_outlet -->
+###  https://brickschema.org/schema/Brick#Voltage
+Brick:Voltage rdf:type owl:NamedIndividual .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#OutletConnectionPoint"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:isRelatedToVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_pressure"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#water-side"/>
-    </owl:NamedIndividual>
-    
 
+###  https://brickschema.org/schema/Brick#Water
+Brick:Water rdf:type owl:NamedIndividual .
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#downstream -->
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#downstream">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#StreamKind"/>
-    </owl:NamedIndividual>
-    
+###  https://brickschema.org/schema/BrickTag#Current
+<https://brickschema.org/schema/BrickTag#Current> rdf:type owl:NamedIndividual .
 
 
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#exhaust -->
+###  https://brickschema.org/schema/BrickTag#Power
+<https://brickschema.org/schema/BrickTag#Power> rdf:type owl:NamedIndividual .
 
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#exhaust">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#StreamKind"/>
-    </owl:NamedIndividual>
-    
 
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#extract -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#extract">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#StreamKind"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#inlet -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-        <owl:sameAs rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#intake"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#intake -->
-
-    <rdf:Description rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#intake"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#intake -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#intake">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#midstream -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#midstream">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#StreamKind"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#outlet -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#outside-air -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#outside-air">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_air_pressurization -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_air_pressurization">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:affectedUpstreamVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_pressure"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_pressure"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_speed"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_air_throttling -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_air_throttling">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_pressure"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_orifice_opening_ratio"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_convective_heat_transfer -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_convective_heat_transfer">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_temperature"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_temperature"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_temperature"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_temperature"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electrical_heat_generation -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electrical_heat_generation">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_temperature"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_temperature"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_input"/>
-        <rdfs:label>heat-generation</rdfs:label>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electrical_power_control -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electrical_power_control">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_output_power"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_input_power"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_control_signal"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electromotive_force_generation -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electromotive_force_generation">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_power"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary#var_control_signal"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_input"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_frequency_modulation -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_frequency_modulation">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_output"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_input"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary#var_control_signal"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_generic_heat_transfer -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_generic_heat_transfer">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_outlet_temperature"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_outlet_temperature"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_through_flowrate"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_through_flowrate"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_inlet_temperature"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_through_flowrate"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_heat_generation -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_heat_generation">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_outlet_temperature"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_inlet_temperature"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_through_flowrate"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_energy"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_particulate_separation -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_particulate_separation">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_particulate_measurement"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_radiative_heating -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_radiative_heating">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_output_energy"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_temperature"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_space_air_handling -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_space_air_handling">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_temperature"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_energy_loss"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_temperature"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_space_air_heating_cooling -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_space_air_heating_cooling">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_temperature"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_energy_loss"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_energy"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_space_thermal_load -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_space_thermal_load">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_contained_temperature"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_temperature"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_thermal_heat_gain"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_thermal_heat_loss"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_temperature"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_vapor_humidification -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_vapor_humidification">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_humidity"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_humidity"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_mixing -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_mixing">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_temperature"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_bypass_water_inlet_pressure"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_bypass_water_inlet_temperature"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_pressure"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_temperature"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_orifice_opening_ratio"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_pressurization -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_pressurization">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_pressure"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_pressure"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_speed"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_throttling -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_throttling">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#PhysicalMechanism"/>
-        <elementary:hasDependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate"/>
-        <elementary:hasIndependentVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_pressure"/>
-        <elementary:hasManipulatedVariable rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#var_orifice_opening_ratio"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#return -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#return">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#StreamKind"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stream -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stream">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessPosition"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_3-way_mixing_valve -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_3-way_mixing_valve">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasComponentAction rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_valve_position"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_valve_actuation_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_valve_bypass_water_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_outlet"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_mixing"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_air_diffuser -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_air_diffuser">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Air_Diffuser"/>
-        <owl:sameAs rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_damper"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_damper -->
-
-    <rdf:Description rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_damper"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_airhandled_space -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_airhandled_space">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_air_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_air_outlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_thermal_gain"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_thermal_loss"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_generic_heat_transfer"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_bypass -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_bypass">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_centrifugal-fan -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_centrifugal-fan">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Fan"/>
-        <elementary:hasComponentAction rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_fan_power_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_fan_air_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_fan_air_outlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_fan_shaft"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_air_pressurization"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_chilled_ceiling -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_chilled_ceiling">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Cold_Deck"/>
-        <owl:sameAs rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger -->
-
-    <rdf:Description rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_compressor -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_compressor">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Compressor"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_condenser -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_condenser">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Condenser"/>
-        <owl:sameAs rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger -->
-
-    <rdf:Description rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_cooling_tower -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_cooling_tower">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Cooling_Tower"/>
-        <owl:sameAs rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger -->
-
-    <rdf:Description rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_damper -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_damper">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <owl:sameAs rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_vav"/>
-        <elementary:hasComponentAction rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_damper_position"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_damper_actuation_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_damper_air_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_damper_air_outlet"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_air_throttling"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_vav -->
-
-    <rdf:Description rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_vav"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_economizer -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_economizer">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Economizer"/>
-        <owl:sameAs rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger -->
-
-    <rdf:Description rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_electric_boiler -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_electric_boiler">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Electric_Boiler"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_boiler_electrical_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_boiler_water_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_boiler_water_outlet"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electrical_heat_generation"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_electrical_relay -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_electrical_relay">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_drive_control_signal_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_electrical_power_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_electrical_power_output"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electrical_power_control"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_evaporator -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_evaporator">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_filter -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_filter">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_filter_air_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_filter_air_outlet"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_particulate_separation"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_forced-flow-heat-exchanger -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_forced-flow-heat-exchanger">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_air_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_air_outlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_water_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_heat_exchanger_water_outlet"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_convective_heat_transfer"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_generic-heat-exchanger">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_a_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_a_outlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_b_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_generic_heat_exchanger_fluid_b_outlet"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_generic_heat_transfer"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_heattransferred_space -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_heattransferred_space">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_energy_leakage_port"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_space_energy_transfer_port"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_space_air_heating_cooling"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_humidifier -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_humidifier">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Humidifier"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_humidifier_air_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_humidifier_air_outlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_humidifier_water_inlet"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_vapor_humidification"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_mechanical_actuator -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_mechanical_actuator">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_actuation_signal_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_actuator_electrical_energy_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_actuator_mechanical_output"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electromotive_force_generation"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_motor -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_motor">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_motor_electrical_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_motor_shaft"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electromotive_force_generation"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_pump -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_pump">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Pump"/>
-        <elementary:hasInlet rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_motor_shaft"/>
-        <elementary:hasInlet rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_inlet"/>
-        <elementary:hasOutlet rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_outlet"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_air_pressurization"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_radiator -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_radiator">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Radiator"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_air_heatexchange_surface"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_outlet"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_radiative_heating"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_space_heater -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_space_heater">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_valve -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_valve">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasComponentAction rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#action_change_valve_position"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_valve_actuation_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_inlet"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_water_outlet"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_water_throttling"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_variable_frequency_drive -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_variable_frequency_drive">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_drive_control_signal_input"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_elecrical_power_output"/>
-        <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#cp_electrical_power_input"/>
-        <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#pm_electrical_power_control"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#stype_vav -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#stype_vav">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
-        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#VAV"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#supply -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#supply">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#StreamKind"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#upstream -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#upstream">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#StreamKind"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_contained_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_contained_temperature">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#contained"/>
-        <elementary:hasQuantity rdf:resource="http://qudt.org/vocab/quantitykind/Temperature"/>
-        <Brick:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_flow_rate">
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#contained"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#stream"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Flow"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_humidity -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_humidity">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Humidity"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_particulate_measurement -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_particulate_measurement">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Air_Quality"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_pressure -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_pressure">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Pressure"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_inlet_temperature">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Temperature"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_flow_rate -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_flow_rate">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Flow"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_humidity -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_humidity">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Humidity"/>
-        <elementary:suitableFor rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#air-side"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_particulate_measurement -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_particulate_measurement">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Air_Quality"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_pressure -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_pressure">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Pressure"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_outlet_temperature">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Temperature"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Air"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_air_temperature"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_angular_velocity -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_angular_velocity">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Rotational_Speed"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_bypass_water_inlet_pressure -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_bypass_water_inlet_pressure">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#bypass"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Pressure"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_bypass_water_inlet_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_bypass_water_inlet_temperature">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Temperature"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_control_signal -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_control_signal"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_input_power -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_input_power"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_output_power -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_output_power"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_input -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_input">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="http://www.w3id.org/elementary#electrical_power"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet"/>
-        <elementary:hasQuantity rdf:resource="http://qudt.org/vocab/unit/KiloW"/>
-        <rdfs:label>electrical-power</rdfs:label>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_output -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_electrical_power_output">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="http://www.w3id.org/elementary#electrical_power"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="http://qudt.org/vocab/unit/KiloW"/>
-        <rdfs:label>electrical-power</rdfs:label>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_energy_loss -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_energy_loss"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_inlet_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_inlet_temperature">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Temperature"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Fluid"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_outlet_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_outlet_temperature">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Temperature"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Fluid"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_through_flowrate -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_a_through_flowrate">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#contained"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Flow"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Fluid"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_inlet_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_inlet_temperature">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Temperature"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Fluid"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_outlet_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_outlet_temperature">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Temperature"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Fluid"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_through_flowrate -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_fluid_b_through_flowrate">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#contained"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Flow"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Fluid"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_electrical_energy -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_electrical_energy">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="http://www.w3id.org/elementary#electrical_energy"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/BrickTag#Power"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_energy -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_input_energy">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Energy"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/BrickTag#Power"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_orifice_opening_ratio -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_orifice_opening_ratio">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#contained"/>
-        <elementary:hasQuantity rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#Opening_Ratio"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_output_energy -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_output_energy">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="https://brickschema.org/schema/Brick#Energy"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/BrickTag#Power"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_power -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_power">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_speed -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_speed">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Rotational_Speed"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_torque -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_shaft_torque">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasQuantity rdf:resource="http://www.w3id.org/elementary#mechanical_force"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_thermal_heat_gain -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_thermal_heat_gain">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="http://www.w3id.org/elementary#thermal_energy"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_thermal_heat_loss -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_thermal_heat_loss">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:dealsWithStuff rdf:resource="http://www.w3id.org/elementary#thermal_energy"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_flow_rate">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#contained"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#stream"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Flow"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_pressure -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_pressure">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Pressure"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_inlet_temperature">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#inlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Temperature"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_pressure -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_pressure">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_outlet_temperature">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#ProcessVariable"/>
-        <elementary:hasProcessPosition rdf:resource="http://www.w3id.org/elementary/applications/hvac/behavioral#outlet"/>
-        <elementary:hasQuantity rdf:resource="https://brickschema.org/schema/Brick#Temperature"/>
-        <elementary:hasSubstance rdf:resource="https://brickschema.org/schema/Brick#Water"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_temperature -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#var_water_temperature"/>
-    
-
-
-    <!-- http://www.w3id.org/elementary/applications/hvac/behavioral#water-side -->
-
-    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac/behavioral#water-side">
-        <rdf:type rdf:resource="http://www.w3id.org/elementary#StreamKind"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- https://brickschema.org/schema/Brick#Air -->
-
-    <owl:NamedIndividual rdf:about="https://brickschema.org/schema/Brick#Air"/>
-    
-
-
-    <!-- https://brickschema.org/schema/Brick#Air_Quality -->
-
-    <owl:NamedIndividual rdf:about="https://brickschema.org/schema/Brick#Air_Quality"/>
-    
-
-
-    <!-- https://brickschema.org/schema/Brick#Flow -->
-
-    <owl:NamedIndividual rdf:about="https://brickschema.org/schema/Brick#Flow"/>
-    
-
-
-    <!-- https://brickschema.org/schema/Brick#Pressure -->
-
-    <owl:NamedIndividual rdf:about="https://brickschema.org/schema/Brick#Pressure"/>
-    
-
-
-    <!-- https://brickschema.org/schema/Brick#Rotational_Speed -->
-
-    <owl:NamedIndividual rdf:about="https://brickschema.org/schema/Brick#Rotational_Speed"/>
-    
-
-
-    <!-- https://brickschema.org/schema/Brick#Temperature -->
-
-    <owl:NamedIndividual rdf:about="https://brickschema.org/schema/Brick#Temperature"/>
-    
-
-
-    <!-- https://brickschema.org/schema/Brick#Voltage -->
-
-    <owl:NamedIndividual rdf:about="https://brickschema.org/schema/Brick#Voltage"/>
-    
-
-
-    <!-- https://brickschema.org/schema/Brick#Water -->
-
-    <owl:NamedIndividual rdf:about="https://brickschema.org/schema/Brick#Water"/>
-    
-
-
-    <!-- https://brickschema.org/schema/BrickTag#Current -->
-
-    <owl:NamedIndividual rdf:about="https://brickschema.org/schema/BrickTag#Current"/>
-    
-
-
-    <!-- https://brickschema.org/schema/BrickTag#Power -->
-
-    <owl:NamedIndividual rdf:about="https://brickschema.org/schema/BrickTag#Power"/>
-</rdf:RDF>
-
-
-
-<!-- Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi -->
-
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
