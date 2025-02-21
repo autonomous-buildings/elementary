@@ -11,7 +11,7 @@
         <dc:creator>Ganesh Ramanathan</dc:creator>
         <dc:creator>This ontology is distributed uner a Creative Commons Attribution License</dc:creator>
         <dc:date rdf:datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#langString">2024-07-01</dc:date>
-        <dc:description>&lt;https://autonomous-buildings.github.io/elementary/diagrams/automation-overview.png&gt;</dc:description>
+        <dc:description rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">https://autonomous-buildings.github.io/elementary/diagrams/automation-overview.png</dc:description>
         <dc:description>Elemenary is a high-level ontology that enables the creation of a holistic system description of electro-mechanical systems and its automation.</dc:description>
         <rdfs:comment>An ontology for describing electro-mechanical systems and its automation</rdfs:comment>
     </owl:Ontology>
