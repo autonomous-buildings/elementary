@@ -48,10 +48,6 @@ elem:Actuator rdf:type owl:Class .
 elem:Stream rdf:type owl:Class .
 
 
-###  https://brickschema.org/schema/Brick#Energy_Recovery
-<https://brickschema.org/schema/Brick#Energy_Recovery> rdf:type owl:Class .
-
-
 #################################################################
 #    Individuals
 #################################################################
@@ -60,155 +56,69 @@ elem:Stream rdf:type owl:Class .
 elem:air rdf:type owl:NamedIndividual .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu#sensor-frost-switch
-:sensor-frost-switch rdf:type owl:NamedIndividual ,
-                              <https://brickschema.org/schema/Brick#Frost_Sensor> ;
-                     elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-supply-air> ;
-                     elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-pre-heating-coil> .
+###  http://www.w3id.org/elementary/applications/hvac/ahu#actuator-outside-air-damper
+:actuator-outside-air-damper rdf:type owl:NamedIndividual ,
+                                      elem:Actuator ;
+                             elem:isPartOf :stream-outside-air .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#actuator-outside-air-damper
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#actuator-outside-air-damper> rdf:type owl:NamedIndividual ,
-                                                                                                elem:Actuator ;
-                                                                                       elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-outside-air-damper> .
+###  http://www.w3id.org/elementary/applications/hvac/ahu#component-outside-air-damper
+:component-outside-air-damper rdf:type owl:NamedIndividual ,
+                                       <https://brickschema.org/schema/Brick#Damper> ;
+                              elem:isPartOf :stream-outside-air ;
+                              rdfs:comment "outside air damper" .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-cooling-coil
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-cooling-coil> rdf:type owl:NamedIndividual ,
-                                                                                           <https://brickschema.org/schema/Brick#Cooling_Coil> ;
-                                                                                  elem:hasStereotype <http://www.w3id.org/elementary/applications/hvac/ahu/heating-cooling-coil#stereotype-component-heating-cooling-coil> ;
-                                                                                  elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-supply-air> ;
-                                                                                  elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-heating-coil> .
+###  http://www.w3id.org/elementary/applications/hvac/ahu#component-outside-air-filter
+:component-outside-air-filter rdf:type owl:NamedIndividual ,
+                                       <https://brickschema.org/schema/Brick#Filter> ;
+                              elem:isPartOf :stream-outside-air ;
+                              elem:isPlacedAfter :component-outside-air-damper .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-energy-recovery-1
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-energy-recovery-1> rdf:type owl:NamedIndividual ,
-                                                                                                <https://brickschema.org/schema/Brick#Energy_Recovery> ;
-                                                                                       elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-extract-air> ,
-                                                                                                     <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-outside-air> ;
-                                                                                       elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-pre-heating-coil> .
+###  http://www.w3id.org/elementary/applications/hvac/ahu#component-pre-heating-coil
+:component-pre-heating-coil rdf:type owl:NamedIndividual ,
+                                     <https://brickschema.org/schema/Brick#Heating_Coil> ;
+                            elem:isPartOf :stream-outside-air ;
+                            elem:isPlacedAfter :component-outside-air-filter .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-energy-recovery-2
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-energy-recovery-2> rdf:type owl:NamedIndividual ,
-                                                                                                <https://brickschema.org/schema/Brick#Energy_Recovery> ;
-                                                                                       elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-extract-air> ,
-                                                                                                     <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-outside-air> ,
-                                                                                                     <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-supply-air> ;
-                                                                                       elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-energy-recovery-1> .
+###  http://www.w3id.org/elementary/applications/hvac/ahu#sensor-filter-differential-pressure
+:sensor-filter-differential-pressure rdf:type owl:NamedIndividual ,
+                                              <https://brickschema.org/schema/Brick#Filter_Differential_Pressure_Sensor> ;
+                                     elem:isPartOf :component-outside-air-filter .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-extract-cooling-coil
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-extract-cooling-coil> rdf:type owl:NamedIndividual ,
-                                                                                                   <https://brickschema.org/schema/Brick#Cooling_Coil> ;
-                                                                                          elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-extract-air> .
+###  http://www.w3id.org/elementary/applications/hvac/ahu#sensor-outside-air-temperature
+:sensor-outside-air-temperature rdf:type owl:NamedIndividual ,
+                                         <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
+                                elem:isPartOf :stream-outside-air ;
+                                elem:isPlacedAfter :component-outside-air-damper .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-extract-fan
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-extract-fan> rdf:type owl:NamedIndividual ,
-                                                                                          <https://brickschema.org/schema/Brick#Fan> ;
-                                                                                 elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-extract-air> ;
-                                                                                 elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-extract-cooling-coil> .
+###  http://www.w3id.org/elementary/applications/hvac/ahu#stream-exhaust-air
+:stream-exhaust-air rdf:type owl:NamedIndividual ,
+                             elem:Stream .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-extract-heat-recovery-coil
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-extract-heat-recovery-coil> rdf:type owl:NamedIndividual ,
-                                                                                                         <https://brickschema.org/schema/Brick#Fan> ;
-                                                                                                elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-extract-air> ;
-                                                                                                elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-energy-recovery-1> .
+###  http://www.w3id.org/elementary/applications/hvac/ahu#stream-extract-air
+:stream-extract-air rdf:type owl:NamedIndividual ,
+                             elem:Stream .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-heating-coil
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-heating-coil> rdf:type owl:NamedIndividual ,
-                                                                                           <https://brickschema.org/schema/Brick#Heating_Coil> ;
-                                                                                  elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-supply-air> ;
-                                                                                  elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-supply-fan> .
+###  http://www.w3id.org/elementary/applications/hvac/ahu#stream-outside-air
+:stream-outside-air rdf:type owl:NamedIndividual ,
+                             elem:Stream ;
+                    elem:dealsWithStuff elem:air .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-humidifier
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-humidifier> rdf:type owl:NamedIndividual ,
-                                                                                         <https://brickschema.org/schema/Brick#Humidifier> ;
-                                                                                elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-supply-air> ;
-                                                                                elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-cooling-coil> .
+###  http://www.w3id.org/elementary/applications/hvac/ahu#stream-supply-air
+:stream-supply-air rdf:type owl:NamedIndividual ,
+                            elem:Stream .
 
 
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-outside-air-damper
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-outside-air-damper> rdf:type owl:NamedIndividual ,
-                                                                                                 <https://brickschema.org/schema/Brick#Damper> ;
-                                                                                        elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-outside-air> ;
-                                                                                        rdfs:comment "outside air damper" .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-outside-air-filter
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-outside-air-filter> rdf:type owl:NamedIndividual ,
-                                                                                                 <https://brickschema.org/schema/Brick#Filter> ;
-                                                                                        elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-outside-air> ;
-                                                                                        elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-outside-air-damper> .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-pre-heating-coil
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-pre-heating-coil> rdf:type owl:NamedIndividual ,
-                                                                                               <https://brickschema.org/schema/Brick#Heating_Coil> ;
-                                                                                      elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-outside-air> ;
-                                                                                      elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-outside-air-filter> .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-reheating-coil
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-reheating-coil> rdf:type owl:NamedIndividual ,
-                                                                                             <https://brickschema.org/schema/Brick#Heating_Coil> ;
-                                                                                    elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-supply-air> ;
-                                                                                    elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-humidifier> .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-supply-fan
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-supply-fan> rdf:type owl:NamedIndividual ,
-                                                                                         <https://brickschema.org/schema/Brick#Fan> ;
-                                                                                elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-supply-air> ;
-                                                                                elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-energy-recovery-2> ;
-                                                                                rdfs:label "supply air fan" .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#sensor-filter-differential-pressure
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#sensor-filter-differential-pressure> rdf:type owl:NamedIndividual ,
-                                                                                                        <https://brickschema.org/schema/Brick#Filter_Differential_Pressure_Sensor> ;
-                                                                                               elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-outside-air-filter> .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#sensor-outside-air-temperature
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#sensor-outside-air-temperature> rdf:type owl:NamedIndividual ,
-                                                                                                   <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
-                                                                                          elem:isPartOf <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-outside-air> ;
-                                                                                          elem:isPlacedAfter <http://www.w3id.org/elementary/applications/hvac/ahu/ahu#component-outside-air-damper> .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-exhaust-air
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-exhaust-air> rdf:type owl:NamedIndividual ,
-                                                                                       elem:Stream ;
-                                                                              rdfs:label "exhaust air" .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-extract-air
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-extract-air> rdf:type owl:NamedIndividual ,
-                                                                                       elem:Stream ;
-                                                                              rdfs:label "extract air" .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-outside-air
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-outside-air> rdf:type owl:NamedIndividual ,
-                                                                                       elem:Stream ;
-                                                                              elem:dealsWithStuff elem:air ;
-                                                                              rdfs:label "outdoor air" ,
-                                                                                         "outside air" .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-supply-air
-<http://www.w3id.org/elementary/applications/hvac/ahu/ahu#stream-supply-air> rdf:type owl:NamedIndividual ,
-                                                                                      elem:Stream ;
-                                                                             rdfs:label "supply air" .
-
-
-###  http://www.w3id.org/elementary/applications/hvac/ahu/heating-cooling-coil#stereotype-component-heating-cooling-coil
-<http://www.w3id.org/elementary/applications/hvac/ahu/heating-cooling-coil#stereotype-component-heating-cooling-coil> rdf:type owl:NamedIndividual .
+###  http://www.w3id.org/elementary/applications/hvac/heating-cooling-coil#component-heating-cooling-coil
+<http://www.w3id.org/elementary/applications/hvac/heating-cooling-coil#component-heating-cooling-coil> rdf:type owl:NamedIndividual .
 
 
 ###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

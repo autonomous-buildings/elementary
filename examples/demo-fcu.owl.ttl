@@ -1,0 +1,137 @@
+@prefix : <http://w3id.org/elementary/examples/fcu-example/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://w3id.org/elementary/examples/fcu-example/> .
+
+<http://w3id.org/elementary/examples/fcu-example> rdf:type owl:Ontology ;
+                                                   owl:imports <http://www.w3id.org/elementary> ,
+                                                               <http://www.w3id.org/elementary/applications/hvac> ,
+                                                               <http://www.w3id.org/elementary/applications/hvac/behavioral> ,
+                                                               <http://www.w3id.org/elementary/applications/hvac/structural> ,
+                                                               <http://www.w3id.org/elementary/applications/hvac/structural-to-behavioral> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3id.org/elementary#byMeansOf
+<http://www.w3id.org/elementary#byMeansOf> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://w3id.org/elementary/examples/fcu-example#demo-fb-abstractcomponent-heatingcoil
+:demo-fb-abstractcomponent-heatingcoil rdf:type owl:NamedIndividual ,
+                                                <http://www.w3id.org/elementary#Component> ,
+                                                <https://brickschema.org/schema/Brick#Heating_Coil> ;
+                                       <http://www.w3id.org/elementary#hasPart> :demo-fb-abstractcomponent-heatingcoil-supplytemperaturesensor ,
+                                                                                :demo-fb-abstractcomponent-heatingcoil-valve .
+
+
+###  http://w3id.org/elementary/examples/fcu-example#demo-fb-abstractcomponent-heatingcoil-supplytemperaturesensor
+:demo-fb-abstractcomponent-heatingcoil-supplytemperaturesensor rdf:type owl:NamedIndividual ,
+                                                                        <https://brickschema.org/schema/Brick#Temperature_Sensor> .
+
+
+###  http://w3id.org/elementary/examples/fcu-example#demo-fb-abstractcomponent-heatingcoil-valve
+:demo-fb-abstractcomponent-heatingcoil-valve rdf:type owl:NamedIndividual ,
+                                                      <https://brickschema.org/schema/Brick#Valve> .
+
+
+###  http://w3id.org/elementary/examples/fcu-example#demo-fb-input-temperaturecontroller-temperature
+:demo-fb-input-temperaturecontroller-temperature rdf:type owl:NamedIndividual ,
+                                                          <http://www.w3id.org/elementary#Input> ;
+                                                 <http://www.w3id.org/elementary#isIntendedFor> :demo-fb-abstractcomponent-heatingcoil-supplytemperaturesensor ;
+                                                 rdfs:label "temperature" .
+
+
+###  http://w3id.org/elementary/examples/fcu-example#demo-fb-output-temperaturecontroller-valve
+:demo-fb-output-temperaturecontroller-valve rdf:type owl:NamedIndividual ,
+                                                     <http://www.w3id.org/elementary#Output> ;
+                                            <http://www.w3id.org/elementary#isIntendedFor> :demo-fb-abstractcomponent-heatingcoil-valve ;
+                                            rdfs:label "valve" .
+
+
+###  http://w3id.org/elementary/examples/fcu-example#demo-fb-setpoint-temperaturecontroller-temperaturesetpoint
+:demo-fb-setpoint-temperaturecontroller-temperaturesetpoint rdf:type owl:NamedIndividual ,
+                                                                     <http://www.w3id.org/elementary#Setpoint> ;
+                                                            rdfs:label "setpoint" .
+
+
+###  http://w3id.org/elementary/examples/fcu-example#demo-fb-temperaturecontroller
+:demo-fb-temperaturecontroller rdf:type owl:NamedIndividual ,
+                                        <http://www.w3id.org/elementary#ControlProgram> ;
+                               <http://www.w3id.org/elementary#hasInput> :demo-fb-input-temperaturecontroller-temperature ;
+                               <http://www.w3id.org/elementary#hasOutput> :demo-fb-output-temperaturecontroller-valve ;
+                               <http://www.w3id.org/elementary#hasParameter> :demo-fb-setpoint-temperaturecontroller-temperaturesetpoint ;
+                               <http://www.w3id.org/elementary#isIntendedFor> :demo-fb-abstractcomponent-heatingcoil ;
+                               <http://www.w3id.org/elementary#maintains> <http://www.w3id.org/elementary/applications/hvac#var_air_temperature> ;
+                               <http://www.w3id.org/elementary#programArtifact> "http://192.168.1.1/programs/temperaturecontroller" .
+
+
+###  http://w3id.org/elementary/examples/fcu-example/demo-component-boiler
+:demo-component-boiler rdf:type owl:NamedIndividual ,
+                                <http://www.w3id.org/elementary#Component> ,
+                                <https://brickschema.org/schema/Brick#Boiler> ;
+                       <http://www.w3id.org/elementary#feeds> :demo-component-heatingcoil ;
+                       <http://www.w3id.org/elementary#hasStereotype> <http://www.w3id.org/elementary/applications/hvac#stype_electric_boiler> .
+
+
+###  http://w3id.org/elementary/examples/fcu-example/demo-component-fan
+:demo-component-fan rdf:type owl:NamedIndividual ,
+                             <http://www.w3id.org/elementary#Component> ,
+                             <https://brickschema.org/schema/Brick#Fan> ;
+                    <http://www.w3id.org/elementary#feeds> :demo-component-heatingcoil ;
+                    <http://www.w3id.org/elementary#hasStereotype> <http://www.w3id.org/elementary/applications/hvac#stype_centrifugal-fan> .
+
+
+###  http://w3id.org/elementary/examples/fcu-example/demo-component-heatingcoil
+:demo-component-heatingcoil rdf:type owl:NamedIndividual ,
+                                     <http://www.w3id.org/elementary#Component> ,
+                                     <https://brickschema.org/schema/Brick#Heating_Coil> ;
+                            <http://www.w3id.org/elementary#feeds> :demo-component-room ;
+                            <http://www.w3id.org/elementary#hasStereotype> <http://www.w3id.org/elementary/applications/hvac#stype_forced-flow-heat-exchanger> .
+
+
+###  http://w3id.org/elementary/examples/fcu-example/demo-component-room
+:demo-component-room rdf:type owl:NamedIndividual ,
+                              <http://www.w3id.org/elementary#Component> ,
+                              <https://brickschema.org/schema/Brick#Room> ;
+                     <http://www.w3id.org/elementary#hasStereotype> <http://www.w3id.org/elementary/applications/hvac#stype_heattransferred_space> .
+
+
+###  http://w3id.org/elementary/examples/fcu-example/demo-goal-maintaintemperature
+:demo-goal-maintaintemperature rdf:type owl:NamedIndividual ,
+                                        <http://www.w3id.org/elementary#Goal> ;
+                               <http://www.w3id.org/elementary#hasVariable> <http://www.w3id.org/elementary/applications/hvac#var_air_contained_temperature> ;
+                               <http://www.w3id.org/elementary#maintains> <http://www.w3id.org/elementary/applications/hvac#var_air_contained_temperature> .
+
+
+###  http://w3id.org/elementary/examples/fcu-example/demo-requirement-thermalcomfort
+:demo-requirement-thermalcomfort rdf:type owl:NamedIndividual ,
+                                          <http://www.w3id.org/elementary#Requirement> ;
+                                 <http://www.w3id.org/elementary#hasGoal> :demo-goal-maintaintemperature ;
+                                 <http://www.w3id.org/elementary#isIntendedFor> :demo-component-room ;
+                                 <http://www.w3id.org/elementary#byMeansOf> :demo-system-fcu .
+
+
+###  http://w3id.org/elementary/examples/fcu-example/demo-sensor-temperaturesensor
+:demo-sensor-temperaturesensor rdf:type owl:NamedIndividual ,
+                                        <http://www.w3id.org/elementary#Sensor> ,
+                                        <https://brickschema.org/schema/Brick#Temperature_Sensor> .
+
+
+###  http://w3id.org/elementary/examples/fcu-example/demo-system-fcu
+:demo-system-fcu rdf:type owl:NamedIndividual ,
+                          <http://www.w3id.org/elementary#SubSystem> ,
+                          <https://brickschema.org/schema/Brick#Fan_Coil_Unit> ;
+                 <http://www.w3id.org/elementary#hasPart> :demo-component-fan ,
+                                                          :demo-component-heatingcoil .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
