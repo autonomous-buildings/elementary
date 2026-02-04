@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <rdf:RDF xmlns="http://www.w3id.org/elmentary/applications/hvac#"
      xml:base="http://www.w3id.org/elmentary/applications/hvac"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:tso="https://w3id.org/tso#"
@@ -49,6 +50,12 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+    
+
+
+    <!-- http://www.w3id.org/elementary#ComponentAction -->
+
+    <owl:Class rdf:about="http://www.w3id.org/elementary#ComponentAction"/>
     
 
 
@@ -991,6 +998,29 @@
     
 
 
+    <!-- http://www.w3id.org/elementary/applications/hvac#stype_centrifugal-fan-relay -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_centrifugal-fan-relay">
+        <rdf:type rdf:resource="http://www.w3id.org/elementary#Component"/>
+        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Relay"/>
+        <elementary:feeds rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_centrifugal-fan"/>
+        <elementary:hasStereotype rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_electrical_relay"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3id.org/elementary/applications/hvac#stype_centrifugal-fan-vfd -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_centrifugal-fan-vfd">
+        <rdf:type rdf:resource="http://www.w3id.org/elementary#Component"/>
+        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#VFD"/>
+        <elementary:existence_xor rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_centrifugal-fan-relay"/>
+        <elementary:feeds rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_centrifugal-fan"/>
+        <elementary:hasStereotype rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_variable_frequency_drive"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.w3id.org/elementary/applications/hvac#stype_chilled_ceiling -->
 
     <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_chilled_ceiling">
@@ -1084,6 +1114,44 @@
     
 
 
+    <!-- http://www.w3id.org/elementary/applications/hvac#stype_economizer-motor -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_economizer-motor">
+        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Motor"/>
+        <elementary:feeds rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_economizer"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3id.org/elementary/applications/hvac#stype_electric-heated-exchanger -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_electric-heated-exchanger">
+        <rdf:type rdf:resource="http://www.w3id.org/elementary#Stereotype"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3id.org/elementary/applications/hvac#stype_electric-heated-exchanger-modulator -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_electric-heated-exchanger-modulator">
+        <rdf:type rdf:resource="http://www.w3id.org/elementary#Component"/>
+        <elementary:feeds rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_electric-heated-exchanger"/>
+        <elementary:hasStereotype rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_electrical_relay"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3id.org/elementary/applications/hvac#stype_electric-heated-exchanger-relay -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_electric-heated-exchanger-relay">
+        <rdf:type rdf:resource="http://www.w3id.org/elementary#Component"/>
+        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Relay"/>
+        <elementary:feeds rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_electric-heated-exchanger"/>
+        <elementary:hasStereotype rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_electrical_relay"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.w3id.org/elementary/applications/hvac#stype_electric_boiler -->
 
     <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_electric_boiler">
@@ -1141,6 +1209,17 @@
     
 
 
+    <!-- http://www.w3id.org/elementary/applications/hvac#stype_forced-flow-heat-exchanger-valve -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_forced-flow-heat-exchanger-valve">
+        <rdf:type rdf:resource="http://www.w3id.org/elementary#Component"/>
+        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Valve"/>
+        <elementary:feeds rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_forced-flow-heat-exchanger"/>
+        <elementary:hasStereotype rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_valve"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.w3id.org/elementary/applications/hvac#stype_generic-heat-exchanger -->
 
     <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_generic-heat-exchanger">
@@ -1174,6 +1253,17 @@
         <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac#cp_humidifier_air_outlet"/>
         <elementary:hasConnectionPoint rdf:resource="http://www.w3id.org/elementary/applications/hvac#cp_humidifier_water_inlet"/>
         <elementary:hasPhysicalMechanism rdf:resource="http://www.w3id.org/elementary/applications/hvac#pm_vapor_humidification"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.w3id.org/elementary/applications/hvac#stype_humidifier_valve -->
+
+    <owl:NamedIndividual rdf:about="http://www.w3id.org/elementary/applications/hvac#stype_humidifier_valve">
+        <rdf:type rdf:resource="http://www.w3id.org/elementary#Component"/>
+        <rdf:type rdf:resource="https://brickschema.org/schema/Brick#Valve"/>
+        <elementary:feeds rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_humidifier"/>
+        <elementary:hasStereotype rdf:resource="http://www.w3id.org/elementary/applications/hvac#stype_valve"/>
     </owl:NamedIndividual>
     
 
@@ -1778,3 +1868,4 @@
 
 
 <!-- Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi -->
+

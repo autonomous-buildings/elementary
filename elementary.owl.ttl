@@ -1,0 +1,1885 @@
+@prefix : <http://www.w3id.org/elementary#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.w3id.org/elementary#> .
+
+<http://www.w3id.org/elementary> rdf:type owl:Ontology ;
+                                  <http://purl.org/dc/elements/1.1/creator> "Ganesh Ramanathan" ,
+                                                                            "This ontology is distributed uner a Creative Commons Attribution License" ;
+                                  <http://purl.org/dc/elements/1.1/date> "2024-07-01" ;
+                                  <http://purl.org/dc/elements/1.1/description> "https://autonomous-buildings.github.io/elementary/diagrams/automation-overview.png"^^xsd:anyURI ,
+                                                                                "Elemenary is a high-level ontology that enables the creation of a holistic system description of electro-mechanical systems and its automation." ;
+                                  rdfs:comment "An ontology for describing electro-mechanical systems and its automation" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/author
+<http://purl.org/dc/elements/1.1/author> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/creator
+<http://purl.org/dc/elements/1.1/creator> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/date
+<http://purl.org/dc/elements/1.1/date> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/description
+<http://purl.org/dc/elements/1.1/description> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/rights
+<http://purl.org/dc/elements/1.1/rights> rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/elements/1.1/title
+<http://purl.org/dc/elements/1.1/title> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.w3.org/2002/07/owl#topObjectProperty
+owl:topObjectProperty owl:inverseOf :measures .
+
+
+###  http://www.w3id.org/elementary#affectedUpstreamVariable
+:affectedUpstreamVariable rdf:type owl:ObjectProperty ;
+                          owl:equivalentProperty :upstreamEffect ;
+                          rdfs:subPropertyOf :physicalProcessRelation ;
+                          owl:propertyChainAxiom ( :hasStereotype
+                                                   :hasPhysicalMechanism
+                                                   :affectedUpstreamVariable
+                                                 ) .
+
+
+###  http://www.w3id.org/elementary#affects
+:affects rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#associatedTo
+:associatedTo rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#automatedBy
+:automatedBy rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#automates
+:automates rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#automationRelation
+:automationRelation rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3id.org/elementary#bidirectionallyLinkedTo
+:bidirectionallyLinkedTo rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf :linkedTo .
+
+
+###  http://www.w3id.org/elementary#byMeansOf
+:byMeansOf rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3id.org/elementary#connectedAcross
+:connectedAcross rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#connectedThrough
+:connectedThrough rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#connectsSystemThrough
+:connectsSystemThrough rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#connectsTo
+:connectsTo rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :associatedTo ;
+            rdf:type owl:SymmetricProperty .
+
+
+###  http://www.w3id.org/elementary#contains
+:contains rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :isInTopologicalRelationTo .
+
+
+###  http://www.w3id.org/elementary#datapointOf
+:datapointOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#dealsWithStuff
+:dealsWithStuff rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :physicalProcessRelation ;
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( :ConnectionPoint
+                                            :ProcessVariable
+                                          )
+                            ] ;
+                rdfs:range :PhysicalStuff .
+
+
+###  http://www.w3id.org/elementary#decreases
+:decreases rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :modulates .
+
+
+###  http://www.w3id.org/elementary#derivedFrom
+:derivedFrom rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#describedBy
+:describedBy rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :automationRelation ;
+             rdfs:domain :ControlProgram ;
+             rdfs:range :ProgramModel .
+
+
+###  http://www.w3id.org/elementary#directProportion
+:directProportion rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :affects .
+
+
+###  http://www.w3id.org/elementary#downlink
+:downlink rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasNetworkLink .
+
+
+###  http://www.w3id.org/elementary#effectiveAtPort
+:effectiveAtPort rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :relatedToPort ;
+                 rdfs:comment "Relates an acutator to the port of a component where the action is effective" .
+
+
+###  http://www.w3id.org/elementary#existence_and
+:existence_and rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :variantCondition .
+
+
+###  http://www.w3id.org/elementary#existence_cannotCoexistWith
+:existence_cannotCoexistWith rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf :variantCondition .
+
+
+###  http://www.w3id.org/elementary#existence_hasToExistInTheAbsenceOf
+:existence_hasToExistInTheAbsenceOf rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf :variantCondition .
+
+
+###  http://www.w3id.org/elementary#existence_hasToExistInThePresenceOf
+:existence_hasToExistInThePresenceOf rdf:type owl:ObjectProperty ;
+                                     rdfs:subPropertyOf :variantCondition .
+
+
+###  http://www.w3id.org/elementary#existence_implies
+:existence_implies rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :variantCondition .
+
+
+###  http://www.w3id.org/elementary#existence_mayCoexistsWith
+:existence_mayCoexistsWith rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf :variantCondition ;
+                           rdf:type owl:SymmetricProperty .
+
+
+###  http://www.w3id.org/elementary#existence_mayExistOnlyWhenAbsent
+:existence_mayExistOnlyWhenAbsent rdf:type owl:ObjectProperty ;
+                                  rdfs:subPropertyOf :variantCondition .
+
+
+###  http://www.w3id.org/elementary#existence_mayOnlyExistInThePresenceOf
+:existence_mayOnlyExistInThePresenceOf rdf:type owl:ObjectProperty ;
+                                       rdfs:subPropertyOf :variantCondition .
+
+
+###  http://www.w3id.org/elementary#existence_mustCoexistWith
+:existence_mustCoexistWith rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf :variantCondition .
+
+
+###  http://www.w3id.org/elementary#existence_or
+:existence_or rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :variantCondition ;
+              rdf:type owl:SymmetricProperty .
+
+
+###  http://www.w3id.org/elementary#existence_xor
+:existence_xor rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :variantCondition ;
+               rdf:type owl:SymmetricProperty .
+
+
+###  http://www.w3id.org/elementary#fedBy
+:fedBy rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :systemDesignRelation ;
+       owl:inverseOf :feeds .
+
+
+###  http://www.w3id.org/elementary#feeds
+:feeds rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#hasCausationAction
+:hasCausationAction rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :systemDesignRelation ;
+                    rdfs:domain :ConnectionPoint ;
+                    rdfs:range :ProcessAction .
+
+
+###  http://www.w3id.org/elementary#hasComponentAction
+:hasComponentAction rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :systemDesignRelation ;
+                    rdfs:domain :Component .
+
+
+###  http://www.w3id.org/elementary#hasConnectionPoint
+:hasConnectionPoint rdf:type owl:ObjectProperty ;
+                    owl:equivalentProperty :hasPort ;
+                    rdfs:subPropertyOf :systemDesignRelation ;
+                    owl:propertyChainAxiom ( :hasStereotype
+                                             :hasConnectionPoint
+                                           ) .
+
+
+###  http://www.w3id.org/elementary#hasControlInput
+:hasControlInput rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :hasConnectionPoint .
+
+
+###  http://www.w3id.org/elementary#hasControlOutput
+:hasControlOutput rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :hasConnectionPoint .
+
+
+###  http://www.w3id.org/elementary#hasControlledVariable
+:hasControlledVariable rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :hasIndependentVariable .
+
+
+###  http://www.w3id.org/elementary#hasDependentVariable
+:hasDependentVariable rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :hasVariable ;
+                      owl:propertyChainAxiom ( :hasStereotype
+                                               :hasPhysicalMechanism
+                                               :hasDependentVariable
+                                             ) .
+
+
+###  http://www.w3id.org/elementary#hasEffect
+:hasEffect rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasFaultMode
+:hasFaultMode rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasGoal
+:hasGoal rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :requirementsRelation ;
+         rdfs:domain :Requirement ;
+         rdfs:range :Goal .
+
+
+###  http://www.w3id.org/elementary#hasHardwareInterface
+:hasHardwareInterface rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasIndependentVariable
+:hasIndependentVariable rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :hasVariable ;
+                        owl:propertyChainAxiom ( :hasStereotype
+                                                 :hasPhysicalMechanism
+                                                 :hasIndependentVariable
+                                               ) .
+
+
+###  http://www.w3id.org/elementary#hasInlet
+:hasInlet rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasConnectionPoint ;
+          owl:propertyChainAxiom ( :hasConnectionPoint
+                                 ) .
+
+
+###  http://www.w3id.org/elementary#hasInput
+:hasInput rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasInterface ;
+          rdfs:domain :ControlProgram .
+
+
+###  http://www.w3id.org/elementary#hasInputEnergy
+:hasInputEnergy rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :dealsWithStuff .
+
+
+###  http://www.w3id.org/elementary#hasInterface
+:hasInterface rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasInvariant
+:hasInvariant rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasManipulatedVariable
+:hasManipulatedVariable rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :hasDependentVariable ;
+                        owl:propertyChainAxiom ( :hasStereotype
+                                                 :hasPhysicalMechanism
+                                                 :hasManipulatedVariable
+                                               ) .
+
+
+###  http://www.w3id.org/elementary#hasMechanism
+:hasMechanism rdf:type owl:ObjectProperty ;
+              owl:equivalentProperty :hasPhysicalMechanism ;
+              rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#hasNetworkInterface
+:hasNetworkInterface rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasNetworkLink
+:hasNetworkLink rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3id.org/elementary#hasObservedVariable
+:hasObservedVariable rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :isRelatedToVariable .
+
+
+###  http://www.w3id.org/elementary#hasOutlet
+:hasOutlet rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :hasConnectionPoint .
+
+
+###  http://www.w3id.org/elementary#hasOutput
+:hasOutput rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :hasInterface ;
+           rdfs:domain :ControlProgram .
+
+
+###  http://www.w3id.org/elementary#hasOutputEnergy
+:hasOutputEnergy rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :dealsWithStuff .
+
+
+###  http://www.w3id.org/elementary#hasParameter
+:hasParameter rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :hasInterface ;
+              rdfs:domain :ControlProgram .
+
+
+###  http://www.w3id.org/elementary#hasPart
+:hasPart rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :isInTopologicalRelationTo ;
+         owl:inverseOf :isPartOf .
+
+
+###  http://www.w3id.org/elementary#hasPhysicalMechanism
+:hasPhysicalMechanism rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :physicalProcessRelation ;
+                      owl:propertyChainAxiom ( :hasStereotype
+                                               :hasPhysicalMechanism
+                                             ) .
+
+
+###  http://www.w3id.org/elementary#hasPort
+:hasPort rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#hasPosition
+:hasPosition rdf:type owl:ObjectProperty ;
+             owl:equivalentProperty :hasProcessPosition ;
+             rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#hasPostcondition
+:hasPostcondition rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasPrecondition
+:hasPrecondition rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasProcessAction
+:hasProcessAction rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#hasProcessPathway
+:hasProcessPathway rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#hasProcessPosition
+:hasProcessPosition rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#hasQuantity
+:hasQuantity rdf:type owl:ObjectProperty ;
+             owl:equivalentProperty :hasVariable ;
+             rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#hasQuantityKind
+:hasQuantityKind rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#hasRequirement
+:hasRequirement rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :requirementsRelation .
+
+
+###  http://www.w3id.org/elementary#hasSignalType
+:hasSignalType rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasSimulationModel
+:hasSimulationModel rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#hasStereotype
+:hasStereotype rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#hasStreamKind
+:hasStreamKind rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :systemDesignRelation ;
+               rdfs:domain :Stream ;
+               rdfs:range :StreamKind .
+
+
+###  http://www.w3id.org/elementary#hasStruturalStereotype
+:hasStruturalStereotype rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#hasSubstance
+:hasSubstance rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :dealsWithStuff .
+
+
+###  http://www.w3id.org/elementary#hasTarget
+:hasTarget rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasUnits
+:hasUnits rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#hasVariable
+:hasVariable rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :physicalProcessRelation ;
+             owl:propertyChainAxiom ( :hasStereotype
+                                      :hasPhysicalMechanism
+                                      :hasVariable
+                                    ) .
+
+
+###  http://www.w3id.org/elementary#hasVariant
+:hasVariant rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#hostedBy
+:hostedBy rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :automationRelation ;
+          owl:inverseOf :hostsProgram .
+
+
+###  http://www.w3id.org/elementary#hostsProgram
+:hostsProgram rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation ;
+              rdfs:domain :AutomationController ;
+              rdfs:range :ControlProgram .
+
+
+###  http://www.w3id.org/elementary#increases
+:increases rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :modulates .
+
+
+###  http://www.w3id.org/elementary#inverseProportion
+:inverseProportion rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :affects .
+
+
+###  http://www.w3id.org/elementary#isCompatibleTo
+:isCompatibleTo rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#isContainedIn
+:isContainedIn rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :isInTopologicalRelationTo .
+
+
+###  http://www.w3id.org/elementary#isFlowCompatibleTo
+:isFlowCompatibleTo rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :isCompatibleTo .
+
+
+###  http://www.w3id.org/elementary#isInTopologicalRelationTo
+:isInTopologicalRelationTo rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#isIntendedFor
+:isIntendedFor rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#isObservedBy
+:isObservedBy rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation ;
+              owl:inverseOf :observes .
+
+
+###  http://www.w3id.org/elementary#isPartOf
+:isPartOf rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :isInTopologicalRelationTo .
+
+
+###  http://www.w3id.org/elementary#isRelatedToVariable
+:isRelatedToVariable rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :physicalProcessRelation .
+
+
+###  http://www.w3id.org/elementary#linkedTo
+:linkedTo rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#maintains
+:maintains rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :modulates .
+
+
+###  http://www.w3id.org/elementary#mandatoryIfExists
+:mandatoryIfExists rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :variantCondition .
+
+
+###  http://www.w3id.org/elementary#manipulates
+:manipulates rdf:type owl:ObjectProperty ;
+             owl:equivalentProperty :modulates ;
+             rdfs:subPropertyOf :isRelatedToVariable .
+
+
+###  http://www.w3id.org/elementary#measures
+:measures rdf:type owl:ObjectProperty ;
+          owl:equivalentProperty :observes ;
+          rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#modulatedBy
+:modulatedBy rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#modulates
+:modulates rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :automationRelation ;
+           owl:propertyChainAxiom ( :hasPhysicalMechanism
+                                    :hasDependentVariable
+                                  ) .
+
+
+###  http://www.w3id.org/elementary#observes
+:observes rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#observesAtPort
+:observesAtPort rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :relatedToPort ;
+                rdfs:comment "Relates a sensor to a port where a variable is observed" .
+
+
+###  http://www.w3id.org/elementary#optionalIfExists
+:optionalIfExists rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :variantCondition .
+
+
+###  http://www.w3id.org/elementary#physicalProcessRelation
+:physicalProcessRelation rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3id.org/elementary#precedes
+:precedes rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :isInTopologicalRelationTo ;
+          owl:inverseOf :succedes .
+
+
+###  http://www.w3id.org/elementary#refersTo
+:refersTo rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#relatedToPort
+:relatedToPort rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :systemDesignRelation ;
+               rdfs:comment "A peripheral (sensor or actuator) may be related to a port in such a way that the variable it act upon or observes is primarily located at the port. For example, to state heating coil air outlet temperature, or pump inlet valve." .
+
+
+###  http://www.w3id.org/elementary#representedBy
+:representedBy rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#represents
+:represents rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#requirementsRelation
+:requirementsRelation rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3id.org/elementary#separates
+:separates rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :systemDesignRelation .
+
+
+###  http://www.w3id.org/elementary#succedes
+:succedes rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :isInTopologicalRelationTo .
+
+
+###  http://www.w3id.org/elementary#suitableFor
+:suitableFor rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :hasStreamKind .
+
+
+###  http://www.w3id.org/elementary#systemDesignRelation
+:systemDesignRelation rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3id.org/elementary#unidirectionallyLinkedTo
+:unidirectionallyLinkedTo rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf :linkedTo .
+
+
+###  http://www.w3id.org/elementary#uplink
+:uplink rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :hasNetworkLink .
+
+
+###  http://www.w3id.org/elementary#upstreamEffect
+:upstreamEffect rdf:type owl:ObjectProperty .
+
+
+###  http://www.w3id.org/elementary#variantCondition
+:variantCondition rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :systemDesignRelation .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.w3id.org/elementary#atLeast
+:atLeast rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf :variantConditionQuantification .
+
+
+###  http://www.w3id.org/elementary#atTheMost
+:atTheMost rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :variantConditionQuantification .
+
+
+###  http://www.w3id.org/elementary#exactly
+:exactly rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf :variantConditionQuantification .
+
+
+###  http://www.w3id.org/elementary#hasValue
+:hasValue rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3id.org/elementary#hasValueGreaterThan
+:hasValueGreaterThan rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3id.org/elementary#hasValueLessThan
+:hasValueLessThan rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3id.org/elementary#isAbstract
+:isAbstract rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3id.org/elementary#isOptional
+:isOptional rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3id.org/elementary#mayHaveParallelInstances
+:mayHaveParallelInstances rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf :variantConditionQuantification .
+
+
+###  http://www.w3id.org/elementary#mayHaveSeriesInstances
+:mayHaveSeriesInstances rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf :variantConditionQuantification .
+
+
+###  http://www.w3id.org/elementary#modelName
+:modelName rdf:type owl:DatatypeProperty .
+
+
+###  http://www.w3id.org/elementary#programArtifact
+:programArtifact rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:anyURI .
+
+
+###  http://www.w3id.org/elementary#serialNumber
+:serialNumber rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.w3id.org/elementary#variantConditionQuantification
+:variantConditionQuantification rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3id.org/elementary#AchievementGoal
+:AchievementGoal rdf:type owl:Class ;
+                 rdfs:subClassOf :Goal .
+
+
+###  http://www.w3id.org/elementary#ActuationConnectionPoint
+:ActuationConnectionPoint rdf:type owl:Class ;
+                          rdfs:subClassOf :ConnectionPoint .
+
+
+###  http://www.w3id.org/elementary#Actuator
+:Actuator rdf:type owl:Class ;
+          rdfs:subClassOf :AutomationPeripheral .
+
+
+###  http://www.w3id.org/elementary#Agent
+:Agent rdf:type owl:Class ;
+       rdfs:subClassOf :RequirementsConcept .
+
+
+###  http://www.w3id.org/elementary#Ambient
+:Ambient rdf:type owl:Class ;
+         rdfs:subClassOf :Sink ,
+                         :Source .
+
+
+###  http://www.w3id.org/elementary#AnalogInput
+:AnalogInput rdf:type owl:Class ;
+             rdfs:subClassOf :Input ;
+             rdfs:comment "Input of continuous values. For example temperature or pressure." .
+
+
+###  http://www.w3id.org/elementary#AnalogOutput
+:AnalogOutput rdf:type owl:Class ;
+              rdfs:subClassOf :Output ;
+              rdfs:comment "Output of continous value. For example, to command the position of a valve." .
+
+
+###  http://www.w3id.org/elementary#ArtificialAgent
+:ArtificialAgent rdf:type owl:Class ;
+                 rdfs:subClassOf :Agent .
+
+
+###  http://www.w3id.org/elementary#AutomationActionKind
+:AutomationActionKind rdf:type owl:Class ;
+                      rdfs:subClassOf :AutomationSoftwareConcept .
+
+
+###  http://www.w3id.org/elementary#AutomationConcept
+:AutomationConcept rdf:type owl:Class .
+
+
+###  http://www.w3id.org/elementary#AutomationController
+:AutomationController rdf:type owl:Class ;
+                      rdfs:subClassOf :AutomationHardwareConcept ;
+                      rdfs:comment "A computational hardware that hosts a control program. The hardware consists of a CPU which may be wired to input-output and communication network interfaces. Typically, the control program can be downloaded in to such a device or the device may contain pre-loaded programs that can be activated." .
+
+
+###  http://www.w3id.org/elementary#AutomationHardwareConcept
+:AutomationHardwareConcept rdf:type owl:Class ;
+                           rdfs:subClassOf :AutomationConcept ;
+                           rdfs:comment "Concepts around the hardware for execution of the control program and network communication" .
+
+
+###  http://www.w3id.org/elementary#AutomationPeripheral
+:AutomationPeripheral rdf:type owl:Class ;
+                      rdfs:subClassOf :AutomationHardwareConcept ,
+                                      :Component .
+
+
+###  http://www.w3id.org/elementary#AutomationProgram
+:AutomationProgram rdf:type owl:Class ;
+                   owl:equivalentClass :ControlProgram ;
+                   rdfs:subClassOf :AutomationSoftwareConcept .
+
+
+###  http://www.w3id.org/elementary#AutomationSoftwareConcept
+:AutomationSoftwareConcept rdf:type owl:Class ;
+                           rdfs:subClassOf :AutomationConcept ;
+                           rdfs:comment "Concepts around the software implementation of the control and coordination logic in an automation system" .
+
+
+###  http://www.w3id.org/elementary#AvoidanceGoal
+:AvoidanceGoal rdf:type owl:Class ;
+               rdfs:subClassOf :Goal .
+
+
+###  http://www.w3id.org/elementary#Battery
+:Battery rdf:type owl:Class ;
+         rdfs:subClassOf :ChemicalEnergy .
+
+
+###  http://www.w3id.org/elementary#BatteryPoweredDevice
+:BatteryPoweredDevice rdf:type owl:Class ;
+                      rdfs:subClassOf :PoweredDevice .
+
+
+###  http://www.w3id.org/elementary#BeltDrive
+:BeltDrive rdf:type owl:Class ;
+           rdfs:subClassOf :IndirectCoupling .
+
+
+###  http://www.w3id.org/elementary#BinaryInput
+:BinaryInput rdf:type owl:Class ;
+             rdfs:subClassOf :Input ;
+             rdfs:comment "Input that is bi-state. For example state of a window as being open or close" .
+
+
+###  http://www.w3id.org/elementary#BinaryOutput
+:BinaryOutput rdf:type owl:Class ;
+              rdfs:subClassOf :Output ;
+              rdfs:comment "A bi-state output. For example, to command a relay tro be on or off" .
+
+
+###  http://www.w3id.org/elementary#ChemicalEnergy
+:ChemicalEnergy rdf:type owl:Class ;
+                rdfs:subClassOf :EnergySource .
+
+
+###  http://www.w3id.org/elementary#ChemicalReaction
+:ChemicalReaction rdf:type owl:Class ;
+                  rdfs:subClassOf :EnergyConversion .
+
+
+###  http://www.w3id.org/elementary#Combustion
+:Combustion rdf:type owl:Class ;
+            rdfs:subClassOf :ChemicalReaction .
+
+
+###  http://www.w3id.org/elementary#CommunicationMessage
+:CommunicationMessage rdf:type owl:Class ;
+                      rdfs:subClassOf :AutomationSoftwareConcept ;
+                      rdfs:comment "A data payload that is sent over a communication interface" .
+
+
+###  http://www.w3id.org/elementary#Component
+:Component rdf:type owl:Class ;
+           rdfs:subClassOf :SystemDesignConcept .
+
+
+###  http://www.w3id.org/elementary#ComputingNode
+:ComputingNode rdf:type owl:Class ;
+               rdfs:subClassOf :NetworkComponent .
+
+
+###  http://www.w3id.org/elementary#Condition
+:Condition rdf:type owl:Class ;
+           rdfs:subClassOf :SystemDesignConcept .
+
+
+###  http://www.w3id.org/elementary#Connection
+:Connection rdf:type owl:Class ;
+            rdfs:subClassOf :SystemDesignConcept .
+
+
+###  http://www.w3id.org/elementary#ConnectionPoint
+:ConnectionPoint rdf:type owl:Class ;
+                 owl:equivalentClass :Port ;
+                 rdfs:subClassOf :SystemDesignConcept .
+
+
+###  http://www.w3id.org/elementary#Container
+:Container rdf:type owl:Class ;
+           rdfs:subClassOf :Component .
+
+
+###  http://www.w3id.org/elementary#Context
+:Context rdf:type owl:Class ;
+         rdfs:subClassOf :RequirementsConcept .
+
+
+###  http://www.w3id.org/elementary#ControlProgram
+:ControlProgram rdf:type owl:Class ;
+                rdfs:subClassOf :AutomationSoftwareConcept ;
+                rdfs:comment "A software program that is designed to perceive the state of the controlled environment and take actions to manipulate its state." .
+
+
+###  http://www.w3id.org/elementary#ControllerComputationalHost
+:ControllerComputationalHost rdf:type owl:Class ;
+                             rdfs:subClassOf :AutomationHardwareConcept .
+
+
+###  http://www.w3id.org/elementary#ControllerHardwareInterface
+:ControllerHardwareInterface rdf:type owl:Class ;
+                             rdfs:subClassOf :AutomationHardwareConcept ;
+                             rdfs:comment "The hardware interface through which an AutomationController interacts with the external world" .
+
+
+###  http://www.w3id.org/elementary#CoordinationScheme
+:CoordinationScheme rdf:type owl:Class ;
+                    rdfs:subClassOf :AutomationSoftwareConcept ;
+                    rdfs:comment "The description of how components (and the mechanisms they manage) should coordinate in order to orchestrate a physical process together." .
+
+
+###  http://www.w3id.org/elementary#Datapoint
+:Datapoint rdf:type owl:Class ;
+           rdfs:subClassOf :ProgramInterface ;
+           rdfs:comment "An object-oriented representation of a program interface that captures the semantics and the modeling of the values." .
+
+
+###  http://www.w3id.org/elementary#DirectCoupling
+:DirectCoupling rdf:type owl:Class ;
+                rdfs:subClassOf :MechanicalConnection .
+
+
+###  http://www.w3id.org/elementary#Duct
+:Duct rdf:type owl:Class ;
+      rdfs:subClassOf :SubstanceConveyor .
+
+
+###  http://www.w3id.org/elementary#Effort
+:Effort rdf:type owl:Class ;
+        rdfs:subClassOf :PhysicalStuff .
+
+
+###  http://www.w3id.org/elementary#ElectricalConduction
+:ElectricalConduction rdf:type owl:Class ;
+                      rdfs:subClassOf :EnergyTransfer .
+
+
+###  http://www.w3id.org/elementary#ElectricalConductor
+:ElectricalConductor rdf:type owl:Class ;
+                     rdfs:subClassOf :ElectricalConnection .
+
+
+###  http://www.w3id.org/elementary#ElectricalConnection
+:ElectricalConnection rdf:type owl:Class ;
+                      rdfs:subClassOf :Connection .
+
+
+###  http://www.w3id.org/elementary#ElectricalCurrent
+:ElectricalCurrent rdf:type owl:Class ;
+                   rdfs:subClassOf :Flow .
+
+
+###  http://www.w3id.org/elementary#ElectricalGrid
+:ElectricalGrid rdf:type owl:Class ;
+                rdfs:subClassOf :EnergySource .
+
+
+###  http://www.w3id.org/elementary#ElectricalSignalKind
+:ElectricalSignalKind rdf:type owl:Class ;
+                      rdfs:subClassOf :AutomationHardwareConcept ;
+                      rdfs:comment "The physical form of input of output that is interfaced to the AutomationController" .
+
+
+###  http://www.w3id.org/elementary#ElectricalTopology
+:ElectricalTopology rdf:type owl:Class ;
+                    rdfs:subClassOf :PhysicalProcessTopology .
+
+
+###  http://www.w3id.org/elementary#ElectroChemicalProcess
+:ElectroChemicalProcess rdf:type owl:Class ;
+                        rdfs:subClassOf :ChemicalReaction .
+
+
+###  http://www.w3id.org/elementary#ElectroMechanicalConversion
+:ElectroMechanicalConversion rdf:type owl:Class ;
+                             rdfs:subClassOf :EnergyConversion .
+
+
+###  http://www.w3id.org/elementary#ElectromagneticCoupling
+:ElectromagneticCoupling rdf:type owl:Class ;
+                         rdfs:subClassOf :EnergyTransfer .
+
+
+###  http://www.w3id.org/elementary#ElectromagneticRadiation
+:ElectromagneticRadiation rdf:type owl:Class ;
+                          rdfs:subClassOf :EnergyTransfer .
+
+
+###  http://www.w3id.org/elementary#ElectrostaticForce
+:ElectrostaticForce rdf:type owl:Class ;
+                    rdfs:subClassOf :Effort .
+
+
+###  http://www.w3id.org/elementary#Energy
+:Energy rdf:type owl:Class ;
+        rdfs:subClassOf :PhysicalStuff .
+
+
+###  http://www.w3id.org/elementary#EnergyConversion
+:EnergyConversion rdf:type owl:Class ;
+                  rdfs:subClassOf :PhysicalMechanism .
+
+
+###  http://www.w3id.org/elementary#EnergyForm
+:EnergyForm rdf:type owl:Class ;
+            rdfs:subClassOf :Energy .
+
+
+###  http://www.w3id.org/elementary#EnergyHarvestingDevice
+:EnergyHarvestingDevice rdf:type owl:Class ;
+                        rdfs:subClassOf :PoweredDevice .
+
+
+###  http://www.w3id.org/elementary#EnergySource
+:EnergySource rdf:type owl:Class ;
+              rdfs:subClassOf :Source .
+
+
+###  http://www.w3id.org/elementary#EnergyTransfer
+:EnergyTransfer rdf:type owl:Class ;
+                rdfs:subClassOf :PhysicalMechanism .
+
+
+###  http://www.w3id.org/elementary#ExternalConnection
+:ExternalConnection rdf:type owl:Class ;
+                    rdfs:subClassOf :Connection .
+
+
+###  http://www.w3id.org/elementary#FaultDetectionConcept
+:FaultDetectionConcept rdf:type owl:Class ;
+                       rdfs:subClassOf :AutomationSoftwareConcept .
+
+
+###  http://www.w3id.org/elementary#FaultEffect
+:FaultEffect rdf:type owl:Class ;
+             rdfs:subClassOf :FaultDetectionConcept .
+
+
+###  http://www.w3id.org/elementary#FaultMode
+:FaultMode rdf:type owl:Class ;
+           rdfs:subClassOf :FaultDetectionConcept .
+
+
+###  http://www.w3id.org/elementary#FaultRule
+:FaultRule rdf:type owl:Class ;
+           rdfs:subClassOf :FaultDetectionConcept .
+
+
+###  http://www.w3id.org/elementary#FiniteStateMachine
+:FiniteStateMachine rdf:type owl:Class ;
+                    rdfs:subClassOf :ProgramModel ;
+                    rdfs:comment "Description of a programs behaviour in terms of its states and transitions" .
+
+
+###  http://www.w3id.org/elementary#Flow
+:Flow rdf:type owl:Class ;
+      rdfs:subClassOf :PhysicalStuff .
+
+
+###  http://www.w3id.org/elementary#ForceTransfer
+:ForceTransfer rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalMechanism .
+
+
+###  http://www.w3id.org/elementary#FossilFuel
+:FossilFuel rdf:type owl:Class ;
+            rdfs:subClassOf :Fuel .
+
+
+###  http://www.w3id.org/elementary#Fuel
+:Fuel rdf:type owl:Class ;
+      rdfs:subClassOf :ChemicalEnergy .
+
+
+###  http://www.w3id.org/elementary#FunctionalRequirement
+:FunctionalRequirement rdf:type owl:Class ;
+                       rdfs:subClassOf :Requirement .
+
+
+###  http://www.w3id.org/elementary#Gateway
+:Gateway rdf:type owl:Class ;
+         rdfs:subClassOf :NetworkComponent .
+
+
+###  http://www.w3id.org/elementary#GearTrain
+:GearTrain rdf:type owl:Class ;
+           rdfs:subClassOf :IndirectCoupling .
+
+
+###  http://www.w3id.org/elementary#GeneralRequirement
+:GeneralRequirement rdf:type owl:Class ;
+                    rdfs:subClassOf :Requirement .
+
+
+###  http://www.w3id.org/elementary#Goal
+:Goal rdf:type owl:Class ;
+      rdfs:subClassOf :RequirementsConcept .
+
+
+###  http://www.w3id.org/elementary#GravitationalForce
+:GravitationalForce rdf:type owl:Class ;
+                    rdfs:subClassOf :Effort .
+
+
+###  http://www.w3id.org/elementary#HardwareInputInterface
+:HardwareInputInterface rdf:type owl:Class ;
+                        rdfs:subClassOf :ControllerHardwareInterface ;
+                        rdfs:comment "A digital or digital-to-analog interface used by an AutomationController to recieve or receive analog signals" .
+
+
+###  http://www.w3id.org/elementary#HardwareOutputInterface
+:HardwareOutputInterface rdf:type owl:Class ;
+                         rdfs:subClassOf :ControllerHardwareInterface ;
+                         rdfs:comment "A digital or digital-to-analog interface used by an AutomationController to  send analog signals" .
+
+
+###  http://www.w3id.org/elementary#HeatTransfer
+:HeatTransfer rdf:type owl:Class ;
+              rdfs:subClassOf :EnergyTransfer .
+
+
+###  http://www.w3id.org/elementary#HighLimit
+:HighLimit rdf:type owl:Class ;
+           rdfs:subClassOf :Limit ;
+           rdfs:comment "A parameter that constraints the highest possible value of another datapoint" .
+
+
+###  http://www.w3id.org/elementary#HumanAgent
+:HumanAgent rdf:type owl:Class ;
+            rdfs:subClassOf :Agent .
+
+
+###  http://www.w3id.org/elementary#HydraulicCoupling
+:HydraulicCoupling rdf:type owl:Class ;
+                   rdfs:subClassOf :IndirectCoupling .
+
+
+###  http://www.w3id.org/elementary#IndirectCoupling
+:IndirectCoupling rdf:type owl:Class ;
+                  rdfs:subClassOf :MechanicalConnection .
+
+
+###  http://www.w3id.org/elementary#InletConnectionPoint
+:InletConnectionPoint rdf:type owl:Class ;
+                      rdfs:subClassOf :ConnectionPoint .
+
+
+###  http://www.w3id.org/elementary#Input
+:Input rdf:type owl:Class ;
+       rdfs:subClassOf :Datapoint ;
+       rdfs:comment "A datapoint that represents information input to a control program" .
+
+
+###  http://www.w3id.org/elementary#InputSignalConnectionPoint
+:InputSignalConnectionPoint rdf:type owl:Class ;
+                            rdfs:subClassOf :SignalConnectionPoint .
+
+
+###  http://www.w3id.org/elementary#InternalConnection
+:InternalConnection rdf:type owl:Class ;
+                    rdfs:subClassOf :Connection .
+
+
+###  http://www.w3id.org/elementary#Limit
+:Limit rdf:type owl:Class ;
+       rdfs:subClassOf :Parameter ;
+       rdfs:comment "A parameter that constraints some value" .
+
+
+###  http://www.w3id.org/elementary#LowLimit
+:LowLimit rdf:type owl:Class ;
+          rdfs:subClassOf :Limit ;
+          rdfs:comment "A parameter that constraints the lowest possible value of another datapoint" .
+
+
+###  http://www.w3id.org/elementary#MagneticConnection
+:MagneticConnection rdf:type owl:Class ;
+                    rdfs:subClassOf :Connection .
+
+
+###  http://www.w3id.org/elementary#MagneticForce
+:MagneticForce rdf:type owl:Class ;
+               rdfs:subClassOf :Effort .
+
+
+###  http://www.w3id.org/elementary#MainsPoweredDevice
+:MainsPoweredDevice rdf:type owl:Class ;
+                    rdfs:subClassOf :PoweredDevice .
+
+
+###  http://www.w3id.org/elementary#MaintenanceGoal
+:MaintenanceGoal rdf:type owl:Class ;
+                 rdfs:subClassOf :Goal .
+
+
+###  http://www.w3id.org/elementary#MassTransfer
+:MassTransfer rdf:type owl:Class ;
+              rdfs:subClassOf :PhysicalMechanism .
+
+
+###  http://www.w3id.org/elementary#MeasurementConnectionPoint
+:MeasurementConnectionPoint rdf:type owl:Class ;
+                            owl:equivalentClass :MeasurementPort ;
+                            rdfs:subClassOf :ConnectionPoint .
+
+
+###  http://www.w3id.org/elementary#MeasurementPort
+:MeasurementPort rdf:type owl:Class ;
+                 rdfs:subClassOf :ConnectionPoint .
+
+
+###  http://www.w3id.org/elementary#MeasurementUnit
+:MeasurementUnit rdf:type owl:Class ;
+                 rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#MechanicalAction
+:MechanicalAction rdf:type owl:Class ;
+                  rdfs:subClassOf :EnergySource .
+
+
+###  http://www.w3id.org/elementary#MechanicalConnection
+:MechanicalConnection rdf:type owl:Class ;
+                      rdfs:subClassOf :Connection .
+
+
+###  http://www.w3id.org/elementary#MechanicalCoupling
+:MechanicalCoupling rdf:type owl:Class ;
+                    rdfs:subClassOf :EnergyTransfer .
+
+
+###  http://www.w3id.org/elementary#MechanicalForce
+:MechanicalForce rdf:type owl:Class ;
+                 rdfs:subClassOf :Effort .
+
+
+###  http://www.w3id.org/elementary#MechanicalPotential
+:MechanicalPotential rdf:type owl:Class ;
+                     rdfs:subClassOf :EnergySource .
+
+
+###  http://www.w3id.org/elementary#MultistateInput
+:MultistateInput rdf:type owl:Class ;
+                 rdfs:subClassOf :Input ;
+                 rdfs:comment "Input in muliple discrete state. For example, current speed of a fan as stage 1, 2, or 3." .
+
+
+###  http://www.w3id.org/elementary#MultistateOutput
+:MultistateOutput rdf:type owl:Class ;
+                  rdfs:subClassOf :Output ;
+                  rdfs:comment "Output in multiple discrete states. For example to command the speed of fan to off, stage-1, stage-2 etc." .
+
+
+###  http://www.w3id.org/elementary#NetworkCommunicationInterface
+:NetworkCommunicationInterface rdf:type owl:Class ;
+                               rdfs:subClassOf :ControllerHardwareInterface ;
+                               rdfs:comment "The communication interface used by an AutomationController to send messages over a network" .
+
+
+###  http://www.w3id.org/elementary#NetworkComponent
+:NetworkComponent rdf:type owl:Class ;
+                  rdfs:subClassOf :Component .
+
+
+###  http://www.w3id.org/elementary#NetworkLink
+:NetworkLink rdf:type owl:Class ;
+             rdfs:subClassOf :Component .
+
+
+###  http://www.w3id.org/elementary#NetworkTopology
+:NetworkTopology rdf:type owl:Class ;
+                 rdfs:subClassOf :Topology .
+
+
+###  http://www.w3id.org/elementary#NonFunctionalRequirement
+:NonFunctionalRequirement rdf:type owl:Class ;
+                          rdfs:subClassOf :Requirement .
+
+
+###  http://www.w3id.org/elementary#NuclearFission
+:NuclearFission rdf:type owl:Class ;
+                rdfs:subClassOf :ChemicalReaction .
+
+
+###  http://www.w3id.org/elementary#NuclearFuel
+:NuclearFuel rdf:type owl:Class ;
+             rdfs:subClassOf :Fuel .
+
+
+###  http://www.w3id.org/elementary#NuclearFusion
+:NuclearFusion rdf:type owl:Class ;
+               rdfs:subClassOf :ChemicalReaction .
+
+
+###  http://www.w3id.org/elementary#Offset
+:Offset rdf:type owl:Class ;
+        rdfs:subClassOf :Parameter ;
+        rdfs:comment "A parameter that states the shift of value" .
+
+
+###  http://www.w3id.org/elementary#OutletConnectionPoint
+:OutletConnectionPoint rdf:type owl:Class ;
+                       rdfs:subClassOf :ConnectionPoint .
+
+
+###  http://www.w3id.org/elementary#Output
+:Output rdf:type owl:Class ;
+        rdfs:subClassOf :Datapoint ;
+        rdfs:comment "The output of a control program" .
+
+
+###  http://www.w3id.org/elementary#OutputSignalConnectionPoint
+:OutputSignalConnectionPoint rdf:type owl:Class ;
+                             rdfs:subClassOf :SignalConnectionPoint .
+
+
+###  http://www.w3id.org/elementary#Parameter
+:Parameter rdf:type owl:Class ;
+           rdfs:subClassOf :Datapoint ;
+           rdfs:comment "An externally supplied value that is used by the control program" .
+
+
+###  http://www.w3id.org/elementary#PhysicalMechanism
+:PhysicalMechanism rdf:type owl:Class ;
+                   rdfs:subClassOf :QualitativeModel ,
+                                   [ owl:intersectionOf ( :PhysicalMechanism
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hasDependentVariable ;
+                                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :ProcessVariable
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ,
+                                   [ owl:intersectionOf ( :PhysicalMechanism
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hasIndependentVariable ;
+                                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :ProcessVariable
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] .
+
+
+###  http://www.w3id.org/elementary#PhysicalProcess
+:PhysicalProcess rdf:type owl:Class ;
+                 rdfs:subClassOf :QualitativeModel .
+
+
+###  http://www.w3id.org/elementary#PhysicalProcessConcept
+:PhysicalProcessConcept rdf:type owl:Class .
+
+
+###  http://www.w3id.org/elementary#PhysicalProcessModel
+:PhysicalProcessModel rdf:type owl:Class ;
+                      rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#PhysicalProcessTopology
+:PhysicalProcessTopology rdf:type owl:Class ;
+                         rdfs:subClassOf :Topology .
+
+
+###  http://www.w3id.org/elementary#PhysicalQuantity
+:PhysicalQuantity rdf:type owl:Class ;
+                  rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#PhysicalState
+:PhysicalState rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#PhysicalStuff
+:PhysicalStuff rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#PhysicalVariable
+:PhysicalVariable rdf:type owl:Class ;
+                  owl:equivalentClass :ProcessVariable ;
+                  rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#Pipe
+:Pipe rdf:type owl:Class ;
+      rdfs:subClassOf :SubstanceConveyor .
+
+
+###  http://www.w3id.org/elementary#PipingTopology
+:PipingTopology rdf:type owl:Class ;
+                rdfs:subClassOf :PhysicalProcessTopology .
+
+
+###  http://www.w3id.org/elementary#Port
+:Port rdf:type owl:Class ;
+      rdfs:subClassOf :SystemDesignConcept .
+
+
+###  http://www.w3id.org/elementary#PoweredDevice
+:PoweredDevice rdf:type owl:Class ;
+               rdfs:subClassOf :Component .
+
+
+###  http://www.w3id.org/elementary#ProcessAction
+:ProcessAction rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#ProcessPathway
+:ProcessPathway rdf:type owl:Class ;
+                owl:equivalentClass :Stream ;
+                rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#ProcessPosition
+:ProcessPosition rdf:type owl:Class ;
+                 rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#ProcessSimulationModel
+:ProcessSimulationModel rdf:type owl:Class ;
+                        rdfs:subClassOf :PhysicalProcessModel .
+
+
+###  http://www.w3id.org/elementary#ProcessVariable
+:ProcessVariable rdf:type owl:Class ;
+                 rdfs:subClassOf :PhysicalProcessConcept ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasProcessPosition ;
+                                   owl:someValuesFrom :ProcessPosition
+                                 ] .
+
+
+###  http://www.w3id.org/elementary#ProgramCommunicationInterface
+:ProgramCommunicationInterface rdf:type owl:Class ;
+                               rdfs:subClassOf :ProgramInterface .
+
+
+###  http://www.w3id.org/elementary#ProgramInterface
+:ProgramInterface rdf:type owl:Class ;
+                  rdfs:subClassOf :AutomationSoftwareConcept ;
+                  rdfs:comment "The interaction interface offerered by a control program. This can be used to feed input and parameteric data to it, and it can be used by the program to express the desired action." .
+
+
+###  http://www.w3id.org/elementary#ProgramModel
+:ProgramModel rdf:type owl:Class ;
+              rdfs:subClassOf :AutomationSoftwareConcept ;
+              rdfs:comment "A model that describes the internal behaviour of a control program" .
+
+
+###  http://www.w3id.org/elementary#ProgramSimulationModel
+:ProgramSimulationModel rdf:type owl:Class ;
+                        rdfs:subClassOf :ProgramModel ;
+                        rdfs:comment "A mock-up unit that simulates the control program" .
+
+
+###  http://www.w3id.org/elementary#QualitativeModel
+:QualitativeModel rdf:type owl:Class ;
+                  rdfs:subClassOf :PhysicalProcessModel .
+
+
+###  http://www.w3id.org/elementary#RateLimit
+:RateLimit rdf:type owl:Class ;
+           rdfs:subClassOf :Limit ;
+           rdfs:comment "A parameter that constraints the rate of change of a value" .
+
+
+###  http://www.w3id.org/elementary#Regulation
+:Regulation rdf:type owl:Class ;
+            rdfs:subClassOf :RequirementsConcept .
+
+
+###  http://www.w3id.org/elementary#Repeater
+:Repeater rdf:type owl:Class ;
+          rdfs:subClassOf :NetworkComponent .
+
+
+###  http://www.w3id.org/elementary#Requirement
+:Requirement rdf:type owl:Class ;
+             rdfs:subClassOf :RequirementsConcept .
+
+
+###  http://www.w3id.org/elementary#RequirementsConcept
+:RequirementsConcept rdf:type owl:Class .
+
+
+###  http://www.w3id.org/elementary#Router
+:Router rdf:type owl:Class ;
+        rdfs:subClassOf :NetworkComponent .
+
+
+###  http://www.w3id.org/elementary#Sensor
+:Sensor rdf:type owl:Class ;
+        rdfs:subClassOf :AutomationPeripheral .
+
+
+###  http://www.w3id.org/elementary#SensoryInterface
+:SensoryInterface rdf:type owl:Class ;
+                  rdfs:subClassOf :AutomationHardwareConcept .
+
+
+###  http://www.w3id.org/elementary#Setpoint
+:Setpoint rdf:type owl:Class ;
+          rdfs:subClassOf :Parameter ;
+          rdfs:comment "A parameter that states the desired value to be achieved, maintained, or avoided by control program" .
+
+
+###  http://www.w3id.org/elementary#SignalConnectionPoint
+:SignalConnectionPoint rdf:type owl:Class ;
+                       rdfs:subClassOf :AutomationHardwareConcept .
+
+
+###  http://www.w3id.org/elementary#Sink
+:Sink rdf:type owl:Class ;
+      rdfs:subClassOf :Component .
+
+
+###  http://www.w3id.org/elementary#SolarEnergy
+:SolarEnergy rdf:type owl:Class ;
+             rdfs:subClassOf :EnergySource .
+
+
+###  http://www.w3id.org/elementary#Source
+:Source rdf:type owl:Class ;
+        rdfs:subClassOf :Component .
+
+
+###  http://www.w3id.org/elementary#SpecificationRequirement
+:SpecificationRequirement rdf:type owl:Class ;
+                          rdfs:subClassOf :Requirement .
+
+
+###  http://www.w3id.org/elementary#Stereotype
+:Stereotype rdf:type owl:Class ;
+            rdfs:subClassOf :SystemDesignConcept .
+
+
+###  http://www.w3id.org/elementary#Stream
+:Stream rdf:type owl:Class ;
+        rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#StreamJoiner
+:StreamJoiner rdf:type owl:Class ;
+              rdfs:subClassOf :Component .
+
+
+###  http://www.w3id.org/elementary#StreamKind
+:StreamKind rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcessConcept .
+
+
+###  http://www.w3id.org/elementary#StreamSplitter
+:StreamSplitter rdf:type owl:Class ;
+                rdfs:subClassOf :Component .
+
+
+###  http://www.w3id.org/elementary#SubSystem
+:SubSystem rdf:type owl:Class ;
+           rdfs:subClassOf :SystemDesignConcept .
+
+
+###  http://www.w3id.org/elementary#Substance
+:Substance rdf:type owl:Class ;
+           rdfs:subClassOf :PhysicalStuff .
+
+
+###  http://www.w3id.org/elementary#SubstanceConveyor
+:SubstanceConveyor rdf:type owl:Class ;
+                   rdfs:subClassOf :Connection .
+
+
+###  http://www.w3id.org/elementary#System
+:System rdf:type owl:Class ;
+        rdfs:subClassOf :SystemDesignConcept .
+
+
+###  http://www.w3id.org/elementary#SystemDesignConcept
+:SystemDesignConcept rdf:type owl:Class .
+
+
+###  http://www.w3id.org/elementary#ThermalConduction
+:ThermalConduction rdf:type owl:Class ;
+                   rdfs:subClassOf :HeatTransfer .
+
+
+###  http://www.w3id.org/elementary#ThermalConductor
+:ThermalConductor rdf:type owl:Class ;
+                  rdfs:subClassOf :ThermalConnection .
+
+
+###  http://www.w3id.org/elementary#ThermalConnection
+:ThermalConnection rdf:type owl:Class ;
+                   rdfs:subClassOf :Connection .
+
+
+###  http://www.w3id.org/elementary#ThermalConvection
+:ThermalConvection rdf:type owl:Class ;
+                   rdfs:subClassOf :HeatTransfer .
+
+
+###  http://www.w3id.org/elementary#ThermalRadiation
+:ThermalRadiation rdf:type owl:Class ;
+                  rdfs:subClassOf :HeatTransfer .
+
+
+###  http://www.w3id.org/elementary#Topology
+:Topology rdf:type owl:Class ;
+          rdfs:subClassOf :SystemDesignConcept .
+
+
+###  http://www.w3id.org/elementary#UserInteractionInterface
+:UserInteractionInterface rdf:type owl:Class ;
+                          rdfs:subClassOf :ControllerHardwareInterface ;
+                          rdfs:comment "The interface through which an AutomationController interacts with a human. For example, push buttons, displays, and LEDs" .
+
+
+###  http://www.w3id.org/elementary#VariableComponent
+:VariableComponent rdf:type owl:Class ;
+                   rdfs:subClassOf :Component .
+
+
+###  http://www.w3id.org/elementary#VariableConfiguration
+:VariableConfiguration rdf:type owl:Class ;
+                       rdfs:subClassOf :SubSystem .
+
+
+###  http://www.w3id.org/elementary#Variant
+:Variant rdf:type owl:Class ;
+         rdfs:subClassOf :SystemDesignConcept .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.w3id.org/elementary#across
+:across rdf:type owl:NamedIndividual ,
+                 :ProcessPosition .
+
+
+###  http://www.w3id.org/elementary#action-kind-actuation
+:action-kind-actuation rdf:type owl:NamedIndividual ,
+                                :AutomationActionKind .
+
+
+###  http://www.w3id.org/elementary#action-kind-messaging
+:action-kind-messaging rdf:type owl:NamedIndividual ,
+                                :AutomationActionKind .
+
+
+###  http://www.w3id.org/elementary#action-kind-sensing
+:action-kind-sensing rdf:type owl:NamedIndividual ,
+                              :AutomationActionKind .
+
+
+###  http://www.w3id.org/elementary#air
+:air rdf:type owl:NamedIndividual ,
+              :Substance .
+
+
+###  http://www.w3id.org/elementary#analog_signal
+:analog_signal rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3id.org/elementary#bypass
+:bypass rdf:type owl:NamedIndividual ,
+                 :ProcessPosition .
+
+
+###  http://www.w3id.org/elementary#chemical_energy
+:chemical_energy rdf:type owl:NamedIndividual ,
+                          :EnergyForm .
+
+
+###  http://www.w3id.org/elementary#combustion
+:combustion rdf:type owl:NamedIndividual ,
+                     :ChemicalReaction .
+
+
+###  http://www.w3id.org/elementary#contained
+:contained rdf:type owl:NamedIndividual ,
+                    :ProcessPosition .
+
+
+###  http://www.w3id.org/elementary#control_signal
+:control_signal rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3id.org/elementary#digital_signal
+:digital_signal rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3id.org/elementary#electrical_energy
+:electrical_energy rdf:type owl:NamedIndividual ,
+                            :EnergyForm .
+
+
+###  http://www.w3id.org/elementary#force
+:force rdf:type owl:NamedIndividual ,
+                :MechanicalForce .
+
+
+###  http://www.w3id.org/elementary#fuel
+:fuel rdf:type owl:NamedIndividual ,
+               :Substance .
+
+
+###  http://www.w3id.org/elementary#gas
+:gas rdf:type owl:NamedIndividual ,
+              :PhysicalState .
+
+
+###  http://www.w3id.org/elementary#inflow
+:inflow rdf:type owl:NamedIndividual ,
+                 :ProcessPosition ;
+        owl:sameAs :inlet .
+
+
+###  http://www.w3id.org/elementary#inlet
+
+###  http://www.w3id.org/elementary#inlet
+:inlet rdf:type owl:NamedIndividual ,
+                :ProcessPosition .
+
+
+###  http://www.w3id.org/elementary#kinetic_energy
+:kinetic_energy rdf:type owl:NamedIndividual ,
+                         :EnergyForm .
+
+
+###  http://www.w3id.org/elementary#liquid
+:liquid rdf:type owl:NamedIndividual ,
+                 :PhysicalState .
+
+
+###  http://www.w3id.org/elementary#mechanical_energy
+:mechanical_energy rdf:type owl:NamedIndividual ,
+                            :EnergyForm .
+
+
+###  http://www.w3id.org/elementary#mechanical_force
+:mechanical_force rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3id.org/elementary#oil
+:oil rdf:type owl:NamedIndividual ,
+              :Substance .
+
+
+###  http://www.w3id.org/elementary#outlet
+:outlet rdf:type owl:NamedIndividual ,
+                 :ProcessPosition ;
+        owl:sameAs :outlfow .
+
+
+###  http://www.w3id.org/elementary#outlfow
+
+###  http://www.w3id.org/elementary#outlfow
+:outlfow rdf:type owl:NamedIndividual ,
+                  :ProcessPosition .
+
+
+###  http://www.w3id.org/elementary#plasma
+:plasma rdf:type owl:NamedIndividual ,
+                 :PhysicalState .
+
+
+###  http://www.w3id.org/elementary#pressurization
+:pressurization rdf:type owl:NamedIndividual ,
+                         :ElectroMechanicalConversion .
+
+
+###  http://www.w3id.org/elementary#signal-communication-message
+:signal-communication-message rdf:type owl:NamedIndividual ,
+                                       :ElectricalSignalKind .
+
+
+###  http://www.w3id.org/elementary#signal-continuous-analog-value
+:signal-continuous-analog-value rdf:type owl:NamedIndividual ,
+                                         :ElectricalSignalKind .
+
+
+###  http://www.w3id.org/elementary#signal-multistate-value
+:signal-multistate-value rdf:type owl:NamedIndividual ,
+                                  :ElectricalSignalKind .
+
+
+###  http://www.w3id.org/elementary#singal-binary-value
+:singal-binary-value rdf:type owl:NamedIndividual ,
+                              :ElectricalSignalKind .
+
+
+###  http://www.w3id.org/elementary#solid
+:solid rdf:type owl:NamedIndividual ,
+                :PhysicalState .
+
+
+###  http://www.w3id.org/elementary#solid_material
+:solid_material rdf:type owl:NamedIndividual ,
+                         :Substance .
+
+
+###  http://www.w3id.org/elementary#thermal_energy
+:thermal_energy rdf:type owl:NamedIndividual ,
+                         :EnergyForm .
+
+
+###  http://www.w3id.org/elementary#torsional_force
+:torsional_force rdf:type owl:NamedIndividual ,
+                          :MechanicalForce .
+
+
+###  http://www.w3id.org/elementary#water
+:water rdf:type owl:NamedIndividual ,
+                :Substance .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

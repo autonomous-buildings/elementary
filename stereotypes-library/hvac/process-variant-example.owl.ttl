@@ -1,0 +1,400 @@
+@prefix : <http://www.example.org/process_variant_ahu/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.example.org/process_variant_ahu/> .
+
+<http://www.example.org/process_variant_ahu> rdf:type owl:Ontology ;
+                                              owl:imports <http://www.w3id.org/elementary> ,
+                                                          <http://www.w3id.org/elementary/applications/hvac> .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://www.w3id.org/elementary#hasVariant
+<http://www.w3id.org/elementary#hasVariant> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3id.org/elementary#ifExists
+<http://www.w3id.org/elementary#ifExists> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3id.org/elementary#isAbstract
+<http://www.w3id.org/elementary#isAbstract> rdf:type owl:AnnotationProperty .
+
+
+###  http://www.w3id.org/elementary#optionalIfExists
+<http://www.w3id.org/elementary#optionalIfExists> rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.example.org/process_variant_ahu#bypass-damper
+:bypass-damper rdf:type owl:NamedIndividual ,
+                        <http://www.w3id.org/elementary#Component> ,
+                        <https://brickschema.org/schema/Brick#Damper> ;
+               <http://www.w3id.org/elementary#existence_implies> :bypass-stream ;
+               <http://www.w3id.org/elementary#isPartOf> :bypass-stream ;
+               <http://www.w3id.org/elementary#isOptional> "true"^^xsd:boolean .
+
+
+###  http://www.example.org/process_variant_ahu#bypass-temperature
+:bypass-temperature rdf:type owl:NamedIndividual ,
+                             <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
+                    <http://www.w3id.org/elementary#isPartOf> :bypass-stream .
+
+
+###  http://www.example.org/process_variant_ahu#conditioned-space
+:conditioned-space rdf:type owl:NamedIndividual ,
+                            <http://www.w3id.org/elementary#Component> ,
+                            <https://brickschema.org/schema/Brick#Space> .
+
+
+###  http://www.example.org/process_variant_ahu#economizer
+:economizer rdf:type owl:NamedIndividual ,
+                     <http://www.w3id.org/elementary#Component> ,
+                     <https://brickschema.org/schema/Brick#Economizer> ;
+            <http://www.w3id.org/elementary#existence_implies> :exhaust-stream ,
+                                                               :extract-stream ,
+                                                               :outside-air-stream ,
+                                                               :supply-stream ;
+            <http://www.w3id.org/elementary#feeds> :supply-fan ,
+                                                   :exhaust-stream ;
+            <http://www.w3id.org/elementary#isOptional> "true"^^xsd:boolean .
+
+
+###  http://www.example.org/process_variant_ahu#exhaust-damper
+:exhaust-damper rdf:type owl:NamedIndividual ,
+                         <https://brickschema.org/schema/Brick#Damper> ,
+                         <https://brickschema.org/schema/Brick#Exhaust_Damper> ;
+                <http://www.w3id.org/elementary#isPartOf> :exhaust-stream .
+
+
+###  http://www.example.org/process_variant_ahu#exhaust-temperature
+:exhaust-temperature rdf:type owl:NamedIndividual ,
+                              <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
+                     <http://www.w3id.org/elementary#isPartOf> :exhaust-stream .
+
+
+###  http://www.example.org/process_variant_ahu#extract-air-damper
+:extract-air-damper rdf:type owl:NamedIndividual ,
+                             <http://www.w3id.org/elementary#Component> ,
+                             <https://brickschema.org/schema/Brick#Damper> ;
+                    <http://www.w3id.org/elementary#feeds> :economizer ,
+                                                           :extract-splitter ;
+                    <http://www.w3id.org/elementary#isPartOf> :extract-stream .
+
+
+###  http://www.example.org/process_variant_ahu#extract-air-humidity
+:extract-air-humidity rdf:type owl:NamedIndividual ,
+                               <http://www.w3id.org/elementary#Sensor> ,
+                               <https://brickschema.org/schema/Brick#Humidity_Sensor> ;
+                      <http://www.w3id.org/elementary#isPartOf> :extract-stream .
+
+
+###  http://www.example.org/process_variant_ahu#extract-air-quality
+:extract-air-quality rdf:type owl:NamedIndividual ,
+                              <http://www.w3id.org/elementary#Sensor> ,
+                              <https://brickschema.org/schema/Brick#Air_Quality_Sensor> ;
+                     <http://www.w3id.org/elementary#precedes> :extract-fan ;
+                     <http://www.w3id.org/elementary#succedes> :conditioned-space .
+
+
+###  http://www.example.org/process_variant_ahu#extract-air-temperature
+:extract-air-temperature rdf:type owl:NamedIndividual ,
+                                  <http://www.w3id.org/elementary#Sensor> ,
+                                  <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
+                         <http://www.w3id.org/elementary#isPartOf> :extract-stream ;
+                         <http://www.w3id.org/elementary#precedes> :extract-fan .
+
+
+###  http://www.example.org/process_variant_ahu#extract-damper
+:extract-damper rdf:type owl:NamedIndividual ,
+                         <https://brickschema.org/schema/Brick#Damper> ;
+                <http://www.w3id.org/elementary#isPartOf> :extract-stream ;
+                <http://www.w3id.org/elementary#succedes> :extract-fan .
+
+
+###  http://www.example.org/process_variant_ahu#extract-fan
+:extract-fan rdf:type owl:NamedIndividual ,
+                      <http://www.w3id.org/elementary#Component> ,
+                      <https://brickschema.org/schema/Brick#Fan> ;
+             <http://www.w3id.org/elementary#fedBy> :conditioned-space ;
+             <http://www.w3id.org/elementary#feeds> :extract-air-damper ;
+             <http://www.w3id.org/elementary#hasStereotype> <http://www.w3id.org/elementary/applications/hvac#stype_centrifugal-fan> ;
+             <http://www.w3id.org/elementary#isPartOf> :extract-stream .
+
+
+###  http://www.example.org/process_variant_ahu#extract-pressure
+:extract-pressure rdf:type owl:NamedIndividual ,
+                           <https://brickschema.org/schema/Brick#Pressure_Sensor> ;
+                  <http://www.w3id.org/elementary#isPartOf> :extract-stream .
+
+
+###  http://www.example.org/process_variant_ahu#extract-splitter
+:extract-splitter rdf:type owl:NamedIndividual ,
+                           <http://www.w3id.org/elementary#Component> ;
+                  <http://www.w3id.org/elementary#feeds> :bypass-stream ,
+                                                         :exhaust-stream .
+
+
+###  http://www.example.org/process_variant_ahu#frost-sensor
+:frost-sensor rdf:type owl:NamedIndividual ,
+                       <http://www.w3id.org/elementary#Sensor> ,
+                       <https://brickschema.org/schema/Brick#Frost_Sensor> ;
+              <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+              <http://www.w3id.org/elementary#succedes> :heating-coil .
+
+
+###  http://www.example.org/process_variant_ahu#heating-coil
+:heating-coil rdf:type owl:NamedIndividual ,
+                       <http://www.w3id.org/elementary#Component> ,
+                       <https://brickschema.org/schema/Brick#Heat_Exchanger> ;
+              <http://www.w3id.org/elementary#existence_implies> :supply-fan ;
+              <http://www.w3id.org/elementary#feeds> :cooling-coil ;
+              <http://www.w3id.org/elementary#hasStereotype> <http://www.w3id.org/elementary/applications/hvac#stype_forced-flow-heat-exchanger> ;
+              <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+              <http://www.w3id.org/elementary#isOptional> "true"^^xsd:boolean .
+
+
+###  http://www.example.org/process_variant_ahu#mixed-air-temperature
+:mixed-air-temperature rdf:type owl:NamedIndividual ,
+                                <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
+                       <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+                       <http://www.w3id.org/elementary#precedes> :heating-coil ,
+                                                                 :cooling-coil ;
+                       <http://www.w3id.org/elementary#succedes> :supply-mixer .
+
+
+###  http://www.example.org/process_variant_ahu#outside-air-filter-differential-pressure
+:outside-air-filter-differential-pressure rdf:type owl:NamedIndividual ,
+                                                   <http://www.w3id.org/elementary#Sensor> ;
+                                          <http://www.w3id.org/elementary#connectedAcross> :outside-air-filter ;
+                                          <http://www.w3id.org/elementary#dealsWithStuff> <http://www.w3id.org/elementary#air> ;
+                                          <http://www.w3id.org/elementary#hasQuantityKind> <http://qudt.org/vocab/quantitykind/Pressure> .
+
+
+###  http://www.example.org/process_variant_ahu#outside-damper
+:outside-damper rdf:type owl:NamedIndividual ,
+                         <https://brickschema.org/schema/Brick#Damper> ;
+                <http://www.w3id.org/elementary#isPartOf> :outside-air-stream .
+
+
+###  http://www.example.org/process_variant_ahu#outside-temperature
+:outside-temperature rdf:type owl:NamedIndividual ,
+                              <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
+                     <http://www.w3id.org/elementary#isPartOf> :outside-air-stream .
+
+
+###  http://www.example.org/process_variant_ahu#pre-heating-coil
+:pre-heating-coil rdf:type owl:NamedIndividual ,
+                           <http://www.w3id.org/elementary#Component> ,
+                           <https://brickschema.org/schema/Brick#Heat_Exchanger> ;
+                  <http://www.w3id.org/elementary#feeds> :supply-fan ;
+                  <http://www.w3id.org/elementary#hasStereotype> <http://www.w3id.org/elementary/applications/hvac#stype_forced-flow-heat-exchanger> ;
+                  <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+                  <http://www.w3id.org/elementary#isOptional> "true"^^xsd:boolean .
+
+
+###  http://www.example.org/process_variant_ahu#supply-air-humidity
+:supply-air-humidity rdf:type owl:NamedIndividual ,
+                              <http://www.w3id.org/elementary#Sensor> ,
+                              <https://brickschema.org/schema/Brick#Humidity_Sensor> ;
+                     <http://www.w3id.org/elementary#hasQuantityKind> <https://brickschema.org/schema/Brick#Relative_Humidity> ;
+                     <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+                     <http://www.w3id.org/elementary#precedes> :conditioned-space .
+
+
+###  http://www.example.org/process_variant_ahu#supply-air-temperature
+:supply-air-temperature rdf:type owl:NamedIndividual ,
+                                 <http://www.w3id.org/elementary#Sensor> ,
+                                 <https://brickschema.org/schema/Brick#Temperature_Sensor> ;
+                        <http://www.w3id.org/elementary#hasQuantityKind> <http://qudt.org/vocab/quantitykind/Temperature> ;
+                        <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+                        <http://www.w3id.org/elementary#precedes> :conditioned-space .
+
+
+###  http://www.example.org/process_variant_ahu#supply-fan
+:supply-fan rdf:type owl:NamedIndividual ,
+                     <http://www.w3id.org/elementary#Component> ,
+                     <https://brickschema.org/schema/Brick#Supply_Fan> ;
+            <http://www.w3id.org/elementary#feeds> :heating-coil ;
+            <http://www.w3id.org/elementary#hasStereotype> <http://www.w3id.org/elementary/applications/hvac#stype_centrifugal-fan> ;
+            <http://www.w3id.org/elementary#isPartOf> :supply-stream ,
+                                                      :variant-blow-or-draw ;
+            <http://www.w3id.org/elementary#isOptional> "false"^^xsd:boolean ;
+            <http://www.w3id.org/elementary#mayHaveParallelInstances> "true"^^xsd:boolean ;
+            <http://www.w3id.org/elementary#mayHaveSeriesInstances> "true"^^xsd:boolean .
+
+
+###  http://www.example.org/process_variant_ahu#supply-mixer
+:supply-mixer rdf:type owl:NamedIndividual ,
+                       <http://www.w3id.org/elementary#Component> ;
+              <http://www.w3id.org/elementary#existence_hasToExistInTheAbsenceOf> :economizer ;
+              <http://www.w3id.org/elementary#feeds> :supply-fan ,
+                                                     :supply-stream .
+
+
+###  http://www.example.org/process_variant_ahu#supply-pressure
+:supply-pressure rdf:type owl:NamedIndividual ,
+                          <https://brickschema.org/schema/Brick#Pressure_Sensor> ;
+                 <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+                 <http://www.w3id.org/elementary#precedes> :conditioned-space .
+
+
+###  http://www.example.org/process_variant_ahu/bypass-stream
+:bypass-stream rdf:type owl:NamedIndividual ,
+                        <http://www.w3id.org/elementary#Stream> ;
+               <http://www.w3id.org/elementary#existence_and> :extract-splitter ,
+                                                              :supply-mixer ;
+               <http://www.w3id.org/elementary#existence_implies> :exhaust-stream ,
+                                                                  :extract-stream ,
+                                                                  :outside-air-stream ,
+                                                                  :supply-stream ;
+               <http://www.w3id.org/elementary#feeds> :supply-mixer ;
+               <http://www.w3id.org/elementary#isOptional> "true"^^xsd:boolean ;
+               <http://www.w3id.org/elementary#ifExists> :extract-stream .
+
+
+###  http://www.example.org/process_variant_ahu/cooling-coil
+:cooling-coil rdf:type owl:NamedIndividual ,
+                       <http://www.w3id.org/elementary#Component> ,
+                       <https://brickschema.org/schema/Brick#Cooling_Coil> ;
+              <http://www.w3id.org/elementary#existence_implies> :supply-fan ;
+              <http://www.w3id.org/elementary#hasStereotype> <http://www.w3id.org/elementary/applications/hvac#stype_forced-flow-heat-exchanger> ;
+              <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+              <http://www.w3id.org/elementary#isOptional> "true"^^xsd:boolean ;
+              <http://www.w3id.org/elementary#optionalIfExists> <http://www.example.org/process_variant/heatex> ;
+              <http://www.w3id.org/elementary#precedes> <http://www.example.org/process_variant/heatex> .
+
+
+###  http://www.example.org/process_variant_ahu/exhaust-stream
+:exhaust-stream rdf:type owl:NamedIndividual ,
+                         <http://www.w3id.org/elementary#Stream> ;
+                <http://www.w3id.org/elementary#isOptional> "true"^^xsd:boolean ;
+                <http://www.w3id.org/elementary#ifExists> :extract-stream .
+
+
+###  http://www.example.org/process_variant_ahu/extract-stream
+:extract-stream rdf:type owl:NamedIndividual ,
+                         <http://www.w3id.org/elementary#Stream> ;
+                <http://www.w3id.org/elementary#dealsWithStuff> <http://www.w3id.org/elementary#air> .
+
+
+###  http://www.example.org/process_variant_ahu/humidifier
+:humidifier rdf:type owl:NamedIndividual ,
+                     <http://www.w3id.org/elementary#Component> ,
+                     <https://brickschema.org/schema/Brick#Humidifier> ;
+            <http://www.w3id.org/elementary#existence_implies> :supply-fan ;
+            <http://www.w3id.org/elementary#feeds> :conditioned-space ;
+            <http://www.w3id.org/elementary#hasStereotype> <http://www.w3id.org/elementary/applications/hvac#stype_humidifier> ;
+            <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+            <http://www.w3id.org/elementary#isOptional> "true"^^xsd:boolean ;
+            <http://www.w3id.org/elementary#isAbstract> "true"^^xsd:boolean .
+
+
+###  http://www.example.org/process_variant_ahu/outside-air-filter
+:outside-air-filter rdf:type owl:NamedIndividual ,
+                             <http://www.w3id.org/elementary#Component> ,
+                             <https://brickschema.org/schema/Brick#Filter> ;
+                    <http://www.w3id.org/elementary#feeds> :economizer ,
+                                                           :supply-mixer ;
+                    <http://www.w3id.org/elementary#isPartOf> :outside-air-stream ;
+                    <http://www.w3id.org/elementary#isOptional> "true"^^xsd:boolean ;
+                    <http://www.w3id.org/elementary#isAbstract> "true"^^xsd:boolean ;
+                    <http://www.w3id.org/elementary#precedes> <http://www.example.org/process_variant/variant-config> .
+
+
+###  http://www.example.org/process_variant_ahu/outside-air-stream
+:outside-air-stream rdf:type owl:NamedIndividual ,
+                             <http://www.w3id.org/elementary#Stream> ;
+                    <http://www.w3id.org/elementary#hasPart> :outside-air-filter ;
+                    <http://www.w3id.org/elementary#hasStreamKind> <http://www.w3id.org/elementary/applications/hvac#outside-air> .
+
+
+###  http://www.example.org/process_variant_ahu/supply-stream
+:supply-stream rdf:type owl:NamedIndividual ,
+                        <http://www.w3id.org/elementary#Stream> ;
+               <http://www.w3id.org/elementary#dealsWithStuff> <http://www.w3id.org/elementary#air> ;
+               <http://www.w3id.org/elementary#hasStreamKind> <http://www.w3id.org/elementary/applications/hvac#supply> ;
+               <http://www.w3id.org/elementary#isOptional> "false"^^xsd:boolean .
+
+
+###  http://www.example.org/process_variant_ahu/v1-heatex
+:v1-heatex rdf:type owl:NamedIndividual ,
+                    <http://www.w3id.org/elementary#Component> ,
+                    <https://brickschema.org/schema/Brick#Heating_Coil> ;
+           <http://www.w3id.org/elementary#feeds> :humidifier ;
+           <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+           <https://brickschema.org/schema/Brick#isAssociatedWith> :heating-coil ;
+           <http://www.w3id.org/elementary#isOptional> "true"^^xsd:boolean ;
+           <http://www.w3id.org/elementary#isAbstract> "true"^^xsd:boolean ;
+           <http://www.w3id.org/elementary#optionalIfExists> :coolex .
+
+
+###  http://www.example.org/process_variant_ahu/v1-supply-fan
+:v1-supply-fan rdf:type owl:NamedIndividual ,
+                        <http://www.w3id.org/elementary#Component> ,
+                        <https://brickschema.org/schema/Brick#Fan> ;
+               <http://www.w3id.org/elementary#fedBy> :economizer ,
+                                                      :supply-mixer ;
+               <http://www.w3id.org/elementary#feeds> :v1-heatex ;
+               <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+               <https://brickschema.org/schema/Brick#isAssociatedWith> :supply-fan ;
+               <http://www.w3id.org/elementary#isOptional> "false"^^xsd:boolean ;
+               <http://www.w3id.org/elementary#isAbstract> "true"^^xsd:boolean .
+
+
+###  http://www.example.org/process_variant_ahu/v2-heatex
+:v2-heatex rdf:type owl:NamedIndividual ,
+                    <http://www.w3id.org/elementary#Component> ,
+                    <https://brickschema.org/schema/Brick#Heating_Coil> ;
+           <http://www.w3id.org/elementary#feeds> :v2-supply-fan ;
+           <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+           <https://brickschema.org/schema/Brick#isAssociatedWith> :heating-coil ;
+           <http://www.w3id.org/elementary#isAbstract> "true"^^xsd:boolean ;
+           <http://www.w3id.org/elementary#precedes> <http://www.example.org/process_variant/v2-fan> .
+
+
+###  http://www.example.org/process_variant_ahu/v2-supply-fan
+:v2-supply-fan rdf:type owl:NamedIndividual ,
+                        <http://www.w3id.org/elementary#Component> ,
+                        <https://brickschema.org/schema/Brick#Fan> ;
+               <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+               <https://brickschema.org/schema/Brick#isAssociatedWith> :supply-fan ;
+               <http://www.w3id.org/elementary#isOptional> "false"^^xsd:boolean ;
+               <http://www.w3id.org/elementary#isAbstract> "true"^^xsd:boolean .
+
+
+###  http://www.example.org/process_variant_ahu/variant-1-blow
+:variant-1-blow rdf:type owl:NamedIndividual ,
+                         <http://www.w3id.org/elementary#Variant> ;
+                <http://www.w3id.org/elementary#hasPart> :v1-heatex ,
+                                                         :v1-supply-fan ;
+                <http://www.w3id.org/elementary#isPartOf> :supply-stream .
+
+
+###  http://www.example.org/process_variant_ahu/variant-2-draw
+:variant-2-draw rdf:type owl:NamedIndividual ,
+                         <http://www.w3id.org/elementary#Variant> ;
+                <http://www.w3id.org/elementary#hasPart> :v2-heatex ,
+                                                         :v2-supply-fan ;
+                <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+                <http://www.w3id.org/elementary#ifExists> :humidifier .
+
+
+###  http://www.example.org/process_variant_ahu/variant-blow-or-draw
+:variant-blow-or-draw rdf:type owl:NamedIndividual ,
+                               <http://www.w3id.org/elementary#VariableConfiguration> ;
+                      <http://www.w3id.org/elementary#feeds> :humidifier ;
+                      <http://www.w3id.org/elementary#isPartOf> :supply-stream ;
+                      <http://www.w3id.org/elementary#hasVariant> <http://www.example.org/process_variant/variant-1> ,
+                                                                  <http://www.example.org/process_variant/variant-2> .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
