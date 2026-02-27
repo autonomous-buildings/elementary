@@ -1,0 +1,86 @@
+#Insert feeds relationship between components
+PREFIX elem: <http://www.w3id.org/elementary#>
+INSERT {
+  ?x elem:feeds ?y .
+}
+WHERE {
+  ?x elem:hasConnectionPoint ?xp .
+  ?xp elem:feeds ?yp .
+  ?yp elem:isConnectionPointOf ?y .
+    minus {?x a elem:Stereotype}.
+    minus {?y a elem:Stereotype}.
+}
+
+#Insert Sensor observes Component relationship
+PREFIX elem: <http://www.w3id.org/elementary#>
+INSERT {
+  ?s elem:observesAtOutletOf ?c .
+}
+WHERE {
+  ?c elem:hasConnectionPoint ?cp.
+  ?cp a elem:OutletConnectionPoint.
+  ?s elem:hasConnectionPoint ?scp. ?scp a elem:SensoryInterface.
+  ?scp elem:observes ?cp.
+    minus {?c a elem:Stereotype}.
+    minus {?s a elem:Stereotype}.
+}
+
+#Link components to Stereotypes
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX elem: <http://www.w3id.org/elementary#>
+PREFIX brick: <https://brickschema.org/schema/Brick#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+INSERT {?c elem:hasStereotype ?stype } where {
+    ?c a brick:Equipment. minus {?c a elem:Stereotype}
+    ?c a ?cClass.
+        FILTER NOT EXISTS {
+        ?c rdf:type ?subClass2 .
+        ?subClass2 rdfs:subClassOf ?cClass.
+        FILTER (?subClass2 != ?cClass )
+    }
+    FILTER (?cClass != owl:NamedIndividual)
+  
+    # {?stype a ?cClass. } UNION
+    ?stype a elem:Stereotype.
+    ?stype a ?sClass. ?cClass rdfs:subClassOf* ?sClass.
+
+      	FILTER NOT EXISTS {
+            ?stype rdf:type ?subClass3 .
+            ?subClass3 rdfs:subClassOf ?sClass.
+            FILTER (?subClass2 != ?sClass )
+    	}
+    FILTER (?sClass != owl:NamedIndividual)
+
+}
+
+
+# Process reasoning
+PREFIX brick: <https://brickschema.org/schema/Brick#>
+PREFIX elem: <http://www.w3id.org/elementary#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX hvac: <http://www.w3id.org/elmentary/applications/hvac#>
+
+SELECT ?a ?a_stype ?a_pm ?a_mv ?a_dv ?a_dv_q ?a_dv_s
+       ?b ?b_stype ?b_pm ?b_mv ?b_dv
+WHERE {
+    ?a a elem:Component.  MINUS {?a a elem:Stereotype}.
+    ?a elem:hasStereotype ?a_stype.
+    ?a_stype elem:hasPhysicalMechanism ?a_pm.
+    ?a_pm elem:hasManipulatedVariable ?a_mv.
+    ?a_pm elem:hasDependentVariable ?a_dv.
+
+    {?a elem:feeds ?b.}  union {?a elem:feeds ?c. ?c elem:feeds ?b}.
+
+    ?b a elem:Component.  MINUS {?b a elem:Stereotype}.
+    ?b elem:hasStereotype ?b_stype.
+    ?b_stype elem:hasPhysicalMechanism ?b_pm.
+    ?b_pm elem:hasManipulatedVariable ?b_mv.
+    ?b_pm elem:hasDependentVariable ?b_dv.
+    ?a_dv elem:hasQuantity ?a_dv_q. 
+    ?b_mv elem:hasQuantity ?a_dv_q. 
+    ?a_stype elem:hasConnectionPoint ?a_cp. ?a_cp a elem:OutletConnectionPoint. ?a_cp elem:isRelatedToVariable ?a_dv. ?a_cp elem:dealsWithStuff ?a_dv_s.
+    ?b_stype elem:hasConnectionPoint ?b_cp. ?b_cp a elem:InletConnectionPoint. ?b_cp elem:isRelatedToVariable ?b_mv. ?b_cp elem:dealsWithStuff ?a_dv_s.
+ }

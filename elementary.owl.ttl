@@ -116,7 +116,8 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#contains
 :contains rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :isInTopologicalRelationTo .
+          rdfs:subPropertyOf :hasTopologicalRelationTo ;
+          rdfs:label "contains" .
 
 
 ###  http://www.w3id.org/elementary#datapointOf
@@ -228,13 +229,19 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#fedBy
 :fedBy rdf:type owl:ObjectProperty ;
-       rdfs:subPropertyOf :systemDesignRelation ;
-       owl:inverseOf :feeds .
+       rdfs:subPropertyOf :hasFlowRelationTo ;
+       owl:inverseOf :feeds ;
+       rdfs:label "fed by" .
 
 
 ###  http://www.w3id.org/elementary#feeds
 :feeds rdf:type owl:ObjectProperty ;
-       rdfs:subPropertyOf :systemDesignRelation .
+       rdfs:subPropertyOf :hasFlowRelationTo ;
+       owl:propertyChainAxiom ( :hasConnectionPoint
+                                :feeds
+                                :isConnectionPointOf
+                              ) ;
+       rdfs:label "feeds" .
 
 
 ###  http://www.w3id.org/elementary#hasCausationAction
@@ -254,9 +261,12 @@ owl:topObjectProperty owl:inverseOf :measures .
 :hasConnectionPoint rdf:type owl:ObjectProperty ;
                     owl:equivalentProperty :hasPort ;
                     rdfs:subPropertyOf :systemDesignRelation ;
+                    owl:inverseOf :isConnectionPointOf ;
                     owl:propertyChainAxiom ( :hasStereotype
                                              :hasConnectionPoint
-                                           ) .
+                                           ) ;
+                    rdfs:comment "has port" ;
+                    rdfs:label "has port" .
 
 
 ###  http://www.w3id.org/elementary#hasControlInput
@@ -271,16 +281,13 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#hasControlledVariable
 :hasControlledVariable rdf:type owl:ObjectProperty ;
-                       rdfs:subPropertyOf :hasIndependentVariable .
+                       rdfs:subPropertyOf :hasVariable .
 
 
 ###  http://www.w3id.org/elementary#hasDependentVariable
 :hasDependentVariable rdf:type owl:ObjectProperty ;
                       rdfs:subPropertyOf :hasVariable ;
-                      owl:propertyChainAxiom ( :hasStereotype
-                                               :hasPhysicalMechanism
-                                               :hasDependentVariable
-                                             ) .
+                      rdfs:comment "The variable that changes as an outcome of the process" .
 
 
 ###  http://www.w3id.org/elementary#hasEffect
@@ -291,6 +298,11 @@ owl:topObjectProperty owl:inverseOf :measures .
 ###  http://www.w3id.org/elementary#hasFaultMode
 :hasFaultMode rdf:type owl:ObjectProperty ;
               rdfs:subPropertyOf :automationRelation .
+
+
+###  http://www.w3id.org/elementary#hasFlowRelationTo
+:hasFlowRelationTo rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :systemDesignRelation .
 
 
 ###  http://www.w3id.org/elementary#hasGoal
@@ -308,10 +320,7 @@ owl:topObjectProperty owl:inverseOf :measures .
 ###  http://www.w3id.org/elementary#hasIndependentVariable
 :hasIndependentVariable rdf:type owl:ObjectProperty ;
                         rdfs:subPropertyOf :hasVariable ;
-                        owl:propertyChainAxiom ( :hasStereotype
-                                                 :hasPhysicalMechanism
-                                                 :hasIndependentVariable
-                                               ) .
+                        rdfs:comment "The variable that can be changed by an external agent" .
 
 
 ###  http://www.w3id.org/elementary#hasInlet
@@ -344,11 +353,8 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#hasManipulatedVariable
 :hasManipulatedVariable rdf:type owl:ObjectProperty ;
-                        rdfs:subPropertyOf :hasDependentVariable ;
-                        owl:propertyChainAxiom ( :hasStereotype
-                                                 :hasPhysicalMechanism
-                                                 :hasManipulatedVariable
-                                               ) .
+                        rdfs:subPropertyOf :hasIndependentVariable ;
+                        rdfs:comment "The variable that is foreseen to be manipulated by an external agent" .
 
 
 ###  http://www.w3id.org/elementary#hasMechanism
@@ -395,8 +401,9 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#hasPart
 :hasPart rdf:type owl:ObjectProperty ;
-         rdfs:subPropertyOf :isInTopologicalRelationTo ;
-         owl:inverseOf :isPartOf .
+         rdfs:subPropertyOf :hasTopologicalRelationTo ;
+         owl:inverseOf :isPartOf ;
+         rdfs:label "has part" .
 
 
 ###  http://www.w3id.org/elementary#hasPhysicalMechanism
@@ -409,7 +416,9 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#hasPort
 :hasPort rdf:type owl:ObjectProperty ;
-         rdfs:subPropertyOf :systemDesignRelation .
+         rdfs:subPropertyOf :systemDesignRelation ;
+         owl:inverseOf :isPortOf ;
+         rdfs:label "has port" .
 
 
 ###  http://www.w3id.org/elementary#hasPosition
@@ -435,6 +444,7 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#hasProcessPathway
 :hasProcessPathway rdf:type owl:ObjectProperty ;
+                   owl:equivalentProperty :isRelatedToStreamKind ;
                    rdfs:subPropertyOf :physicalProcessRelation .
 
 
@@ -496,6 +506,11 @@ owl:topObjectProperty owl:inverseOf :measures .
            rdfs:subPropertyOf :automationRelation .
 
 
+###  http://www.w3id.org/elementary#hasTopologicalRelationTo
+:hasTopologicalRelationTo rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf :systemDesignRelation .
+
+
 ###  http://www.w3id.org/elementary#hasUnits
 :hasUnits rdf:type owl:ObjectProperty ;
           rdfs:subPropertyOf :physicalProcessRelation .
@@ -503,11 +518,7 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#hasVariable
 :hasVariable rdf:type owl:ObjectProperty ;
-             rdfs:subPropertyOf :physicalProcessRelation ;
-             owl:propertyChainAxiom ( :hasStereotype
-                                      :hasPhysicalMechanism
-                                      :hasVariable
-                                    ) .
+             rdfs:subPropertyOf :physicalProcessRelation .
 
 
 ###  http://www.w3id.org/elementary#hasVariant
@@ -543,19 +554,21 @@ owl:topObjectProperty owl:inverseOf :measures .
                 rdfs:subPropertyOf :physicalProcessRelation .
 
 
+###  http://www.w3id.org/elementary#isConnectionPointOf
+:isConnectionPointOf rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :systemDesignRelation ;
+                     rdfs:label "is port of" .
+
+
 ###  http://www.w3id.org/elementary#isContainedIn
 :isContainedIn rdf:type owl:ObjectProperty ;
-               rdfs:subPropertyOf :isInTopologicalRelationTo .
+               rdfs:subPropertyOf :hasTopologicalRelationTo ;
+               rdfs:label "contained in" .
 
 
 ###  http://www.w3id.org/elementary#isFlowCompatibleTo
 :isFlowCompatibleTo rdf:type owl:ObjectProperty ;
                     rdfs:subPropertyOf :isCompatibleTo .
-
-
-###  http://www.w3id.org/elementary#isInTopologicalRelationTo
-:isInTopologicalRelationTo rdf:type owl:ObjectProperty ;
-                           rdfs:subPropertyOf :systemDesignRelation .
 
 
 ###  http://www.w3id.org/elementary#isIntendedFor
@@ -571,7 +584,19 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#isPartOf
 :isPartOf rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :isInTopologicalRelationTo .
+          rdfs:subPropertyOf :hasTopologicalRelationTo ;
+          rdfs:label "is part of" .
+
+
+###  http://www.w3id.org/elementary#isPortOf
+:isPortOf rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :systemDesignRelation ;
+          rdfs:label "is port of" .
+
+
+###  http://www.w3id.org/elementary#isRelatedToStreamKind
+:isRelatedToStreamKind rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :physicalProcessRelation .
 
 
 ###  http://www.w3id.org/elementary#isRelatedToVariable
@@ -624,10 +649,25 @@ owl:topObjectProperty owl:inverseOf :measures .
           rdfs:subPropertyOf :automationRelation .
 
 
+###  http://www.w3id.org/elementary#observesAtInletOf
+:observesAtInletOf rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :observes .
+
+
+###  http://www.w3id.org/elementary#observesAtOutletOf
+:observesAtOutletOf rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :observes .
+
+
 ###  http://www.w3id.org/elementary#observesAtPort
 :observesAtPort rdf:type owl:ObjectProperty ;
                 rdfs:subPropertyOf :relatedToPort ;
                 rdfs:comment "Relates a sensor to a port where a variable is observed" .
+
+
+###  http://www.w3id.org/elementary#observesInContainmentOf
+:observesInContainmentOf rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf :observes .
 
 
 ###  http://www.w3id.org/elementary#optionalIfExists
@@ -641,7 +681,7 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#precedes
 :precedes rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :isInTopologicalRelationTo ;
+          rdfs:subPropertyOf :hasTopologicalRelationTo ;
           owl:inverseOf :succedes .
 
 
@@ -677,7 +717,7 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#succedes
 :succedes rdf:type owl:ObjectProperty ;
-          rdfs:subPropertyOf :isInTopologicalRelationTo .
+          rdfs:subPropertyOf :hasTopologicalRelationTo .
 
 
 ###  http://www.w3id.org/elementary#suitableFor
@@ -929,6 +969,12 @@ owl:topObjectProperty owl:inverseOf :measures .
            rdfs:subClassOf :SystemDesignConcept .
 
 
+###  http://www.w3id.org/elementary#Conduit
+:Conduit rdf:type owl:Class ;
+         rdfs:subClassOf :Component ;
+         rdfs:label "Conduit" .
+
+
 ###  http://www.w3id.org/elementary#Connection
 :Connection rdf:type owl:Class ;
             rdfs:subClassOf :SystemDesignConcept .
@@ -937,12 +983,14 @@ owl:topObjectProperty owl:inverseOf :measures .
 ###  http://www.w3id.org/elementary#ConnectionPoint
 :ConnectionPoint rdf:type owl:Class ;
                  owl:equivalentClass :Port ;
-                 rdfs:subClassOf :SystemDesignConcept .
+                 rdfs:subClassOf :SystemDesignConcept ;
+                 rdfs:label "Port" .
 
 
 ###  http://www.w3id.org/elementary#Container
 :Container rdf:type owl:Class ;
-           rdfs:subClassOf :Component .
+           rdfs:subClassOf :Component ;
+           rdfs:label "Containment" .
 
 
 ###  http://www.w3id.org/elementary#Context
@@ -1009,11 +1057,6 @@ owl:topObjectProperty owl:inverseOf :measures .
                       rdfs:subClassOf :Connection .
 
 
-###  http://www.w3id.org/elementary#ElectricalCurrent
-:ElectricalCurrent rdf:type owl:Class ;
-                   rdfs:subClassOf :Flow .
-
-
 ###  http://www.w3id.org/elementary#ElectricalGrid
 :ElectricalGrid rdf:type owl:Class ;
                 rdfs:subClassOf :EnergySource .
@@ -1048,11 +1091,6 @@ owl:topObjectProperty owl:inverseOf :measures .
 ###  http://www.w3id.org/elementary#ElectromagneticRadiation
 :ElectromagneticRadiation rdf:type owl:Class ;
                           rdfs:subClassOf :EnergyTransfer .
-
-
-###  http://www.w3id.org/elementary#ElectrostaticForce
-:ElectrostaticForce rdf:type owl:Class ;
-                    rdfs:subClassOf :Effort .
 
 
 ###  http://www.w3id.org/elementary#Energy
@@ -1116,9 +1154,9 @@ owl:topObjectProperty owl:inverseOf :measures .
                     rdfs:comment "Description of a programs behaviour in terms of its states and transitions" .
 
 
-###  http://www.w3id.org/elementary#Flow
-:Flow rdf:type owl:Class ;
-      rdfs:subClassOf :PhysicalStuff .
+###  http://www.w3id.org/elementary#Fluid
+:Fluid rdf:type owl:Class ;
+       rdfs:subClassOf :Substance .
 
 
 ###  http://www.w3id.org/elementary#ForceTransfer
@@ -1141,6 +1179,11 @@ owl:topObjectProperty owl:inverseOf :measures .
                        rdfs:subClassOf :Requirement .
 
 
+###  http://www.w3id.org/elementary#Gas
+:Gas rdf:type owl:Class ;
+     rdfs:subClassOf :Fluid .
+
+
 ###  http://www.w3id.org/elementary#Gateway
 :Gateway rdf:type owl:Class ;
          rdfs:subClassOf :NetworkComponent .
@@ -1159,11 +1202,6 @@ owl:topObjectProperty owl:inverseOf :measures .
 ###  http://www.w3id.org/elementary#Goal
 :Goal rdf:type owl:Class ;
       rdfs:subClassOf :RequirementsConcept .
-
-
-###  http://www.w3id.org/elementary#GravitationalForce
-:GravitationalForce rdf:type owl:Class ;
-                    rdfs:subClassOf :Effort .
 
 
 ###  http://www.w3id.org/elementary#HardwareInputInterface
@@ -1206,7 +1244,8 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#InletConnectionPoint
 :InletConnectionPoint rdf:type owl:Class ;
-                      rdfs:subClassOf :ConnectionPoint .
+                      rdfs:subClassOf :ConnectionPoint ;
+                      rdfs:label "Inlet" .
 
 
 ###  http://www.w3id.org/elementary#Input
@@ -1231,6 +1270,11 @@ owl:topObjectProperty owl:inverseOf :measures .
        rdfs:comment "A parameter that constraints some value" .
 
 
+###  http://www.w3id.org/elementary#Liquid
+:Liquid rdf:type owl:Class ;
+        rdfs:subClassOf :Fluid .
+
+
 ###  http://www.w3id.org/elementary#LowLimit
 :LowLimit rdf:type owl:Class ;
           rdfs:subClassOf :Limit ;
@@ -1240,11 +1284,6 @@ owl:topObjectProperty owl:inverseOf :measures .
 ###  http://www.w3id.org/elementary#MagneticConnection
 :MagneticConnection rdf:type owl:Class ;
                     rdfs:subClassOf :Connection .
-
-
-###  http://www.w3id.org/elementary#MagneticForce
-:MagneticForce rdf:type owl:Class ;
-               rdfs:subClassOf :Effort .
 
 
 ###  http://www.w3id.org/elementary#MainsPoweredDevice
@@ -1291,11 +1330,6 @@ owl:topObjectProperty owl:inverseOf :measures .
 ###  http://www.w3id.org/elementary#MechanicalCoupling
 :MechanicalCoupling rdf:type owl:Class ;
                     rdfs:subClassOf :EnergyTransfer .
-
-
-###  http://www.w3id.org/elementary#MechanicalForce
-:MechanicalForce rdf:type owl:Class ;
-                 rdfs:subClassOf :Effort .
 
 
 ###  http://www.w3id.org/elementary#MechanicalPotential
@@ -1364,7 +1398,8 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#OutletConnectionPoint
 :OutletConnectionPoint rdf:type owl:Class ;
-                       rdfs:subClassOf :ConnectionPoint .
+                       rdfs:subClassOf :ConnectionPoint ;
+                       rdfs:label "Outlet" .
 
 
 ###  http://www.w3id.org/elementary#Output
@@ -1457,9 +1492,15 @@ owl:topObjectProperty owl:inverseOf :measures .
                 rdfs:subClassOf :PhysicalProcessTopology .
 
 
+###  http://www.w3id.org/elementary#Plasma
+:Plasma rdf:type owl:Class ;
+        rdfs:subClassOf :Substance .
+
+
 ###  http://www.w3id.org/elementary#Port
 :Port rdf:type owl:Class ;
-      rdfs:subClassOf :SystemDesignConcept .
+      rdfs:subClassOf :SystemDesignConcept ;
+      rdfs:label "Port" .
 
 
 ###  http://www.w3id.org/elementary#PoweredDevice
@@ -1562,7 +1603,8 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#SensoryInterface
 :SensoryInterface rdf:type owl:Class ;
-                  rdfs:subClassOf :AutomationHardwareConcept .
+                  rdfs:subClassOf :AutomationHardwareConcept ,
+                                  :ConnectionPoint .
 
 
 ###  http://www.w3id.org/elementary#Setpoint
@@ -1573,7 +1615,8 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#SignalConnectionPoint
 :SignalConnectionPoint rdf:type owl:Class ;
-                       rdfs:subClassOf :AutomationHardwareConcept .
+                       rdfs:subClassOf :AutomationHardwareConcept ,
+                                       :ConnectionPoint .
 
 
 ###  http://www.w3id.org/elementary#Sink
@@ -1584,6 +1627,11 @@ owl:topObjectProperty owl:inverseOf :measures .
 ###  http://www.w3id.org/elementary#SolarEnergy
 :SolarEnergy rdf:type owl:Class ;
              rdfs:subClassOf :EnergySource .
+
+
+###  http://www.w3id.org/elementary#Solid
+:Solid rdf:type owl:Class ;
+       rdfs:subClassOf :Substance .
 
 
 ###  http://www.w3id.org/elementary#Source
@@ -1601,14 +1649,21 @@ owl:topObjectProperty owl:inverseOf :measures .
             rdfs:subClassOf :SystemDesignConcept .
 
 
+###  http://www.w3id.org/elementary#StereotypicalComponent
+:StereotypicalComponent rdf:type owl:Class ;
+                        rdfs:subClassOf :Component .
+
+
 ###  http://www.w3id.org/elementary#Stream
 :Stream rdf:type owl:Class ;
-        rdfs:subClassOf :PhysicalProcessConcept .
+        rdfs:subClassOf :PhysicalProcessConcept ;
+        rdfs:label "Stream" .
 
 
 ###  http://www.w3id.org/elementary#StreamJoiner
 :StreamJoiner rdf:type owl:Class ;
-              rdfs:subClassOf :Component .
+              rdfs:subClassOf :Component ;
+              rdfs:label "Joiner" .
 
 
 ###  http://www.w3id.org/elementary#StreamKind
@@ -1618,7 +1673,8 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#StreamSplitter
 :StreamSplitter rdf:type owl:Class ;
-                rdfs:subClassOf :Component .
+                rdfs:subClassOf :Component ;
+                rdfs:label "Splitter" .
 
 
 ###  http://www.w3id.org/elementary#SubSystem
@@ -1722,7 +1778,7 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 ###  http://www.w3id.org/elementary#air
 :air rdf:type owl:NamedIndividual ,
-              :Substance .
+              :Gas .
 
 
 ###  http://www.w3id.org/elementary#analog_signal
@@ -1757,14 +1813,28 @@ owl:topObjectProperty owl:inverseOf :measures .
 :digital_signal rdf:type owl:NamedIndividual .
 
 
+###  http://www.w3id.org/elementary#electrical_arc
+:electrical_arc rdf:type owl:NamedIndividual ,
+                         :Plasma .
+
+
 ###  http://www.w3id.org/elementary#electrical_energy
 :electrical_energy rdf:type owl:NamedIndividual ,
                             :EnergyForm .
 
 
+###  http://www.w3id.org/elementary#electrical_power
+:electrical_power rdf:type owl:NamedIndividual ,
+                           :EnergyForm .
+
+
+###  http://www.w3id.org/elementary#electrostatic_force
+:electrostatic_force rdf:type owl:NamedIndividual ,
+                              :Effort .
+
+
 ###  http://www.w3id.org/elementary#force
-:force rdf:type owl:NamedIndividual ,
-                :MechanicalForce .
+:force rdf:type owl:NamedIndividual .
 
 
 ###  http://www.w3id.org/elementary#fuel
@@ -1772,9 +1842,34 @@ owl:topObjectProperty owl:inverseOf :measures .
                :Substance .
 
 
-###  http://www.w3id.org/elementary#gas
-:gas rdf:type owl:NamedIndividual ,
-              :PhysicalState .
+###  http://www.w3id.org/elementary#gaseous
+:gaseous rdf:type owl:NamedIndividual ,
+                  :PhysicalState .
+
+
+###  http://www.w3id.org/elementary#generic_fluid
+:generic_fluid rdf:type owl:NamedIndividual ,
+                        :Fluid .
+
+
+###  http://www.w3id.org/elementary#generic_gas
+:generic_gas rdf:type owl:NamedIndividual ,
+                      :Gas .
+
+
+###  http://www.w3id.org/elementary#generic_liquid
+:generic_liquid rdf:type owl:NamedIndividual ,
+                         :Liquid .
+
+
+###  http://www.w3id.org/elementary#generic_solid
+:generic_solid rdf:type owl:NamedIndividual ,
+                        :Solid .
+
+
+###  http://www.w3id.org/elementary#gravitational_force
+:gravitational_force rdf:type owl:NamedIndividual ,
+                              :Effort .
 
 
 ###  http://www.w3id.org/elementary#inflow
@@ -1800,17 +1895,29 @@ owl:topObjectProperty owl:inverseOf :measures .
                  :PhysicalState .
 
 
+###  http://www.w3id.org/elementary#magnetic_force
+:magnetic_force rdf:type owl:NamedIndividual ,
+                         :Effort .
+
+
 ###  http://www.w3id.org/elementary#mechanical_energy
 :mechanical_energy rdf:type owl:NamedIndividual ,
                             :EnergyForm .
 
 
 ###  http://www.w3id.org/elementary#mechanical_force
-:mechanical_force rdf:type owl:NamedIndividual .
+:mechanical_force rdf:type owl:NamedIndividual ,
+                           :Effort .
+
+
+###  http://www.w3id.org/elementary#mechanical_power
+:mechanical_power rdf:type owl:NamedIndividual ,
+                           :EnergyForm .
 
 
 ###  http://www.w3id.org/elementary#oil
 :oil rdf:type owl:NamedIndividual ,
+              :Liquid ,
               :Substance .
 
 
@@ -1873,13 +1980,12 @@ owl:topObjectProperty owl:inverseOf :measures .
 
 
 ###  http://www.w3id.org/elementary#torsional_force
-:torsional_force rdf:type owl:NamedIndividual ,
-                          :MechanicalForce .
+:torsional_force rdf:type owl:NamedIndividual .
 
 
 ###  http://www.w3id.org/elementary#water
 :water rdf:type owl:NamedIndividual ,
-                :Substance .
+                :Liquid .
 
 
 ###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
