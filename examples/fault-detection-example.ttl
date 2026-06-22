@@ -1,0 +1,109 @@
+@prefix : <http://www.example.org/fdd-example/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.example.org/fdd-example/> .
+
+<http://www.example.org/fdd-example> rdf:type owl:Ontology ;
+                                      owl:imports <http://w3id.org/hvac> ,
+                                                  <http://www.w3id.org/elementary> .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://w3id.org/hvac#Coil
+<http://w3id.org/hvac#Coil> rdf:type owl:Class .
+
+
+###  http://w3id.org/hvac#Valve
+<http://w3id.org/hvac#Valve> rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.example.org/fdd-example#fdd_failurecause_valve_actuator_jammed_gear_wearout
+:fdd_failurecause_valve_actuator_jammed_gear_wearout rdf:type owl:NamedIndividual ,
+                                                              <http://www.w3id.org/elementary#FailureCause> .
+
+
+###  http://www.example.org/fdd-example#fdd_failurecause_valve_sealing_wearout
+:fdd_failurecause_valve_sealing_wearout rdf:type owl:NamedIndividual ,
+                                                 <http://www.w3id.org/elementary#FailureCause> .
+
+
+###  http://www.example.org/fdd-example#fdd_failureeffect_precondition_valve_acuatator_jammed
+:fdd_failureeffect_precondition_valve_acuatator_jammed rdf:type owl:NamedIndividual ,
+                                                                <http://www.w3id.org/elementary#AssertionExpression> ;
+                                                       <http://www.w3id.org/elementary#failureEffectDescription> "var_fluid_inlet_pressure > var_fluid_outlet_pressure" .
+
+
+###  http://www.example.org/fdd-example#fdd_failureeffect_valve_acutator_jammed
+:fdd_failureeffect_valve_acutator_jammed rdf:type owl:NamedIndividual ,
+                                                  <http://www.w3id.org/elementary#FailureEffect> ;
+                                         <http://www.w3id.org/elementary#hasEffectPrecondition> :fdd_failureeffect_precondition_valve_acuatator_jammed ;
+                                         <http://www.w3id.org/elementary#failureEffectDescription> """condition: var_fluid_inlet_pressure > 0
+target: var_fluid_flow_rate
+assertion: correlation(var_orifice_opening_ratio, var_fluid_flowrate) != 0
+window: 5000ms""" .
+
+
+###  http://www.example.org/fdd-example#fdd_failureeffect_valve_leak
+:fdd_failureeffect_valve_leak rdf:type owl:NamedIndividual ,
+                                       <http://www.w3id.org/elementary#FailureEffect> ;
+                              <http://www.w3id.org/elementary#hasDependentVariable> <http://www.w3id.org/elmentary/applications/hvac#var_fluid_flow_rate> ;
+                              <http://www.w3id.org/elementary#hasIndependentVariable> <http://www.w3id.org/elmentary/applications/hvac#var_orifice_opening_ratio> ;
+                              <http://www.w3id.org/elementary#failureEffectDescription> """condition: var_oriifice_opening_ratio = 0
+target: var_fluid_flow_rate
+transform: avg_flow = AVG
+assertion: avg > 0.02  max(var_flow_rate) 
+window: 5000ms""" .
+
+
+###  http://www.example.org/fdd-example#fdd_failuremode_valve_actuator_jammed
+:fdd_failuremode_valve_actuator_jammed rdf:type owl:NamedIndividual ,
+                                                <http://www.w3id.org/elementary#FailureMode> ;
+                                       <http://www.w3id.org/elementary#hasFailureCause> :fdd_failurecause_valve_actuator_jammed_gear_wearout ;
+                                       <http://www.w3id.org/elementary#hasFailureEffect> :fdd_failureeffect_valve_acutator_jammed .
+
+
+###  http://www.example.org/fdd-example#fdd_failuremode_valve_leak
+:fdd_failuremode_valve_leak rdf:type owl:NamedIndividual ,
+                                     <http://www.w3id.org/elementary#FailureMode> ;
+                            <http://www.w3id.org/elementary#hasFailureCause> :fdd_failurecause_valve_sealing_wearout ;
+                            <http://www.w3id.org/elementary#hasFailureEffect> :fdd_failureeffect_valve_leak .
+
+
+###  http://www.example.org/fdd-example#heatexchanger101
+:heatexchanger101 rdf:type owl:NamedIndividual ,
+                           <http://w3id.org/hvac#Coil> .
+
+
+###  http://www.example.org/fdd-example#valve101
+:valve101 rdf:type owl:NamedIndividual ,
+                   <http://w3id.org/hvac#Valve> ;
+          <http://www.w3id.org/elementary#feeds> :heatexchanger101 ;
+          <http://www.w3id.org/elementary#hasFailureMode> :fdd_failuremode_valve_actuator_jammed ,
+                                                          :fdd_failuremode_valve_leak ;
+          <http://www.w3id.org/elementary#hasFunctionalRole> :valve101_role .
+
+
+###  http://www.example.org/fdd-example#valve101_role
+:valve101_role rdf:type owl:NamedIndividual ,
+                        <http://www.w3id.org/elementary#ComponentRole> ;
+               <http://www.w3id.org/elementary#manipulates> <http://www.w3id.org/elmentary/applications/hvac#var_fluid_flow_rate> .
+
+
+###  http://www.w3id.org/elmentary/applications/hvac#var_fluid_flow_rate
+<http://www.w3id.org/elmentary/applications/hvac#var_fluid_flow_rate> rdf:type owl:NamedIndividual .
+
+
+###  http://www.w3id.org/elmentary/applications/hvac#var_orifice_opening_ratio
+<http://www.w3id.org/elmentary/applications/hvac#var_orifice_opening_ratio> rdf:type owl:NamedIndividual .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

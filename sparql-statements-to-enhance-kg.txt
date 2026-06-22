@@ -1,38 +1,11 @@
-#Insert feeds relationship between components
-PREFIX elem: <http://www.w3id.org/elementary#>
-INSERT {
-  ?x elem:feeds ?y .
-}
-WHERE {
-  ?x elem:hasConnectionPoint ?xp .
-  ?xp elem:feeds ?yp .
-  ?yp elem:isConnectionPointOf ?y .
-    minus {?x a elem:Stereotype}.
-    minus {?y a elem:Stereotype}.
-}
-
-#Insert Sensor observes Component relationship
-PREFIX elem: <http://www.w3id.org/elementary#>
-INSERT {
-  ?s elem:observesAtOutletOf ?c .
-}
-WHERE {
-  ?c elem:hasConnectionPoint ?cp.
-  ?cp a elem:OutletConnectionPoint.
-  ?s elem:hasConnectionPoint ?scp. ?scp a elem:SensoryInterface.
-  ?scp elem:observes ?cp.
-    minus {?c a elem:Stereotype}.
-    minus {?s a elem:Stereotype}.
-}
-
-#Link components to Stereotypes
+#Link components to their Stereotype
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX elem: <http://www.w3id.org/elementary#>
 PREFIX brick: <https://brickschema.org/schema/Brick#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 INSERT {?c elem:hasStereotype ?stype } where {
-    ?c a brick:Equipment. minus {?c a elem:Stereotype}
+    ?c a elem:Component. minus {?c a elem:Stereotype}
     ?c a ?cClass.
         FILTER NOT EXISTS {
         ?c rdf:type ?subClass2 .
@@ -54,6 +27,61 @@ INSERT {?c elem:hasStereotype ?stype } where {
 
 }
 
+#Insert feeds relationship between components
+PREFIX elem: <http://www.w3id.org/elementary#>
+INSERT {
+  ?x elem:feeds ?y .
+}
+WHERE {
+  ?x elem:hasConnectionPoint ?xp .
+  ?xp elem:feeds ?yp .
+  ?yp elem:isConnectionPointOf ?y .
+    minus {?x a elem:Stereotype}.
+    minus {?y a elem:Stereotype}.
+}
+
+
+#Inserts upstream effects
+PREFIX elem: <http://www.w3id.org/elementary#>
+INSERT {
+  ?x elem:hasUpstreamEffectOn ?y .
+}
+WHERE {
+  ?x elem:hasStereotype ?xs.
+  ?xs elem:hasPhysicalMechanism ?xpm.
+  ?xpm elem:affectedUpstreamVariable ?xpmuv.
+  ?y elem:feeds* ?x.
+  ?y elem:hasStereotype ?ys.
+  ?ys elem:hasPhysicalMechanism ?ypm.
+  ?ypm elem:hasIndependentVariable ?ypmiv.
+
+  ?xs elem:hasConnectionPoint ?xscp.
+  ?xscp elem:isRelatedToVariable ?xpmuv.
+  ?xscp elem:dealsWithStuff ?stuff.
+  ?xpmuv elem:hasQuantity ?quantity.
+    
+  ?ys elem:hasConnectionPoint ?yscp.
+  ?yscp elem:isRelatedToVariable ?ypmiv.
+  ?yscp elem:dealsWithStuff ?stuff.
+  ?ypmiv elem:hasQuantity ?quantity.
+    minus {?x a elem:Stereotype}.
+    minus {?y a elem:Stereotype}.
+    FILTER(?x != ?y)
+}
+
+#Insert Sensor observes Component relationship
+PREFIX elem: <http://www.w3id.org/elementary#>
+INSERT {
+  ?s elem:observesAtOutletOf ?c .
+}
+WHERE {
+  ?c elem:hasConnectionPoint ?cp.
+  ?cp a elem:OutletConnectionPoint.
+  ?s elem:hasConnectionPoint ?scp. ?scp a elem:SensoryInterface.
+  ?scp elem:observes ?cp.
+    minus {?c a elem:Stereotype}.
+    minus {?s a elem:Stereotype}.
+}
 
 # Process reasoning
 PREFIX brick: <https://brickschema.org/schema/Brick#>
@@ -63,8 +91,8 @@ PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX hvac: <http://www.w3id.org/elmentary/applications/hvac#>
 
-SELECT ?a ?a_stype ?a_pm ?a_mv ?a_dv ?a_dv_q ?a_dv_s
-       ?b ?b_stype ?b_pm ?b_mv ?b_dv
+SELECT DISTINCT ?a ?a_stype ?a_pm ?a_mv ?a_dv ?a_dv_q ?a_dv_s
+       ?b ?b_stype ?b_pm ?b_mv ?b_dv ?relation
 WHERE {
     ?a a elem:Component.  MINUS {?a a elem:Stereotype}.
     ?a elem:hasStereotype ?a_stype.
@@ -72,8 +100,9 @@ WHERE {
     ?a_pm elem:hasManipulatedVariable ?a_mv.
     ?a_pm elem:hasDependentVariable ?a_dv.
 
-    {?a elem:feeds ?b.}  union {?a elem:feeds ?c. ?c elem:feeds ?b}.
-
+    {?a elem:feeds ?b.}  union {?a elem:feeds ?c. ?c elem:feeds ?b} union {?a elem:hasUpstreamEffectOn ?b. ?a elem:isPartOf ?stream. ?b elem:isPartOf ?stream.}.
+    {?a ?relation ?b}union{?a ?relation ?c. ?c ?relation ?b}.  FILTER(?relation IN (elem:feeds, elem:hasUpstreamEffectOn)).
+    
     ?b a elem:Component.  MINUS {?b a elem:Stereotype}.
     ?b elem:hasStereotype ?b_stype.
     ?b_stype elem:hasPhysicalMechanism ?b_pm.

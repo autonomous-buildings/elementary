@@ -1,0 +1,2369 @@
+@prefix : <http://www.w3id.org/elementary#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://www.w3id.org/elementary#> .
+
+<http://www.w3id.org/elementary> rdf:type owl:Ontology ;
+                                  <http://purl.org/dc/elements/1.1/creator> "Ganesh Ramanathan" ,
+                                                                            "This ontology is distributed uner a Creative Commons Attribution License" ;
+                                  <http://purl.org/dc/elements/1.1/date> "2024-07-01" ;
+                                  <http://purl.org/dc/elements/1.1/description> "https://autonomous-buildings.github.io/elementary/diagrams/automation-overview.png"^^xsd:anyURI ,
+                                                                                "Elemenary is a high-level ontology that enables the creation of a holistic system description of electro-mechanical systems and its automation." ;
+                                  rdfs:comment "An ontology for describing electro-mechanical systems and its automation. This ontology provides a foundational vocabulary for modeling components, physical processes, automation logic, and requirements within complex systems, with a particular emphasis on applications in Building Automation and HVAC (Heating, Ventilation, and Air Conditioning) systems." .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/elements/1.1/author
+<http://purl.org/dc/elements/1.1/author> rdf:type owl:AnnotationProperty ;
+                                         rdfs:comment "Indicates the author or contributor responsible for creating or maintaining a specific resource within the ontology." .
+
+###  http://purl.org/dc/elements/1.1/creator
+<http://purl.org/dc/elements/1.1/creator> rdf:type owl:AnnotationProperty ;
+                                          rdfs:comment "Indicates the primary creator of the ontology or a specific resource. For instance, the principal developer of a control strategy or a system model." .
+
+###  http://purl.org/dc/elements/1.1/date
+<http://purl.org/dc/elements/1.1/date> rdf:type owl:AnnotationProperty ;
+                                       rdfs:comment "Indicates the date of creation, last modification, or relevance for a given resource. Useful for tracking ontology versions or component lifecycles." .
+
+###  http://purl.org/dc/elements/1.1/description
+<http://purl.org/dc/elements/1.1/description> rdf:type owl:AnnotationProperty ;
+                                              rdfs:comment "Provides a detailed textual description of a resource, offering more context than a simple label. For an ontology, this might explain its scope and purpose." .
+
+###  http://purl.org/dc/elements/1.1/rights
+<http://purl.org/dc/elements/1.1/rights> rdf:type owl:AnnotationProperty ;
+                                         rdfs:comment "Information pertaining to intellectual property rights, licensing, or usage constraints associated with the ontology or its individual components. For example, 'This ontology is distributed under a Creative Commons Attribution License'." .
+
+###  http://purl.org/dc/elements/1.1/title
+<http://purl.org/dc/elements/1.1/title> rdf:type owl:AnnotationProperty ;
+                                        rdfs:comment "A concise name or title given to the resource, providing a quick identifier. For example, 'Elementary Ontology for HVAC Systems'." .
+
+<http://www.w3id.org/elementary> a owl:Ontology ;
+    dcterms:title "Elementary Ontology for Electro-Mechanical Systems and Automation" ;
+    rdfs:label "Elementary" ;
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.w3.org/2002/07/owl#topObjectProperty
+owl:topObjectProperty owl:inverseOf :measures .
+
+###  http://www.w3id.org/elementary#achieves
+:achieves rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :modulates ;
+          rdfs:comment "Relates an entity (e.g., a control program or a system) to a specific goal or desired state that it successfully brings about or fulfills. For example, a 'Heating Control Program' :achieves a 'Room Temperature Setpoint'." .
+
+###  http://www.w3id.org/elementary#affectedUpstreamVariable
+:affectedUpstreamVariable rdf:type owl:ObjectProperty ;
+                          owl:equivalentProperty :upstreamEffect ;
+                          rdfs:subPropertyOf :physicalProcessRelation ;
+                          owl:propertyChainAxiom ( :hasStereotype
+                                                   :hasPhysicalMechanism
+                                                   :affectedUpstreamVariable
+                                                 ) ;
+                          rdfs:comment "Indicates a process variable that is influenced or changed by an event or condition occurring earlier in a sequence or flow path (upstream). For example, a 'Supply Air Temperature' might be :affectedUpstreamVariable by the 'Heating Coil Output'." .
+
+###  http://www.w3id.org/elementary#affects
+:affects rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :physicalProcessRelation ;
+         rdfs:comment "Describes a causal relationship where one entity has an impact or influence on another. This is a general causal link. For example, a 'Damper Position' :affects 'Airflow Rate'." .
+
+###  http://www.w3id.org/elementary#associatedTo
+:associatedTo rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation ;
+              rdfs:comment "Indicates a general association or connection between two entities within the automation domain, where the nature of the association is not more specifically defined by other properties. For example, a 'Thermostat' :associatedTo a 'Zone'." .
+
+###  http://www.w3id.org/elementary#automatedBy
+:automatedBy rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :automationRelation ;
+             rdfs:comment "Relates a physical system or process to the automation entity (e.g., a controller or program) that is responsible for its control or operation. For example, a 'VAV Box' :automatedBy a 'Zone Controller'." .
+
+###  http://www.w3id.org/elementary#automates
+:automates rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :automationRelation ;
+           rdfs:comment "Relates an automation entity (e.g., a controller or program) to the physical system or process it controls. This is the inverse of :automatedBy. For example, a 'Building Management System' :automates 'HVAC Systems'." .
+
+###  http://www.w3id.org/elementary#automationRelation
+:automationRelation rdf:type owl:ObjectProperty ;
+                    rdfs:comment "A top-level, general relationship type encompassing all connections and interactions between concepts specifically related to automation systems, including software, hardware, and control logic." .
+
+###  http://www.w3id.org/elementary#avoids
+:avoids rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :modulates ;
+        rdfs:comment "Relates an entity (e.g., a control strategy) to an undesirable state or condition that it actively prevents from occurring. For example, a 'Freezing Protection Logic' :avoids 'Pipe Bursting'." .
+
+###  http://www.w3id.org/elementary#bidirectionallyLinkedTo
+:bidirectionallyLinkedTo rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf :linkedTo ;
+                         rdfs:comment "Indicates a two-way, reciprocal connection or communication link between two entities, where information or influence flows in both directions. For example, a 'Controller' :bidirectionallyLinkedTo a 'Human Machine Interface (HMI)'." .
+
+###  http://www.w3id.org/elementary#byMeansOf
+:byMeansOf rdf:type owl:ObjectProperty ;
+           rdfs:comment "Relates an action or outcome to the instrument, method, or mechanism used to achieve it. For example, 'Temperature Control' is achieved :byMeansOf 'Modulating Valve'." .
+
+###  http://www.w3id.org/elementary#connectedAcross
+:connectedAcross rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :systemDesignRelation ;
+                 rdfs:comment "Describes a connection that spans or bridges different functional blocks, physical boundaries, or logical domains within a system. For example, a 'Bus Bar' :connectedAcross 'Electrical Panels'." .
+
+###  http://www.w3id.org/elementary#connectedThrough
+:connectedThrough rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :systemDesignRelation ;
+                  rdfs:comment "Indicates that two entities are linked via an intermediate component, medium, or pathway. For example, 'Supply Air Duct' :connectedThrough 'Air Handling Unit' to 'Zone'." .
+
+###  http://www.w3id.org/elementary#connectsSystemThrough
+:connectsSystemThrough rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :systemDesignRelation ;
+                       rdfs:comment "Relates a component or subsystem that establishes connections between different parts of a larger system via a specific mechanism or pathway. For example, a 'Network Switch' :connectsSystemThrough 'Ethernet Cables'." .
+
+###  http://www.w3id.org/elementary#connectsTo
+:connectsTo rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :associatedTo ;
+            rdf:type owl:SymmetricProperty ;
+            rdfs:comment "Indicates a general physical or logical connection between two entities. Being symmetric, if A :connectsTo B, then B :connectsTo A. For example, a 'Pump' :connectsTo a 'Chiller'." .
+
+###  http://www.w3id.org/elementary#contains
+:contains rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasTopologicalRelationTo ;
+          rdfs:label "contains" ;
+          rdfs:comment "Indicates a part-whole or containment relationship, where one entity is physically or logically enclosed within another. For example, an 'Air Handling Unit' :contains 'Fans', 'Coils', and 'Filters'." .
+
+###  http://www.w3id.org/elementary#datapointOf
+:datapointOf rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :automationRelation ;
+             rdfs:comment "Relates a specific data point (e.g., a sensor reading or a command value) to the control program or system that processes or generates it. For example, 'Zone Temperature Sensor Reading' :datapointOf 'Zone Temperature Control Program'." .
+
+###  http://www.w3id.org/elementary#dealsWithStuff
+:dealsWithStuff rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :physicalProcessRelation ;
+                rdfs:domain [ rdf:type owl:Class ;
+                              owl:unionOf ( :ConnectionPoint
+                                            :ProcessVariable
+                                          )
+                            ] ;
+                rdfs:range :PhysicalStuff ;
+                rdfs:comment "Describes the type of physical material or energy that a connection point or process variable is primarily concerned with. For example, an 'Air Duct Port' :dealsWithStuff 'Air', or a 'Chilled Water Temperature' :dealsWithStuff 'Thermal Energy'." .
+
+###  http://www.w3id.org/elementary#decreases
+:decreases rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :modulates ;
+           rdfs:comment "Indicates that an entity causes a reduction in the value, magnitude, or intensity of another entity. For example, a 'Cooling Coil' :decreases 'Supply Air Temperature'." .
+
+###  http://www.w3id.org/elementary#derivedFrom
+:derivedFrom rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :automationRelation ;
+             rdfs:comment "Indicates that one entity (e.g., a calculated value or a control signal) originates or is computed based on another entity. For example, 'Cooling Load Calculation' :derivedFrom 'Zone Temperature' and 'Outdoor Air Temperature'." .
+
+###  http://www.w3id.org/elementary#describedBy
+:describedBy rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :automationRelation ;
+             rdfs:domain :ControlProgram ;
+             rdfs:range :ProgramModel ;
+             rdfs:comment "Relates a specific control program to its descriptive model, which outlines its logic, behavior, or structure. For example, a 'VAV Control Program' :describedBy a 'Sequence of Operations' document." .
+
+###  http://www.w3id.org/elementary#directProportion
+:directProportion rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :affects ;
+                  rdfs:comment "Indicates a direct proportional relationship where an increase in one entity leads to a corresponding increase in another, and vice-versa. For example, 'Fan Speed' :directProportion 'Airflow Rate'." .
+
+###  http://www.w3id.org/elementary#downlink
+:downlink rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasNetworkLink ;
+          rdfs:comment "Represents a communication link where data flows from a central or upstream network component to a peripheral or downstream component. For example, a 'Building Controller' sends commands via a :downlink to a 'VAV Box Controller'." .
+
+###  http://www.w3id.org/elementary#effectiveAtPort
+:effectiveAtPort rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :relatedToPort ;
+                 rdfs:comment "Relates an actuator to the specific connection point (port) of a component where its action primarily exerts its effect. For example, a 'Heating Valve Actuator' is :effectiveAtPort the 'Heating Coil Inlet Port'." .
+
+###  http://www.w3id.org/elementary#existence_and
+:existence_and rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :variantCondition ;
+               rdfs:comment "A variant condition rule indicating that if a specific variant feature exists, then another specified variant feature *must also* exist simultaneously. Both must be present." .
+
+###  http://www.w3id.org/elementary#existence_cannotCoexistWith
+:existence_cannotCoexistWith rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf :variantCondition ;
+                             rdfs:comment "A variant condition rule indicating that two specified variant features are mutually exclusive and *cannot* exist together in the same system configuration." .
+
+###  http://www.w3id.org/elementary#existence_hasToExistInTheAbsenceOf
+:existence_hasToExistInTheAbsenceOf rdf:type owl:ObjectProperty ;
+                                    rdfs:subPropertyOf :variantCondition ;
+                                    rdfs:comment "A variant condition rule indicating that a specific variant feature *must* exist when another specified variant feature is *absent*." .
+
+###  http://www.w3id.org/elementary#existence_hasToExistInThePresenceOf
+:existence_hasToExistInThePresenceOf rdf:type owl:ObjectProperty ;
+                                     rdfs:subPropertyOf :variantCondition ;
+                                     rdfs:comment "A variant condition rule indicating that a specific variant feature *must* exist when another specified variant feature is *present*." .
+
+###  http://www.w3id.org/elementary#existence_implies
+:existence_implies rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :variantCondition ;
+                   rdfs:comment "A variant condition rule indicating that the presence of one specific variant feature necessitates (implies) the presence of another variant feature. If A exists, then B must exist." .
+
+###  http://www.w3id.org/elementary#existence_mayCoexistsWith
+:existence_mayCoexistsWith rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf :variantCondition ;
+                           rdf:type owl:SymmetricProperty ;
+                           rdfs:comment "A variant condition rule indicating that two specified variant features *can optionally* exist together. Their coexistence is allowed but not mandatory." .
+
+###  http://www.w3id.org/elementary#existence_mayExistOnlyWhenAbsent
+:existence_mayExistOnlyWhenAbsent rdf:type owl:ObjectProperty ;
+                                  rdfs:subPropertyOf :variantCondition ;
+                                  rdfs:comment "A variant condition rule indicating that a specific variant feature *is only permitted to exist* if another specified variant feature is *absent*." .
+
+###  http://www.w3id.org/elementary#existence_mayOnlyExistInThePresenceOf
+:existence_mayOnlyExistInThePresenceOf rdf:type owl:ObjectProperty ;
+                                       rdfs:subPropertyOf :variantCondition ;
+                                       rdfs:comment "A variant condition rule indicating that a specific variant feature *is only permitted to exist* if another specified variant feature is *present*." .
+
+###  http://www.w3id.org/elementary#existence_mustCoexistWith
+:existence_mustCoexistWith rdf:type owl:ObjectProperty ;
+                           rdfs:subPropertyOf :variantCondition ;
+                           rdfs:comment "A variant condition rule indicating that two specified variant features *must always* exist together. If one is present, the other must also be present." .
+
+###  http://www.w3id.org/elementary#existence_or
+:existence_or rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :variantCondition ;
+              rdf:type owl:SymmetricProperty ;
+              rdfs:comment "A variant condition rule indicating that at least one of several specified variant features *must* exist. If A or B or C... is present, the condition is met." .
+
+###  http://www.w3id.org/elementary#existence_xor
+:existence_xor rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :variantCondition ;
+               rdf:type owl:SymmetricProperty ;
+               rdfs:comment "A variant condition rule indicating that *exactly one* of several specified variant features *must* exist. If A is present, B cannot be, and vice-versa." .
+
+###  http://www.w3id.org/elementary#faultDetectionRelation
+:faultDetectionRelation rdf:type owl:ObjectProperty ;
+                        rdfs:comment "A top-level, general relationship type encompassing all connections and interactions between concepts specifically related to the detection, diagnosis, and management of faults within electro-mechanical and automated systems." .
+
+###  http://www.w3id.org/elementary#fedBy
+:fedBy rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :hasFlowRelationTo ;
+       owl:inverseOf :feeds ;
+       rdfs:label "fed by" ;
+       rdfs:comment "Indicates that an entity receives a flow of substance or energy from another entity. For example, a 'Heating Coil' :fedBy 'Hot Water Supply'." .
+
+###  http://www.w3id.org/elementary#feeds
+:feeds rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf :hasFlowRelationTo ;
+       owl:propertyChainAxiom ( :hasConnectionPoint
+                                :feeds
+                                :isConnectionPointOf
+                              ) ;
+       rdfs:label "feeds" ;
+       rdfs:comment "Indicates that an entity provides a flow of substance or energy to another entity. For example, a 'Chilled Water Pump' :feeds 'Chiller'." .
+
+###  http://www.w3id.org/elementary#hasCausationAction
+:hasCausationAction rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :systemDesignRelation ;
+                    rdfs:domain :ConnectionPoint ;
+                    rdfs:range :ProcessAction ;
+                    rdfs:comment "Relates a connection point to the specific physical action or process that is initiated or enabled at that point. For example, an 'Electrical Power Connection Point' :hasCausationAction 'Motor Start'." .
+
+###  http://www.w3id.org/elementary#hasComponentAction
+:hasComponentAction rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :systemDesignRelation ;
+                    rdfs:domain :Component ;
+                    rdfs:comment "Relates a component to a specific action or function it is designed to perform. For example, a 'Fan' :hasComponentAction 'Air Movement'." .
+
+###  http://www.w3id.org/elementary#hasConnectionPoint
+:hasConnectionPoint rdf:type owl:ObjectProperty ;
+                    owl:equivalentProperty :hasPort ;
+                    rdfs:subPropertyOf :systemDesignRelation ;
+                    owl:inverseOf :isConnectionPointOf ;
+                    owl:propertyChainAxiom ( :hasStereotype
+                                             :hasConnectionPoint
+                                           ) ;
+                    rdfs:comment "This property indicates that a component possesses a specific connection point, which acts as an interface for interaction with other components. For example, a 'VAV Box' :hasConnectionPoint 'Supply Air Inlet Port'." ;
+                    rdfs:label "has port" .
+
+###  http://www.w3id.org/elementary#hasControlInput
+:hasControlInput rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :hasConnectionPoint ;
+                 rdfs:comment "Relates a component (typically a controller or an actuator) to a connection point through which it receives control signals or data. For example, a 'Damper Actuator' :hasControlInput 'Control Signal Input Terminal'." .
+
+###  http://www.w3id.org/elementary#hasControlOutput
+:hasControlOutput rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :hasConnectionPoint ;
+                  rdfs:comment "Relates a component (typically a controller or a sensor) to a connection point through which it sends control signals or data. For example, a 'Building Controller' :hasControlOutput 'Chiller Enable Output'." .
+
+###  http://www.w3id.org/elementary#hasControlledVariable
+:hasControlledVariable rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :hasVariable ;
+                       rdfs:comment "Relates a control system or controller to the specific process variable it actively regulates or maintains at a desired setpoint. For example, a 'Zone Temperature Controller' :hasControlledVariable 'Zone Air Temperature'." .
+
+###  http://www.w3id.org/elementary#hasDependentVariable
+:hasDependentVariable rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :hasVariable ;
+                      rdfs:comment "The variable that changes as an outcome of the process. Its value is influenced by one or more independent variables. For example, 'Supply Air Temperature' is a :hasDependentVariable of 'Heating Coil Power'." .
+
+###  http://www.w3id.org/elementary#hasEffect
+:hasEffect rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :automationRelation ;
+           rdfs:comment "Relates an action, event, or component to its resulting consequence or impact on the system or environment. For example, 'Opening a Valve' :hasEffect 'Increased Water Flow'." .
+
+###  http://www.w3id.org/elementary#hasEffectAssertion
+:hasEffectAssertion rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :faultDetectionRelation ;
+                    rdfs:comment "Relates a fault condition to a statement or rule that describes the expected observable consequences or symptoms of that fault. For example, 'Fan Motor Failure' :hasEffectAssertion 'Zero Airflow Reading'." .
+
+###  http://www.w3id.org/elementary#hasEffectPrecondition
+:hasEffectPrecondition rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :faultDetectionRelation ;
+                       rdfs:comment "Relates a potential fault effect to the necessary conditions that must be present for that effect to manifest. For example, 'High Discharge Air Temperature' :hasEffectPrecondition 'Cooling Coil Valve Open'." .
+
+###  http://www.w3id.org/elementary#hasFailureCause
+:hasFailureCause rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :faultDetectionRelation ;
+                 rdfs:comment "Relates a system failure or malfunction to its underlying root cause or trigger. For example, 'Chiller Trip' :hasFailureCause 'High Condenser Water Temperature'." .
+
+###  http://www.w3id.org/elementary#hasFailureEffect
+:hasFailureEffect rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :faultDetectionRelation ;
+                  rdfs:comment "Relates a specific failure to its observable consequences or symptoms within the system. For example, 'Sensor Malfunction' :hasFailureEffect 'Erroneous Temperature Reading'." .
+
+###  http://www.w3id.org/elementary#hasFailureMode
+:hasFailureMode rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :faultDetectionRelation ;
+                rdfs:comment "Relates a component or system to a specific way in which it can fail to perform its intended function. For example, a 'Damper Actuator' :hasFailureMode 'Stuck Open'." .
+
+###  http://www.w3id.org/elementary#hasFaultMode
+:hasFaultMode rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation ;
+              rdfs:comment "Relates a system component or process to a specific, identifiable condition of malfunction or deviation from normal operation. For example, a 'Temperature Sensor' :hasFaultMode 'Offset Error'." .
+
+###  http://www.w3id.org/elementary#hasFlowRelationTo
+:hasFlowRelationTo rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :systemDesignRelation ;
+                   rdfs:comment "A general relationship type for connections involving the movement or transfer of substances (e.g., air, water) or energy (e.g., heat, electricity) between components. This forms the basis for understanding fluidic or energy networks." .
+
+###  http://www.w3id.org/elementary#hasFunctionalRole
+:hasFunctionalRole rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :faultDetectionRelation ;
+                   rdfs:comment "Relates a component to its specific functional purpose or contribution within a system, particularly relevant for fault analysis to understand expected behavior. For example, a 'Supply Fan' :hasFunctionalRole 'Air Circulation'." .
+
+###  http://www.w3id.org/elementary#hasGoal
+:hasGoal rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :requirementsRelation ;
+         rdfs:domain :Requirement ;
+         rdfs:range :Goal ;
+         rdfs:comment "Relates a specific requirement to the overarching objective or desired outcome it aims to achieve or contribute to. For example, a 'Zone Temperature Requirement' :hasGoal 'Occupant Comfort'." .
+
+###  http://www.w3id.org/elementary#hasHardwareInterface
+:hasHardwareInterface rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :automationRelation ;
+                      rdfs:comment "Relates an automation component (e.g., a controller) to its physical interface hardware, enabling interaction with other devices or the physical world. For example, a 'DDC Controller' :hasHardwareInterface 'Analog Input Card'." .
+
+###  http://www.w3id.org/elementary#hasIndependentVariable
+:hasIndependentVariable rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :hasVariable ;
+                        rdfs:comment "The variable that can be changed by an external agent or is manipulated to observe its effect on other variables. For example, 'Damper Position' is a :hasIndependentVariable in an airflow control loop." .
+
+###  http://www.w3id.org/elementary#hasInlet
+:hasInlet rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasConnectionPoint ;
+          owl:propertyChainAxiom ( :hasConnectionPoint
+                                 ) ;
+          rdfs:comment "Relates a component to a specific connection point designated for the entry of substances or energy into that component. For example, a 'Heating Coil' :hasInlet 'Hot Water Supply Port'." .
+
+###  http://www.w3id.org/elementary#hasInput
+:hasInput rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasInterface ;
+          rdfs:domain :ControlProgram ;
+          rdfs:comment "Relates a control program to a specific interface or data point through which it receives incoming data or signals. For example, a 'PID Controller' :hasInput 'Process Variable Reading'." .
+
+###  http://www.w3id.org/elementary#hasInputEnergy
+:hasInputEnergy rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :dealsWithStuff ;
+                rdfs:comment "Indicates the type of energy that flows into a component or is consumed by a process. For example, a 'Fan Motor' :hasInputEnergy 'Electrical Energy'." .
+
+###  http://www.w3id.org/elementary#hasInterface
+:hasInterface rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation ;
+              rdfs:comment "A general property relating an automation component (hardware or software) to any of its defined interaction points for data, signals, or physical connections. For example, a 'Building Controller' :hasInterface 'BACnet Communication Port'." .
+
+###  http://www.w3id.org/elementary#hasInvariant
+:hasInvariant rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation ;
+              rdfs:comment "Relates a system or process to a property or condition that remains constant or unchanged under specified operating conditions, crucial for system reliability and safety. For example, 'Total System Mass' :hasInvariant (in a closed system)." .
+
+###  http://www.w3id.org/elementary#hasManipulatedVariable
+:hasManipulatedVariable rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :hasIndependentVariable ;
+                        rdfs:comment "The variable that is intentionally adjusted or controlled by an external agent (e.g., a controller) to influence a process. For example, 'Chilled Water Valve Position' is a :hasManipulatedVariable to control 'Chilled Water Flow'." .
+
+###  http://www.w3id.org/elementary#hasMechanism
+:hasMechanism rdf:type owl:ObjectProperty ;
+              owl:equivalentProperty :hasPhysicalMechanism ;
+              rdfs:subPropertyOf :physicalProcessRelation ;
+              rdfs:comment "Relates a component or process to the underlying physical principle or method by which it operates or effects change. For example, a 'Heating Coil' :hasMechanism 'Heat Transfer'." .
+
+###  http://www.w3id.org/elementary#hasMitigation
+:hasMitigation rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :faultDetectionRelation ;
+               rdfs:comment "Relates a potential fault or risk to the strategy, action, or component designed to reduce its severity or likelihood. For example, 'Overheating Risk' :hasMitigation 'Emergency Shutdown Procedure'." .
+
+###  http://www.w3id.org/elementary#hasNetworkInterface
+:hasNetworkInterface rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :automationRelation ;
+                     rdfs:comment "Relates an automation component to its specific interface designed for network communication. For example, a 'DDC Controller' :hasNetworkInterface 'Ethernet Port'." .
+
+###  http://www.w3id.org/elementary#hasNetworkLink
+:hasNetworkLink rdf:type owl:ObjectProperty ;
+                rdfs:comment "A property indicating a connection between two network components, representing the physical or logical pathway for data exchange. For example, a 'Router' :hasNetworkLink 'Ethernet Cable'." .
+
+###  http://www.w3id.org/elementary#hasObservedVariable
+:hasObservedVariable rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :isRelatedToVariable ;
+                     rdfs:comment "Relates a sensor or an observation point to the specific process variable it is designed to measure or monitor. For example, a 'Room Temperature Sensor' :hasObservedVariable 'Zone Air Temperature'." .
+
+###  http://www.w3id.org/elementary#hasOutlet
+:hasOutlet rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :hasConnectionPoint ;
+           rdfs:comment "Relates a component to a specific connection point designated for the exit of substances or energy from that component. For example, a 'Cooling Coil' :hasOutlet 'Chilled Water Return Port'." .
+
+###  http://www.w3id.org/elementary#hasOutput
+:hasOutput rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :hasInterface ;
+           rdfs:domain :ControlProgram ;
+           rdfs:comment "Relates a control program to a specific interface or data point through which it sends outgoing data or signals. For example, a 'Temperature Control Program' :hasOutput 'Valve Position Command'." .
+
+###  http://www.w3id.org/elementary#hasOutputEnergy
+:hasOutputEnergy rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :dealsWithStuff ;
+                 rdfs:comment "Indicates the type of energy that flows out of a component or is produced by a process. For example, a 'Heating Coil' :hasOutputEnergy 'Thermal Energy'." .
+
+###  http://www.w3id.org/elementary#hasParameter
+:hasParameter rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :hasInterface ;
+              rdfs:domain :ControlProgram ;
+              rdfs:comment "Relates a control program to a configurable value or setting that influences its behavior but is not typically a direct input or output. For example, a 'PID Controller' :hasParameter 'Proportional Gain (Kp)'." .
+
+###  http://www.w3id.org/elementary#hasPart
+:hasPart rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :hasTopologicalRelationTo ;
+         owl:inverseOf :isPartOf ;
+         rdfs:label "has part" ;
+         rdfs:comment "Indicates a compositional relationship where a larger entity is composed of smaller, distinct parts. For example, a 'VAV Box' :hasPart 'Damper Actuator'." .
+
+###  http://www.w3id.org/elementary#hasPhaseState
+:hasPhaseState rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :physicalProcessRelation ;
+               rdfs:comment "Relates a substance or a process stream to its current physical state of matter (e.g., solid, liquid, gas, plasma). For example, 'Refrigerant in Evaporator' :hasPhaseState 'Vapour'." .
+
+###  http://www.w3id.org/elementary#hasPhysicalMechanism
+:hasPhysicalMechanism rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :physicalProcessRelation ;
+                      owl:propertyChainAxiom ( :hasStereotype
+                                               :hasPhysicalMechanism
+                                             ) ;
+                      rdfs:comment "Relates a component or process to the fundamental physical principle or method by which it achieves its function. For example, a 'Heat Exchanger' :hasPhysicalMechanism 'Heat Transfer'." .
+
+###  http://www.w3id.org/elementary#hasPort
+:hasPort rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :systemDesignRelation ;
+         owl:inverseOf :isPortOf ;
+         rdfs:label "has port" ;
+         rdfs:comment "Relates a component to its connection point, which serves as an interface for physical or logical connections. For example, a 'Chiller' :hasPort 'Chilled Water Inlet Port'." .
+
+###  http://www.w3id.org/elementary#hasPosition
+:hasPosition rdf:type owl:ObjectProperty ;
+             owl:equivalentProperty :hasProcessPosition ;
+             rdfs:subPropertyOf :physicalProcessRelation ;
+             rdfs:comment "Relates an entity (e.g., a sensor, an actuator, or a process variable) to its specific spatial or logical location within a physical process. For example, a 'Discharge Air Temperature Sensor' :hasPosition 'AHU Outlet'." .
+
+###  http://www.w3id.org/elementary#hasPostcondition
+:hasPostcondition rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :automationRelation ;
+                  rdfs:comment "Relates an action or sequence of operations to a condition that is guaranteed to be true immediately after its successful completion. For example, 'Fan Start Sequence' :hasPostcondition 'Fan Running State = ON'." .
+
+###  http://www.w3id.org/elementary#hasPrecondition
+:hasPrecondition rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :automationRelation ;
+                 rdfs:comment "Relates an action or sequence of operations to a condition that *must* be true before its execution can begin. For example, 'Chiller Start Command' :hasPrecondition 'Condenser Water Pump Running'." .
+
+###  http://www.w3id.org/elementary#hasPrimaryDependentVariable
+:hasPrimaryDependentVariable rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf :hasDependentVariable ;
+                             rdfs:comment "Identifies the most significant or directly impacted dependent variable in a process or control loop. For example, in a VAV system, 'Zone Air Temperature' is the :hasPrimaryDependentVariable for the 'Zone Temperature Control Loop'." .
+
+###  http://www.w3id.org/elementary#hasProcessAction
+:hasProcessAction rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :physicalProcessRelation ;
+                  rdfs:comment "Relates a physical process to a specific, discrete action or event that occurs as part of that process. For example, 'Air Conditioning Process' :hasProcessAction 'Cooling'." .
+
+###  http://www.w3id.org/elementary#hasProcessPathway
+:hasProcessPathway rdf:type owl:ObjectProperty ;
+                   owl:equivalentProperty :isRelatedToStreamKind ;
+                   rdfs:subPropertyOf :physicalProcessRelation ;
+                   rdfs:comment "Relates a physical process to the type of path or medium through which substances or energy are transported during that process. For example, 'Air Distribution Process' :hasProcessPathway 'Ductwork'." .
+
+###  http://www.w3id.org/elementary#hasProcessPosition
+:hasProcessPosition rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :physicalProcessRelation ;
+                    rdfs:comment "Relates an entity to its specific spatial or logical location within a physical process flow. For example, 'Return Air Temperature Sensor' :hasProcessPosition 'Return Air Duct'." .
+
+###  http://www.w3id.org/elementary#hasQuantity
+:hasQuantity rdf:type owl:ObjectProperty ;
+             owl:equivalentProperty :hasQuantityKind ;
+             rdfs:subPropertyOf :physicalProcessRelation ;
+             rdfs:comment "Relates a physical entity or phenomenon to a measurable characteristic or attribute. For example, 'Air' :hasQuantity 'Temperature'." .
+
+###  http://www.w3id.org/elementary#hasQuantityKind
+:hasQuantityKind rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf :physicalProcessRelation ;
+                 rdfs:comment "Relates a physical entity to the abstract type of quantity it possesses (e.g., temperature, pressure, flow rate). For example, 'Water Flow' :hasQuantityKind 'Flow Rate'." .
+
+###  http://www.w3id.org/elementary#hasRequirement
+:hasRequirement rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :requirementsRelation ;
+                rdfs:comment "Relates a system, component, or process to a specific functional or non-functional demand that must be met. For example, 'HVAC System' :hasRequirement 'Maintain Zone Temperature between 22-24°C'." .
+
+###  http://www.w3id.org/elementary#hasSignalType
+:hasSignalType rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :automationRelation ;
+               rdfs:comment "Relates an electrical signal or communication channel to its characteristic type (e.g., analog, digital, pulse-width modulated). For example, a 'Temperature Sensor Output' :hasSignalType 'Analog Voltage Signal'." .
+
+###  http://www.w3id.org/elementary#hasSimulationModel
+:hasSimulationModel rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :physicalProcessRelation ;
+                    rdfs:comment "Relates a physical process or component to a computational model used to predict or analyze its behavior under various conditions. For example, a 'Chiller' :hasSimulationModel 'EnergyPlus Chiller Model'." .
+
+###  http://www.w3id.org/elementary#hasStateLabel
+:hasStateLabel rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :physicalProcessRelation ;
+               rdfs:comment "Relates a physical entity or process to a descriptive tag that characterizes its current condition or status. For example, 'Refrigerant' :hasStateLabel 'Superheated Vapor'." .
+
+###  http://www.w3id.org/elementary#hasStereotype
+:hasStereotype rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :physicalProcessRelation ;
+               rdfs:comment "Relates an entity to a predefined classification or pattern that describes its typical characteristics, behavior, or role. For example, a 'Fan Coil Unit' :hasStereotype 'Terminal Unit'." .
+
+###  http://www.w3id.org/elementary#hasStreamKind
+:hasStreamKind rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :systemDesignRelation ;
+               rdfs:domain :Stream ;
+               rdfs:range :StreamKind ;
+               rdfs:comment "Relates a specific stream (e.g., a flow of air or water) to its fundamental type or composition. For example, a 'Supply Air Stream' :hasStreamKind 'Air'." .
+
+###  http://www.w3id.org/elementary#hasStruturalStereotype
+:hasStruturalStereotype rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :systemDesignRelation ;
+                        rdfs:comment "Relates a component to a predefined classification that describes its typical physical structure or arrangement. For example, a 'Duct' :hasStruturalStereotype 'Rectangular Conduit'." .
+
+###  http://www.w3id.org/elementary#hasSubstance
+:hasSubstance rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :dealsWithStuff ;
+              rdfs:comment "Indicates the specific chemical or material composition of a substance handled by a component or involved in a process. For example, a 'Water Pipe' :hasSubstance 'Water'." .
+
+###  http://www.w3id.org/elementary#hasTarget
+:hasTarget rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :automationRelation ;
+           rdfs:comment "Relates an automation action, control signal, or program to the specific component or system it is intended to influence or control. For example, a 'Start Command' :hasTarget 'Chiller'." .
+
+###  http://www.w3id.org/elementary#hasTemporalSpecification
+:hasTemporalSpecification rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf :faultDetectionRelation ;
+                          rdfs:comment "Relates a fault detection concept to the timing constraints or sequences relevant to its operation or the fault's manifestation. For example, 'Fan Failure Detection' :hasTemporalSpecification 'Delay of 30 seconds before alarm'." .
+
+###  http://www.w3id.org/elementary#hasTopologicalRelationTo
+:hasTopologicalRelationTo rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf :systemDesignRelation ;
+                          rdfs:comment "A general relationship type describing spatial, containment, or sequential arrangements between components within a system's layout or flow path. This helps define how components are physically or logically organized relative to each other." .
+
+###  http://www.w3id.org/elementary#hasUnits
+:hasUnits rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :physicalProcessRelation ;
+          rdfs:comment "Relates a physical quantity or process variable to its standard unit of measurement. For example, 'Temperature' :hasUnits 'Degrees Celsius'." .
+
+###  http://www.w3id.org/elementary#hasUpstreamEffectOn
+:hasUpstreamEffectOn rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :physicalProcessRelation ;
+                     rdfs:comment "Indicates that a component or process has an impact or influence on an entity located earlier in the flow path or sequence. For example, 'Condenser Fan Speed' :hasUpstreamEffectOn 'Refrigerant Condensing Pressure'." .
+
+###  http://www.w3id.org/elementary#hasVariable
+:hasVariable rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :physicalProcessRelation ;
+             rdfs:comment "Relates a physical entity or process to a measurable characteristic whose value can change over time or with conditions. For example, 'Air' :hasVariable 'Humidity'." .
+
+###  http://www.w3id.org/elementary#hasVariant
+:hasVariant rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :systemDesignRelation ;
+            rdfs:comment "Relates a generic system or component type to one of its specific alternative configurations or versions. For example, 'VAV Box Type' :hasVariant 'Parallel Fan Powered VAV'." .
+
+###  http://www.w3id.org/elementary#hostedBy
+:hostedBy rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :automationRelation ;
+          owl:inverseOf :hostsProgram ;
+          rdfs:comment "Indicates that a control program or software module is executed or resides on a specific automation controller or computational host. For example, 'Zone Control Logic' :hostedBy 'DDC Controller'." .
+
+###  http://www.w3id.org/elementary#hostsProgram
+:hostsProgram rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation ;
+              rdfs:domain :AutomationController ;
+              rdfs:range :ControlProgram ;
+              rdfs:comment "Relates an automation controller to the specific control program(s) that it is configured to execute. For example, a 'Building Management System Controller' :hostsProgram 'Central Plant Optimization Program'." .
+
+###  http://www.w3id.org/elementary#increases
+:increases rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :modulates ;
+           rdfs:comment "Indicates that an entity causes an increase in the value, magnitude, or intensity of another entity. For example, a 'Heating Coil' :increases 'Supply Air Temperature'." .
+
+###  http://www.w3id.org/elementary#inverseProportion
+:inverseProportion rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :affects ;
+                   rdfs:comment "Indicates an inverse proportional relationship where an increase in one entity leads to a decrease in another, and vice-versa. For example, 'Condenser Water Temperature' :inverseProportion 'Chiller Efficiency'." .
+
+###  http://www.w3id.org/elementary#isCompatibleTo
+:isCompatibleTo rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :physicalProcessRelation ;
+                rdfs:comment "Indicates that two physical entities or process streams can function together without adverse effects, often due to matching properties or requirements. For example, 'Refrigerant R-410A' :isCompatibleTo 'Scroll Compressor'." .
+
+###  http://www.w3id.org/elementary#isConnectionPointOf
+:isConnectionPointOf rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :systemDesignRelation ;
+                     rdfs:label "is port of" ;
+                     rdfs:comment "Indicates that a specific connection point belongs to or is part of a larger component. This is the inverse of :hasConnectionPoint. For example, 'Supply Air Inlet Port' :isConnectionPointOf 'VAV Box'." .
+
+###  http://www.w3id.org/elementary#isContainedIn
+:isContainedIn rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :hasTopologicalRelationTo ;
+               rdfs:label "contained in" ;
+               rdfs:comment "Indicates that an entity is physically or logically enclosed within another larger entity. This is the inverse of :contains. For example, a 'Filter' :isContainedIn 'Air Handling Unit'." .
+
+###  http://www.w3id.org/elementary#isFlowCompatibleTo
+:isFlowCompatibleTo rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :isCompatibleTo ;
+                    rdfs:comment "Indicates compatibility between components or systems specifically concerning the flow of fluids or energy. For example, 'Water Pump' :isFlowCompatibleTo 'Pipe Diameter X'." .
+
+###  http://www.w3id.org/elementary#isIntendedFor
+:isIntendedFor rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :systemDesignRelation ;
+               rdfs:comment "Relates a component, system, or design feature to its specific purpose, application, or target environment. For example, a 'VAV Box' :isIntendedFor 'Zone Air Distribution'." .
+
+###  http://www.w3id.org/elementary#isObservedBy
+:isObservedBy rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :automationRelation ;
+              owl:inverseOf :observes ;
+              rdfs:comment "Indicates that a physical variable or state is measured or monitored by a specific sensor or observation device. This is the inverse of :observes. For example, 'Zone Temperature' :isObservedBy 'Room Temperature Sensor'." .
+
+###  http://www.w3id.org/elementary#isPartOf
+:isPartOf rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasTopologicalRelationTo ;
+          rdfs:label "is part of" ;
+          rdfs:comment "Indicates a compositional relationship where a smaller entity is a component of a larger whole. This is the inverse of :hasPart. For example, a 'Fan Motor' :isPartOf 'Supply Fan'." .
+
+###  http://www.w3id.org/elementary#isPortOf
+:isPortOf rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :systemDesignRelation ;
+          rdfs:label "is port of" ;
+          rdfs:comment "Indicates that a specific connection point (port) belongs to or is an interface of a larger component. This is the inverse of :hasPort. For example, 'Chilled Water Inlet Port' :isPortOf 'Chiller'." .
+
+###  http://www.w3id.org/elementary#isRelatedToStreamKind
+:isRelatedToStreamKind rdf:type owl:ObjectProperty ;
+                       rdfs:subPropertyOf :physicalProcessRelation ;
+                       rdfs:comment "Relates an entity (e.g., a component, a process) to the type of fluid or energy stream it is designed to interact with or process. For example, a 'Water Coil' :isRelatedToStreamKind 'Water Stream'." .
+
+###  http://www.w3id.org/elementary#isRelatedToVariable
+:isRelatedToVariable rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :physicalProcessRelation ;
+                     rdfs:comment "A general relationship indicating an association between an entity and a process variable, without specifying the exact nature of the relationship (e.g., measurement, control, influence). For example, a 'Zone' :isRelatedToVariable 'Occupancy Count'." .
+
+###  http://www.w3id.org/elementary#linkedTo
+:linkedTo rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :systemDesignRelation ;
+          rdfs:comment "A general relationship indicating a connection or association between two entities within a system, which can be physical, logical, or communicative. For example, a 'Sensor' :linkedTo a 'Controller'." .
+
+###  http://www.w3id.org/elementary#maintains
+:maintains rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :modulates ;
+           rdfs:comment "Indicates that an entity (e.g., a control system) actively works to keep another entity at a desired setpoint or within a specified range. For example, a 'PID Controller' :maintains 'Zone Temperature'." .
+
+###  http://www.w3id.org/elementary#mandatoryIfExists
+:mandatoryIfExists rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :variantCondition ;
+                   rdfs:comment "A variant condition rule specifying that if a particular variant feature exists, then another specified feature *must also* exist; its presence is mandatory. For example, if a 'Heating Coil' exists, then a 'Heating Valve' :mandatoryIfExists." .
+
+###  http://www.w3id.org/elementary#manipulates
+:manipulates rdf:type owl:ObjectProperty ;
+             owl:equivalentProperty :modulates ;
+             rdfs:subPropertyOf :isRelatedToVariable ;
+             rdfs:comment "Indicates that an entity (e.g., an actuator or a control program) directly controls or influences the value of a specific process variable. For example, a 'Damper Actuator' :manipulates 'Airflow Rate'." .
+
+###  http://www.w3id.org/elementary#measures
+:measures rdf:type owl:ObjectProperty ;
+          owl:equivalentProperty :observes ;
+          rdfs:subPropertyOf :automationRelation ;
+          rdfs:comment "Relates a sensor or measurement device to the specific process variable or physical quantity it is designed to quantify. For example, a 'Duct Sensor' :measures 'Supply Air Temperature'." .
+
+###  http://www.w3id.org/elementary#modulatedBy
+:modulatedBy rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :automationRelation ;
+             rdfs:comment "Indicates that an entity's behavior, state, or output is influenced or controlled by another entity, typically a control signal or a controller. For example, a 'VAV Damper' :modulatedBy 'Zone Airflow Setpoint'." .
+
+###  http://www.w3id.org/elementary#modulates
+:modulates rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :automationRelation ;
+           owl:propertyChainAxiom ( :hasPhysicalMechanism
+                                    :hasDependentVariable
+                                  ) ;
+           rdfs:comment "Indicates that an entity influences or regulates the behavior, state, or value of another entity, often through a physical mechanism. This is a key action in control systems. For example, a 'Chilled Water Valve' :modulates 'Chilled Water Flow Rate'." .
+
+###  http://www.w3id.org/elementary#observes
+:observes rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :automationRelation ;
+          rdfs:comment "Relates a sensor or monitoring device to the physical variable or state it is designed to detect and report. For example, a 'Room CO2 Sensor' :observes 'Zone CO2 Level'." .
+
+###  http://www.w3id.org/elementary#observesAtInletOf
+:observesAtInletOf rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :observes ;
+                   rdfs:comment "Indicates that a sensor or observation point is specifically located to measure a variable at the entry point of a component. For example, a 'Temperature Sensor' :observesAtInletOf 'Heating Coil' to measure entering water temperature." .
+
+###  http://www.w3id.org/elementary#observesAtOutletOf
+:observesAtOutletOf rdf:type owl:ObjectProperty ;
+                    rdfs:subPropertyOf :observes ;
+                    rdfs:comment "Indicates that a sensor or observation point is specifically located to measure a variable at the exit point of a component. For example, a 'Pressure Sensor' :observesAtOutletOf 'Pump' to measure discharge pressure." .
+
+###  http://www.w3id.org/elementary#observesAtPort
+:observesAtPort rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :relatedToPort ;
+                rdfs:comment "Relates a sensor to a specific connection point (port) where it measures a variable. This clarifies the precise location of the measurement. For example, a 'Static Pressure Sensor' :observesAtPort 'Supply Duct Pressure Tap'." .
+
+###  http://www.w3id.org/elementary#observesInContainmentOf
+:observesInContainmentOf rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf :observes ;
+                         rdfs:comment "Indicates that a sensor or observation point measures a variable within the enclosed space or volume of a component. For example, a 'Humidity Sensor' :observesInContainmentOf 'Return Air Plenum'." .
+
+###  http://www.w3id.org/elementary#optionalIfExists
+:optionalIfExists rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :variantCondition ;
+                  rdfs:comment "A variant condition rule specifying that if a particular variant feature exists, then another specified feature *may or may not* exist; its presence is optional. For example, if a 'VAV Box' exists, then a 'Reheat Coil' :optionalIfExists." .
+
+###  http://www.w3id.org/elementary#physicalProcessRelation
+:physicalProcessRelation rdf:type owl:ObjectProperty ;
+                         rdfs:comment "A top-level, general relationship type encompassing all connections and interactions between concepts specifically related to physical processes, phenomena, and their characteristics within electro-mechanical systems." .
+
+###  http://www.w3id.org/elementary#precedes
+:precedes rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasTopologicalRelationTo ;
+          owl:inverseOf :succedes ;
+          rdfs:comment "Indicates a sequential relationship where one entity comes before another in a flow path, process sequence, or logical order. For example, 'Filter' :precedes 'Heating Coil' in an AHU airflow." .
+
+###  http://www.w3id.org/elementary#refersTo
+:refersTo rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :automationRelation ;
+          rdfs:comment "Indicates that one entity makes a reference or points to another entity, often for informational or definitional purposes. For example, a 'Control Algorithm Document' :refersTo 'ASHRAE Guideline 36'." .
+
+###  http://www.w3id.org/elementary#relatedToPort
+:relatedToPort rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :systemDesignRelation ;
+               rdfs:comment "A peripheral (sensor or actuator) may be related to a port in such a way that the variable it act upon or observes is primarily located at the port. For example, to state heating coil air outlet temperature, or pump inlet valve." .
+
+###  http://www.w3id.org/elementary#representedBy
+:representedBy rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :automationRelation ;
+               rdfs:comment "Indicates that one entity serves as a representation, model, or abstraction of another. For example, a 'Digital Input Signal' :representedBy 'Binary Datapoint'." .
+
+###  http://www.w3id.org/elementary#represents
+:represents rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :automationRelation ;
+            rdfs:comment "Indicates that one entity stands for, symbolizes, or acts as a proxy for another. This is the inverse of :representedBy. For example, a 'BACnet Object' :represents 'Physical Sensor'." .
+
+###  http://www.w3id.org/elementary#requirementsRelation
+:requirementsRelation rdf:type owl:ObjectProperty ;
+                      rdfs:comment "A top-level, general relationship type encompassing all connections and interactions between concepts specifically related to requirements engineering, including goals, agents, and various types of requirements." .
+
+###  http://www.w3id.org/elementary#separates
+:separates rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :systemDesignRelation ;
+           rdfs:comment "Indicates that a component or boundary creates a division or distinction between two entities, often preventing direct interaction or mixing. For example, a 'Wall' :separates 'Zone A' and 'Zone B'." .
+
+###  http://www.w3id.org/elementary#succedes
+:succedes rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf :hasTopologicalRelationTo ;
+          rdfs:comment "Indicates a sequential relationship where one entity comes after another in a flow path, process sequence, or logical order. This is the inverse of :precedes. For example, 'Heating Coil' :succedes 'Filter' in an AHU airflow." .
+
+###  http://www.w3id.org/elementary#suitableFor
+:suitableFor rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :hasStreamKind ;
+             rdfs:comment "Indicates that a component or system is appropriate or designed to handle a particular type of stream. For example, a 'Chilled Water Coil' :suitableFor 'Chilled Water Stream'." .
+
+###  http://www.w3id.org/elementary#systemDesignRelation
+:systemDesignRelation rdf:type owl:ObjectProperty ;
+                      rdfs:comment "A top-level, general relationship type encompassing all connections and interactions between concepts specifically related to the design, structure, and configuration of electro-mechanical systems." .
+
+###  http://www.w3id.org/elementary#unidirectionallyLinkedTo
+:unidirectionallyLinkedTo rdf:type owl:ObjectProperty ;
+                          rdfs:subPropertyOf :linkedTo ;
+                          rdfs:comment "Indicates a one-way connection or communication link between two entities, where information or influence flows only in a single direction. For example, a 'Sensor' :unidirectionallyLinkedTo a 'Controller'." .
+
+###  http://www.w3id.org/elementary#uplink
+:uplink rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :hasNetworkLink ;
+        rdfs:comment "Represents a communication link where data flows from a peripheral or downstream network component to a central or upstream component. For example, a 'Zone Controller' sends data via an :uplink to a 'Building Controller'." .
+
+###  http://www.w3id.org/elementary#upstreamEffect
+:upstreamEffect rdf:type owl:ObjectProperty ;
+                 rdfs:comment "Indicates an effect or influence that propagates backward in a process flow, impacting entities located earlier in the sequence. For example, a 'Blocked Filter' can have an :upstreamEffect on 'Fan Power Consumption'." .
+
+###  http://www.w3id.org/elementary#variantCondition
+:variantCondition rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :systemDesignRelation ;
+                  rdfs:comment "A rule or constraint that determines the presence, absence, or specific configuration of a variant feature within a system based on other conditions or features. This is crucial for managing product lines and configurable systems." .
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.w3id.org/elementary#atLeast
+:atLeast rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf :variantConditionQuantification ;
+         rdfs:comment "A numerical constraint specifying a minimum quantity or count for a variant feature. For example, a system variant may require :atLeast 2 'Supply Fans'." .
+
+###  http://www.w3id.org/elementary#atTheMost
+:atTheMost rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf :variantConditionQuantification ;
+           rdfs:comment "A numerical constraint specifying a maximum quantity or count for a variant feature. For example, a system variant may allow :atTheMost 4 'Chilled Water Pumps'." .
+
+###  http://www.w3id.org/elementary#exactly
+:exactly rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf :variantConditionQuantification ;
+         rdfs:comment "A numerical constraint specifying a precise quantity or count for a variant feature. For example, a system variant may require :exactly 1 'Building Controller'." .
+
+###  http://www.w3id.org/elementary#failureDetecability
+:failureDetecability rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf :faultQuantification ;
+                     rdfs:comment "A quantitative measure or rating of how easily or quickly a specific failure mode can be detected by existing monitoring systems or human operators. Typically rated on a scale (e.g., 1-10)." .
+
+###  http://www.w3id.org/elementary#failureEffectDescription
+:failureEffectDescription rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf :faultQualification ;
+                          rdfs:comment "A textual description detailing the observable consequences or impact of a specific failure mode on the system, its operation, or its environment. For example, 'Loss of cooling capacity, leading to elevated zone temperatures'." .
+
+###  http://www.w3id.org/elementary#failureEffectSeverity
+:failureEffectSeverity rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf :faultQuantification ;
+                       rdfs:comment "A quantitative measure or rating of the seriousness of the consequences of a specific failure mode. Typically rated on a scale (e.g., 1-10), indicating impact on safety, operations, or equipment." .
+
+###  http://www.w3id.org/elementary#failureProbability
+:failureProbability rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :faultQuantification ;
+                    rdfs:comment "A quantitative measure or rating of the likelihood or frequency of a specific failure mode occurring. Often expressed as a probability or a frequency rating (e.g., 1-10)." .
+
+###  http://www.w3id.org/elementary#faultQualification
+:faultQualification rdf:type owl:DatatypeProperty ;
+                    rdfs:comment "A general datatype property for qualitative descriptions or textual attributes related to faults, such as their nature, symptoms, or recommended actions." .
+
+###  http://www.w3id.org/elementary#faultQuantification
+:faultQuantification rdf:type owl:DatatypeProperty ;
+                     rdfs:comment "A general datatype property for numerical or quantitative measures associated with faults, such as their probability, severity, or detectability." .
+
+###  http://www.w3id.org/elementary#hasValue
+:hasValue rdf:type owl:DatatypeProperty ;
+          rdfs:comment "Relates an entity (e.g., a process variable, a parameter) to its specific numerical or literal value at a given point in time or as a configuration setting. For example, 'Zone Temperature' :hasValue '23.5' ^^xsd:float." .
+
+###  http://www.w3id.org/elementary#hasValueGreaterThan
+:hasValueGreaterThan rdf:type owl:DatatypeProperty ;
+                     rdfs:comment "Specifies a numerical threshold indicating that an entity's value must be strictly greater than the given value. Used for defining operational limits or conditions. For example, 'Discharge Air Temperature' :hasValueGreaterThan '15.0' (for cooling mode)." .
+
+###  http://www.w3id.org/elementary#hasValueLessThan
+:hasValueLessThan rdf:type owl:DatatypeProperty ;
+                   rdfs:comment "Specifies a numerical threshold indicating that an entity's value must be strictly less than the given value. Used for defining operational limits or conditions. For example, 'Return Water Temperature' :hasValueLessThan '20.0' (for a chilled water system)." .
+
+###  http://www.w3id.org/elementary#isAbstract
+:isAbstract rdf:type owl:DatatypeProperty ;
+            rdfs:comment "A boolean flag indicating whether a class or concept is abstract, meaning it cannot be directly instantiated but serves as a template for more specific subclasses. For example, 'Component' might be :isAbstract 'true'." .
+
+###  http://www.w3id.org/elementary#isOptional
+:isOptional rdf:type owl:DatatypeProperty ;
+            rdfs:comment "A boolean flag indicating whether a component, feature, or connection is optional in a system configuration, allowing for flexibility in design. For example, a 'Reheat Coil' in a VAV box might be :isOptional 'true'." .
+
+###  http://www.w3id.org/elementary#mayHaveParallelInstances
+:mayHaveParallelInstances rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf :variantConditionQuantification ;
+                          rdfs:comment "A boolean flag indicating that multiple instances of a component or feature can be configured to operate simultaneously or side-by-side. For example, a 'Chiller Plant' :mayHaveParallelInstances 'true' for multiple chillers." .
+
+###  http://www.w3id.org/elementary#mayHaveSeriesInstances
+:mayHaveSeriesInstances rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf :variantConditionQuantification ;
+                        rdfs:comment "A boolean flag indicating that multiple instances of a component or feature can be configured to operate sequentially or in a chain. For example, 'Duct Sections' :mayHaveSeriesInstances 'true'." .
+
+###  http://www.w3id.org/elementary#modelName
+:modelName rdf:type owl:DatatypeProperty ;
+           rdfs:comment "A textual string representing the specific name or identifier of a model (e.g., a simulation model, a program model). For example, 'EnergyPlus HVAC Model'." .
+
+###  http://www.w3id.org/elementary#programArtifact
+:programArtifact rdf:type owl:DatatypeProperty ;
+                 rdfs:range xsd:anyURI ;
+                 rdfs:comment "A URI or file path pointing to a digital artifact associated with a program, such as its source code, compiled executable, or configuration file. For example, 'file:///C:/Programs/HVAC_Control.exe'." .
+
+###  http://www.w3id.org/elementary#riskPriorityNumber
+:riskPriorityNumber rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :faultQuantification ;
+                    rdfs:comment "A numerical value (often calculated as Severity x Occurrence x Detectability) used in FMEA (Failure Mode and Effects Analysis) to prioritize risks. Higher numbers indicate higher priority for mitigation." .
+
+###  http://www.w3id.org/elementary#serialNumber
+:serialNumber rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdfs:comment "A unique alphanumeric identifier assigned to an individual physical item or device for tracking and identification purposes. For example, 'ABC12345XYZ'." .
+
+###  http://www.w3id.org/elementary#variantConditionQuantification
+:variantConditionQuantification rdf:type owl:DatatypeProperty ;
+                                rdfs:comment "A general datatype property for specifying numerical or boolean constraints related to the quantity, existence, or configuration of variant features within a system." .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3id.org/elementary#AchievementGoal
+:AchievementGoal rdf:type owl:Class ;
+                 rdfs:subClassOf :Goal ;
+                 rdfs:comment "A specific type of goal that defines a desired state or condition to be reached or successfully brought about by the system. For example, 'Achieve Zone Temperature of 23°C' or 'Achieve 100% Outdoor Air Economizer Operation'." .
+
+###  http://www.w3id.org/elementary#ActiveComponent
+:ActiveComponent rdf:type owl:Class ;
+                 rdfs:subClassOf :Component ;
+                 rdfs:comment "A component that actively processes or transforms energy or signals, typically requiring an external power source to operate. These components perform work or introduce energy into the system. Examples in HVAC include 'Fans', 'Pumps', 'Compressors', and 'Actuators'." .
+
+###  http://www.w3id.org/elementary#ActuationConnectionPoint
+:ActuationConnectionPoint rdf:type owl:Class ;
+                          rdfs:subClassOf :ConnectionPoint ;
+                          rdfs:comment "A specialized connection point on a component where an actuator exerts its physical influence or control. This is the interface through which mechanical action is applied. For example, the shaft connection on a 'Damper' where an 'Actuator' attaches." .
+
+###  http://www.w3id.org/elementary#Actuator
+:Actuator rdf:type owl:Class ;
+          rdfs:subClassOf :AutomationPeripheral ;
+          rdfs:comment "A device that converts an electrical or pneumatic control signal into a physical action, such as opening/closing a valve, rotating a damper, or starting/stopping a motor. These are the 'muscle' of an automation system. Examples include 'Valve Actuators', 'Damper Actuators', and 'Motor Starters'." .
+
+###  http://www.w3id.org/elementary#Agent
+:Agent rdf:type owl:Class ;
+       rdfs:subClassOf :RequirementsConcept ;
+       rdfs:comment "An entity (which can be human, artificial, or a system) that performs actions, has responsibilities, or interacts with the system to achieve goals. In HVAC, this could be an 'Occupant', a 'Building Operator', or a 'Building Management System'." .
+
+###  http://www.w3id.org/elementary#Ambient
+:Ambient rdf:type owl:Class ;
+         rdfs:subClassOf :Sink ,
+                         :Source ;
+         rdfs:comment "Represents the surrounding environment or outdoor conditions, which can act as both a source (e.g., outdoor air, solar radiation) and a sink (e.g., heat rejection to atmosphere) for substances or energy in HVAC systems." .
+
+###  http://www.w3id.org/elementary#AnalogInput
+:AnalogInput rdf:type owl:Class ;
+             rdfs:subClassOf :Input ;
+             rdfs:comment "A type of input datapoint that represents continuous values, typically from sensors measuring physical quantities. These values can vary smoothly over a range. Examples include 'Room Temperature' (0-50°C), 'Duct Static Pressure' (0-1000 Pa), or 'Chilled Water Flow Rate' (0-100 GPM)." .
+
+###  http://www.w3id.org/elementary#AnalogOutput
+:AnalogOutput rdf:type owl:Class ;
+              rdfs:subClassOf :Output ;
+              rdfs:comment "A type of output datapoint that commands a continuous value to an actuator or device. These outputs can be modulated smoothly to achieve precise control. Examples include 'Chilled Water Valve Position' (0-100% open), 'Fan Speed Command' (0-10VDC), or 'Heating Coil Output' (0-100%)." .
+
+###  http://www.w3id.org/elementary#ArtificialAgent
+:ArtificialAgent rdf:type owl:Class ;
+                 rdfs:subClassOf :Agent ;
+                 rdfs:comment "A non-human entity (e.g., a software program, a robot, a control system) that acts autonomously or semi-autonomously within a system. In HVAC, a 'Building Management System' or a 'DDC Controller' are examples of artificial agents." .
+
+###  http://www.w3id.org/elementary#AssertionExpression
+:AssertionExpression rdf:type owl:Class ;
+                     rdfs:subClassOf :FaultDetectionConcept ;
+                     rdfs:comment "A logical statement or condition that is expected to be true during normal and healthy operation of a system. Deviations from this assertion indicate a potential fault. For example, 'Supply Air Temperature <= Zone Temperature' when cooling is active." .
+
+###  http://www.w3id.org/elementary#AutomationActionKind
+:AutomationActionKind rdf:type owl:Class ;
+                      rdfs:subClassOf :AutomationSoftwareConcept ;
+                      rdfs:comment "A categorization of the types of actions that can be performed by an automation system. These categories help classify the purpose of control outputs or program functions. Examples include 'Sensing', 'Actuation', and 'Messaging'." .
+
+###  http://www.w3id.org/elementary#AutomationConcept
+:AutomationConcept rdf:type owl:Class ;
+                    rdfs:comment "A fundamental, top-level concept encompassing all entities, principles, and components related to the design, implementation, and operation of automation systems for electro-mechanical processes, including both hardware and software aspects." .
+
+###  http://www.w3id.org/elementary#AutomationController
+:AutomationController rdf:type owl:Class ;
+                      rdfs:subClassOf :AutomationHardwareConcept ;
+                      rdfs:comment "A computational hardware device specifically designed to host and execute control programs, enabling the automation of physical processes. It typically includes a CPU, memory, and interfaces for inputs, outputs, and network communication. In HVAC, this refers to devices like 'Direct Digital Controllers (DDCs)' or 'Programmable Logic Controllers (PLCs)'." .
+
+###  http://www.w3id.org/elementary#AutomationHardwareConcept
+:AutomationHardwareConcept rdf:type owl:Class ;
+                           rdfs:subClassOf :AutomationConcept ;
+                           rdfs:comment "Concepts related to the physical hardware components that enable automation, including devices for processing control logic, interfacing with the physical world, and network communication. Examples include 'DDC Controllers', 'Sensors', 'Actuators', and 'I/O Modules'." .
+
+###  http://www.w3id.org/elementary#AutomationPeripheral
+:AutomationPeripheral rdf:type owl:Class ;
+                      rdfs:subClassOf :AutomationHardwareConcept ,
+                                      :Component ;
+                      rdfs:comment "Devices that connect to an Automation Controller and interact directly with the physical world or other systems. They serve as the 'eyes, ears, and hands' of the automation system. Key examples in HVAC are 'Sensors' (e.g., temperature, pressure) and 'Actuators' (e.g., valves, dampers)." .
+
+###  http://www.w3id.org/elementary#AutomationProgram
+:AutomationProgram rdf:type owl:Class ;
+                   owl:equivalentClass :ControlProgram ;
+                   rdfs:subClassOf :AutomationSoftwareConcept ;
+                   rdfs:comment "A software program specifically engineered to control or automate a physical process or system. It contains the logic and algorithms that dictate how the system should operate in response to inputs and achieve desired outputs. This is synonymous with 'Control Program'." .
+
+###  http://www.w3id.org/elementary#AutomationSoftwareConcept
+:AutomationSoftwareConcept rdf:type owl:Class ;
+                           rdfs:subClassOf :AutomationConcept ;
+                           rdfs:comment "Concepts related to the software aspects of automation systems, including control logic, programming models, communication protocols, and fault detection algorithms. Examples include 'Control Programs', 'Sequences of Operation', and 'Fault Rules'." .
+
+###  http://www.w3id.org/elementary#AvoidanceGoal
+:AvoidanceGoal rdf:type owl:Class ;
+               rdfs:subClassOf :Goal ;
+               rdfs:comment "A specific type of goal that defines an undesirable state or condition that the system must actively prevent from occurring. For example, 'Avoid Freezing Pipes' or 'Avoid Over-Pressurization of Ductwork'." .
+
+###  http://www.w3id.org/elementary#Battery
+:Battery rdf:type owl:Class ;
+         rdfs:subClassOf :ChemicalEnergy ;
+         rdfs:comment "A device that stores chemical energy and converts it into electrical energy through electrochemical reactions. Commonly used as a backup power source or for portable devices in building automation, such as wireless sensors." .
+
+###  http://www.w3id.org/elementary#BatteryPoweredDevice
+:BatteryPoweredDevice rdf:type owl:Class ;
+                      rdfs:subClassOf :PoweredDevice ;
+                      rdfs:comment "Any active component that receives its operational power from a battery. This is common for wireless sensors or portable diagnostic tools in HVAC." .
+
+###  http://www.w3id.org/elementary#BeltDrive
+:BeltDrive rdf:type owl:Class ;
+           rdfs:subClassOf :IndirectCoupling ;
+           rdfs:comment "A mechanical coupling mechanism that uses one or more flexible belts to transmit power and motion between rotating shafts, often used in HVAC for fans and pumps. It allows for speed reduction/increase and absorbs some vibration." .
+
+###  http://www.w3id.org/elementary#BinaryInput
+:BinaryInput rdf:type owl:Class ;
+             rdfs:subClassOf :Input ;
+             rdfs:comment "A type of input datapoint that represents a bi-state (on/off, open/closed, true/false) condition. These are discrete signals. Examples include 'Fan Status' (running/stopped), 'Filter Status' (clean/dirty), 'Window Contact' (open/closed), or 'Occupancy Sensor' (occupied/unoccupied)." .
+
+###  http://www.w3id.org/elementary#BinaryOutput
+:BinaryOutput rdf:type owl:Class ;
+              rdfs:subClassOf :Output ;
+              rdfs:comment "A type of output datapoint that commands a bi-state (on/off) action to an actuator or device. These are discrete commands. Examples include 'Fan Start/Stop Command', 'Light On/Off Command', or 'Pump Enable/Disable'." .
+
+###  http://www.w3id.org/elementary#ChemicalEnergy
+:ChemicalEnergy rdf:type owl:Class ;
+                rdfs:subClassOf :EnergySource ;
+                rdfs:comment "Energy stored within the molecular bonds of chemical compounds, which can be released through chemical reactions (e.g., combustion). In HVAC, this refers to fuels like 'Natural Gas' or 'Fuel Oil' used in boilers." .
+
+###  http://www.w3id.org/elementary#ChemicalReaction
+:ChemicalReaction rdf:type owl:Class ;
+                  rdfs:subClassOf :EnergyConversion ;
+                  rdfs:comment "A process that involves the rearrangement of atomic or molecular structures, often resulting in the release or absorption of energy. In HVAC, 'Combustion' in a boiler or furnace is a primary example." .
+
+###  http://www.w3id.org/elementary#Combustion
+:Combustion rdf:type owl:Class ;
+            rdfs:subClassOf :ChemicalReaction ;
+            rdfs:comment "A rapid chemical reaction, typically involving oxygen and a fuel, that produces heat and light. This is the primary mechanism for heat generation in 'Boilers' and 'Furnaces' in HVAC systems." .
+
+###  http://www.w3id.org/elementary#CommunicationMessage
+:CommunicationMessage rdf:type owl:Class ;
+                      rdfs:subClassOf :AutomationSoftwareConcept ;
+                      rdfs:comment "A structured packet of data or information exchanged between different components or systems over a communication network. In HVAC, this could be a 'BACnet Write Property' command or a 'Modbus Register Read' request." .
+
+###  http://www.w3id.org/elementary#Component
+:Component rdf:type owl:Class ;
+           rdfs:subClassOf :SystemDesignConcept ;
+           rdfs:comment "A distinct, identifiable, and often replaceable part of a larger system, performing a specific function. Components can be physical devices or logical modules. Examples in HVAC are 'Fans', 'Pumps', 'Valves', 'Sensors', 'Controllers', or 'Duct Sections'." .
+
+###  http://www.w3id.org/elementary#ComponentRole
+:ComponentRole rdf:type owl:Class ;
+               rdfs:subClassOf :FaultDetectionConcept ;
+               rdfs:comment "The specific function or responsibility assigned to a component within the context of fault detection and diagnosis. Understanding a component's role helps in defining expected behavior and identifying deviations. For example, a 'Supply Fan' has the role of 'Air Mover'." .
+
+###  http://www.w3id.org/elementary#ComputingNode
+:ComputingNode rdf:type owl:Class ;
+               rdfs:subClassOf :NetworkComponent ;
+               rdfs:comment "A device within a network that possesses computational capabilities, allowing it to process data, execute programs, and participate in network communication. In HVAC, this includes 'Building Controllers', 'Zone Controllers', or 'Servers' hosting building management software." .
+
+###  http://www.w3id.org/elementary#Condition
+:Condition rdf:type owl:Class ;
+           rdfs:subClassOf :SystemDesignConcept ;
+           rdfs:comment "A state or property that must be true for a certain action or process to occur, or to evaluate the system's current status. Conditions are fundamental to control logic and fault detection. For example, 'Outdoor Air Temperature < 15°C' or 'Occupancy = True'." .
+
+###  http://www.w3id.org/elementary#Conduit
+:Conduit rdf:type owl:Class ;
+         rdfs:subClassOf :PassiveComponent ;
+         rdfs:label "Conduit" ;
+         rdfs:comment "A passive component, typically a pipe or tube, used to enclose and protect electrical wiring or to convey fluids. In HVAC, 'Electrical Conduits' protect wiring, and 'Pipes' and 'Ducts' are types of conduits for fluids." .
+
+###  http://www.w3id.org/elementary#Connection
+:Connection rdf:type owl:Class ;
+            rdfs:subClassOf :SystemDesignConcept ;
+            rdfs:comment "A physical or logical link between two or more components, enabling the transfer of material, energy, or information. Connections define the relationships and interactions between parts of a system. Examples include 'Electrical Wires', 'Pipes', 'Ducts', or 'Network Cables'." .
+
+###  http://www.w3id.org/elementary#ConnectionPoint
+:ConnectionPoint rdf:type owl:Class ;
+                 owl:equivalentClass :Port ;
+                 rdfs:subClassOf :SystemDesignConcept ;
+                 rdfs:label "Port" ;
+                 rdfs:comment "A specific interface or opening on a component where connections can be made. It defines the point of interaction for flows of material, energy, or signals. Examples include 'Inlet/Outlet Ports' on coils, 'Sensor Terminals', or 'Network Jacks'." .
+
+###  http://www.w3id.org/elementary#Container
+:Container rdf:type owl:Class ;
+           rdfs:subClassOf :PassiveComponent ;
+           rdfs:label "Containment" ;
+           rdfs:comment "A passive component designed to hold, store, or enclose substances or other components. It provides a boundary and often isolates its contents from the external environment. Examples include 'Water Tanks', 'Refrigerant Cylinders', or 'Equipment Enclosures'." .
+
+###  http://www.w3id.org/elementary#Context
+:Context rdf:type owl:Class ;
+         rdfs:subClassOf :RequirementsConcept ;
+         rdfs:comment "The surrounding circumstances, environment, or operational conditions in which a system functions or a requirement applies. Understanding context is crucial for interpreting system behavior and requirements. For example, 'Occupied Mode' or 'Night Setback' define different operational contexts for an HVAC system." .
+
+###  http://www.w3id.org/elementary#ControlProgram
+:ControlProgram rdf:type owl:Class ;
+                rdfs:subClassOf :AutomationSoftwareConcept ;
+                rdfs:comment "A software program that is designed to perceive the state of the controlled environment (via sensors), process this information according to defined logic, and take actions (via actuators) to manipulate its state to achieve desired outcomes. In HVAC, this is the core logic running on DDC controllers." .
+
+###  http://www.w3id.org/elementary#ControllerComputationalHost
+:ControllerComputationalHost rdf:type owl:Class ;
+                             rdfs:subClassOf :AutomationHardwareConcept ;
+                             rdfs:comment "The core hardware platform within an Automation Controller that provides the processing power, memory, and operating system environment for executing control programs. This includes the CPU, RAM, and embedded firmware." .
+
+###  http://www.w3id.org/elementary#ControllerHardwareInterface
+:ControllerHardwareInterface rdf:type owl:Class ;
+                             rdfs:subClassOf :AutomationHardwareConcept ;
+                             rdfs:comment "The physical interfaces on an Automation Controller that allow it to interact with the external world. These include terminals for sensors and actuators, and ports for network communication. Examples: 'Analog Input Terminals', 'Digital Output Relays', 'Ethernet Ports'." .
+
+###  http://www.w3id.org/elementary#CoordinationScheme
+:CoordinationScheme rdf:type owl:Class ;
+                    rdfs:subClassOf :AutomationSoftwareConcept ;
+                    rdfs:comment "The high-level logic or strategy that defines how multiple components, controllers, or subsystems should interact and synchronize their actions to achieve a common system-wide objective. For example, a 'Chiller Plant Optimization Scheme' coordinates multiple chillers and pumps." .
+
+###  http://www.w3id.org/elementary#Datapoint
+:Datapoint rdf:type owl:Class ;
+           rdfs:subClassOf :ProgramInterface ;
+           rdfs:comment "An object-oriented representation of a program interface that captures the semantics and the modeling of the values. It represents a single piece of information used or produced by a control program. Examples include 'Zone Temperature Setpoint', 'Fan Status', or 'Valve Command'." .
+
+###  http://www.w3id.org/elementary#DirectCoupling
+:DirectCoupling rdf:type owl:Class ;
+                rdfs:subClassOf :MechanicalConnection ;
+                rdfs:comment "A mechanical connection where components are directly joined without intermediate elements, ensuring a rigid and immediate transfer of force or motion. For example, a 'Pump Impeller' directly coupled to a 'Motor Shaft'." .
+
+###  http://www.w3id.org/elementary#DirectDigitalController
+:DirectDigitalController rdf:type owl:Class ;
+                         rdfs:subClassOf :AutomationController ;
+                         rdfs:comment "A specific type of Automation Controller widely used in HVAC systems. It uses microprocessors to execute control algorithms digitally, directly interfacing with sensors and actuators. DDC controllers are highly programmable and offer precise control." .
+
+###  http://www.w3id.org/elementary#Duct
+:Duct rdf:type owl:Class ;
+      rdfs:subClassOf :SubstanceConveyor ;
+      rdfs:comment "A passive component, typically made of sheet metal or fiberglass, specifically designed to convey air (supply, return, exhaust, outdoor) within an HVAC system. Ducts form the air distribution network." .
+
+###  http://www.w3id.org/elementary#Effort
+:Effort rdf:type owl:Class ;
+        rdfs:subClassOf :PhysicalStuff ;
+        rdfs:comment "A physical quantity representing a generalized force or potential that causes or tends to cause a change in motion or state. In HVAC, this could be 'Pressure' (for fluids) or 'Torque' (for rotating machinery)." .
+
+###  http://www.w3id.org/elementary#ElectricalConduction
+:ElectricalConduction rdf:type owl:Class ;
+                      rdfs:subClassOf :EnergyTransfer ;
+                      rdfs:comment "The physical mechanism by which electrical energy is transferred through the movement of electrons or ions within a conductive material. This is how power is delivered to electrical components in HVAC." .
+
+###  http://www.w3id.org/elementary#ElectricalConductor
+:ElectricalConductor rdf:type owl:Class ;
+                     rdfs:subClassOf :ElectricalConnection ;
+                     rdfs:comment "A material or component (e.g., a wire or cable) that allows electrical current to flow through it with relative ease, enabling the transfer of electrical energy or signals. Used for powering motors, controllers, and sensors." .
+
+###  http://www.w3id.org/elementary#ElectricalConnection
+:ElectricalConnection rdf:type owl:Class ;
+                      rdfs:subClassOf :Connection ;
+                      rdfs:comment "A connection specifically designed for the transfer of electrical energy or signals between components. This includes wiring, busbars, and terminals. Essential for powering all active components and for communication." .
+
+###  http://www.w3id.org/elementary#ElectricalGrid
+:ElectricalGrid rdf:type owl:Class ;
+                rdfs:subClassOf :EnergySource ;
+                rdfs:comment "A large-scale network of power generation, transmission, and distribution components that provides electrical energy to buildings and systems. It serves as the primary external energy source for most HVAC equipment." .
+
+###  http://www.w3id.org/elementary#ElectricalSignalKind
+:ElectricalSignalKind rdf:type owl:Class ;
+                      rdfs:subClassOf :AutomationHardwareConcept ;
+                      rdfs:comment "The physical form or characteristic of an electrical signal used for communication or control. This defines how information is encoded electrically. Examples include 'Analog Voltage (0-10V)', 'Digital (On/Off)', 'Pulse Width Modulation (PWM)', or 'Serial Communication (RS-485)'." .
+
+###  http://www.w3id.org/elementary#ElectricalTopology
+:ElectricalTopology rdf:type owl:Class ;
+                    rdfs:subClassOf :PhysicalProcessTopology ;
+                    rdfs:comment "The arrangement and interconnection of electrical components, wiring, and power distribution within a system. This describes how electrical power and signals flow throughout the system." .
+
+###  http://www.w3id.org/elementary#ElectroChemicalProcess
+:ElectroChemicalProcess rdf:type owl:Class ;
+                        rdfs:subClassOf :ChemicalReaction ;
+                        rdfs:comment "A chemical reaction that involves the transfer of electrons, often generating or consuming electrical energy. Batteries and fuel cells operate via electrochemical processes, which might power some HVAC components." .
+
+###  http://www.w3id.org/elementary#ElectroMechanicalConversion
+:ElectroMechanicalConversion rdf:type owl:Class ;
+                             rdfs:subClassOf :EnergyConversion ;
+                             rdfs:comment "The physical mechanism that transforms electrical energy into mechanical energy, or vice versa. Examples in HVAC include 'Electric Motors' (electrical to mechanical for fans/pumps) and 'Generators' (mechanical to electrical)." .
+
+###  http://www.w3id.org/elementary#ElectromagneticCoupling
+:ElectromagneticCoupling rdf:type owl:Class ;
+                         rdfs:subClassOf :EnergyTransfer ;
+                         rdfs:comment "The physical mechanism for transferring energy through electromagnetic fields, without direct physical contact. This can occur in transformers or inductive motors. Less common as a primary HVAC energy transfer, but relevant for power electronics." .
+
+###  http://www.w3id.org/elementary#ElectromagneticRadiation
+:ElectromagneticRadiation rdf:type owl:Class ;
+                          rdfs:subClassOf :EnergyTransfer ;
+                          rdfs:comment "The transfer of energy in the form of electromagnetic waves, such as infrared radiation (heat), visible light, or radio waves. 'Thermal Radiation' is a key example in HVAC for heat transfer between surfaces." .
+
+###  http://www.w3id.org/elementary#Energy
+:Energy rdf:type owl:Class ;
+        rdfs:subClassOf :PhysicalStuff ;
+        rdfs:comment "The capacity to do work or produce heat. Energy is a fundamental concept in HVAC, flowing through systems in various forms (e.g., thermal, electrical, mechanical). It is conserved but can be converted between forms." .
+
+###  http://www.w3id.org/elementary#EnergyConversion
+:EnergyConversion rdf:type owl:Class ;
+                  rdfs:subClassOf :PhysicalMechanism ;
+                  rdfs:comment "A physical mechanism that transforms energy from one form into another. This is central to HVAC, e.g., a 'Chiller' converts electrical energy into thermal energy removal, or a 'Boiler' converts chemical energy into thermal energy." .
+
+###  http://www.w3id.org/elementary#EnergyForm
+:EnergyForm rdf:type owl:Class ;
+            rdfs:subClassOf :Energy ;
+            rdfs:comment "A specific manifestation or type of energy, characterized by its physical nature. Examples relevant to HVAC include 'Thermal Energy', 'Electrical Energy', 'Mechanical Energy', and 'Chemical Energy'." .
+
+###  http://www.w3id.org/elementary#EnergyHarvestingDevice
+:EnergyHarvestingDevice rdf:type owl:Class ;
+                        rdfs:subClassOf :PoweredDevice ;
+                        rdfs:comment "A device that captures and converts ambient energy (e.g., solar, kinetic, thermal gradients) from its environment into usable electrical power. These can power low-power wireless sensors in HVAC applications." .
+
+###  http://www.w3id.org/elementary#EnergySource
+:EnergySource rdf:type owl:Class ;
+              rdfs:subClassOf :Source ;
+              rdfs:comment "A component or entity that provides energy to a system. In HVAC, common examples are the 'Electrical Grid', 'Boilers' (thermal energy), or 'Solar Panels'." .
+
+###  http://www.w3id.org/elementary#EnergyTransfer
+:EnergyTransfer rdf:type owl:Class ;
+                rdfs:subClassOf :PhysicalMechanism ;
+                rdfs:comment "A physical mechanism that moves energy from one location or entity to another without changing its form. Examples in HVAC include 'Thermal Conduction' through a pipe wall or 'Electrical Conduction' through a wire." .
+
+###  http://www.w3id.org/elementary#ExternalConnection
+:ExternalConnection rdf:type owl:Class ;
+                    rdfs:subClassOf :Connection ;
+                    rdfs:comment "A connection that links a system or component to an entity outside its defined boundary. This represents interfaces with the broader environment or other independent systems. For example, a 'Building's Main Electrical Connection' to the 'Electrical Grid'." .
+
+###  http://www.w3id.org/elementary#FailureCause
+:FailureCause rdf:type owl:Class ;
+              rdfs:subClassOf :FaultDetectionConcept ;
+              rdfs:comment "An event, condition, or defect that directly leads to a system failure or malfunction. Identifying the cause is critical for effective troubleshooting and prevention. For example, 'Motor Overload' causing a 'Fan Failure'." .
+
+###  http://www.w3id.org/elementary#FailureEffect
+:FailureEffect rdf:type owl:Class ;
+               rdfs:subClassOf :FaultDetectionConcept ;
+               rdfs:comment "The observable consequence or impact of a system failure on its operation, performance, or safety. Understanding effects helps prioritize fault detection and mitigation. For example, 'Loss of Cooling' as an effect of 'Chiller Failure'." .
+
+###  http://www.w3id.org/elementary#FailureMode
+:FailureMode rdf:type owl:Class ;
+             rdfs:subClassOf :FaultDetectionConcept ;
+             rdfs:comment "The specific manner or way in which a component or system can fail to perform its intended function. This describes 'how' a failure occurs. For example, a 'Valve' failing in the 'Stuck Open' position." .
+
+###  http://www.w3id.org/elementary#FaultDetectionConcept
+:FaultDetectionConcept rdf:type owl:Class ;
+                       rdfs:subClassOf :AutomationSoftwareConcept ;
+                       rdfs:comment "Concepts related to the identification, diagnosis, and prediction of abnormal conditions or malfunctions within electro-mechanical systems. This includes fault modes, causes, effects, and mitigation strategies." .
+
+###  http://www.w3id.org/elementary#FaultRule
+:FaultRule rdf:type owl:Class ;
+           rdfs:subClassOf :FaultDetectionConcept ;
+           rdfs:comment "A logical rule or algorithm used to detect or diagnose a fault based on observed system parameters and conditions. For example, 'IF (Supply Air Temp > Zone Temp AND Cooling Command = ON) THEN 'Cooling Fault''." .
+
+###  http://www.w3id.org/elementary#FiniteStateMachine
+:FiniteStateMachine rdf:type owl:Class ;
+                    rdfs:subClassOf :ProgramModel ;
+                    rdfs:comment "A mathematical model of computation that describes the behavior of a control program in terms of a finite number of states and transitions between these states triggered by specific inputs or conditions. Widely used for modeling sequences of operation in HVAC." .
+
+###  http://www.w3id.org/elementary#Fluid
+:Fluid rdf:type owl:Class ;
+       rdfs:subClassOf :Substance ;
+       rdfs:comment "A substance that continuously deforms (flows) under an applied shear stress, lacking a fixed shape. This includes both 'Liquids' (e.g., water, refrigerant) and 'Gases' (e.g., air, natural gas) which are central to HVAC systems." .
+
+###  http://www.w3id.org/elementary#ForceTransfer
+:ForceTransfer rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalMechanism ;
+               rdfs:comment "A physical mechanism that transmits mechanical force or torque from one point to another, often through rigid bodies or linkages. For example, a 'Gear Train' transfers rotational force." .
+
+###  http://www.w3id.org/elementary#FossilFuel
+:FossilFuel rdf:type owl:Class ;
+            rdfs:subClassOf :Fuel ;
+            rdfs:comment "A type of fuel formed from the geological remains of dead organisms, such as 'Natural Gas', 'Coal', or 'Fuel Oil'. These are major chemical energy sources for heating in HVAC." .
+
+###  http://www.w3id.org/elementary#Fuel
+:Fuel rdf:type owl:Class ;
+      rdfs:subClassOf :ChemicalEnergy ;
+      rdfs:comment "A substance that can be burned or processed to produce energy, typically through combustion, releasing chemical energy. Examples in HVAC are 'Natural Gas' or 'Fuel Oil' for boilers and furnaces." .
+
+###  http://www.w3id.org/elementary#FunctionalRequirement
+:FunctionalRequirement rdf:type owl:Class ;
+                       rdfs:subClassOf :Requirement ;
+                       rdfs:comment "A requirement that specifies what the system *should do* or what functions it *must perform*. These describe the system's behavior. For example, 'The HVAC system shall maintain zone temperature between 22°C and 24°C'." .
+
+###  http://www.w3id.org/elementary#Gas
+:Gas rdf:type owl:Class ;
+     rdfs:subClassOf :Fluid ;
+     rdfs:comment "A state of matter characterized by particles that are widely dispersed and move randomly, having neither a definite volume nor a definite shape. In HVAC, 'Air', 'Natural Gas', and 'Refrigerant Vapor' are common gases." .
+
+###  http://www.w3id.org/elementary#Gateway
+:Gateway rdf:type owl:Class ;
+         rdfs:subClassOf :NetworkComponent ;
+         rdfs:comment "A network component that acts as an entry and exit point for data going to and from a network, often translating between different communication protocols or network segments. In HVAC, a 'BACnet/IP to MS/TP Gateway' is a common example." .
+
+###  http://www.w3id.org/elementary#GearTrain
+:GearTrain rdf:type owl:Class ;
+           rdfs:subClassOf :IndirectCoupling ;
+           rdfs:comment "A mechanical coupling mechanism consisting of two or more meshed gears that transmit rotation and torque between shafts, often used to change speed or direction of rotation in HVAC equipment like fan drives." .
+
+###  http://www.w3id.org/elementary#GeneralRequirement
+:GeneralRequirement rdf:type owl:Class ;
+                    rdfs:subClassOf :Requirement ;
+                    rdfs:comment "A broad or high-level requirement that applies generally to the system, often setting overall objectives or constraints without specifying detailed behavior. For example, 'The building shall be energy efficient'." .
+
+###  http://www.w3id.org/elementary#Goal
+:Goal rdf:type owl:Class ;
+      rdfs:subClassOf :RequirementsConcept ;
+      rdfs:comment "A desired future state, objective, or outcome that a system or project aims to achieve. Goals provide the high-level purpose for the system. For example, 'Ensure Occupant Comfort' or 'Minimize Energy Consumption'." .
+
+###  http://www.w3id.org/elementary#HardwareInputInterface
+:HardwareInputInterface rdf:type owl:Class ;
+                        rdfs:subClassOf :ControllerHardwareInterface ;
+                        rdfs:comment "A physical interface on an Automation Controller specifically designed to receive incoming electrical signals from sensors or other input devices. This can be 'Analog Input' (e.g., 0-10V, 4-20mA) or 'Digital Input' (e.g., dry contact closure)." .
+
+###  http://www.w3id.org/elementary#HardwareOutputInterface
+:HardwareOutputInterface rdf:type owl:Class ;
+                         rdfs:subClassOf :ControllerHardwareInterface ;
+                         rdfs:comment "A physical interface on an Automation Controller specifically designed to send outgoing electrical signals to actuators or other output devices. This can be 'Analog Output' (e.g., 0-10V, 4-20mA) or 'Digital Output' (e.g., relay contact)." .
+
+###  http://www.w3id.org/elementary#HeatTransfer
+:HeatTransfer rdf:type owl:Class ;
+              rdfs:subClassOf :EnergyTransfer ;
+              rdfs:comment "The physical mechanism by which thermal energy moves from one system or body to another due to a temperature difference. The three primary modes in HVAC are 'Conduction', 'Convection', and 'Radiation'." .
+
+###  http://www.w3id.org/elementary#HighLimit
+:HighLimit rdf:type owl:Class ;
+           rdfs:subClassOf :Limit ;
+           rdfs:comment "A parameter that defines the maximum permissible value for a process variable or control output. If the value exceeds this limit, an alarm or control action is typically triggered. For example, 'High Limit for Discharge Air Temperature' to prevent overheating." .
+
+###  http://www.w3id.org/elementary#HumanAgent
+:HumanAgent rdf:type owl:Class ;
+            rdfs:subClassOf :Agent ;
+            rdfs:comment "A human being who interacts with or is part of a system, performing actions, making decisions, or having specific roles. In HVAC, this includes 'Occupants', 'Building Operators', 'Maintenance Technicians', or 'Commissioning Agents'." .
+
+###  http://www.w3id.org/elementary#HydraulicCoupling
+:HydraulicCoupling rdf:type owl:Class ;
+                   rdfs:subClassOf :IndirectCoupling ;
+                   rdfs:comment "A mechanical coupling mechanism that uses fluid pressure to transmit power and motion, often providing smooth power transfer and overload protection. Examples include 'Fluid Couplings' or 'Hydrostatic Transmissions' in some heavy HVAC machinery." .
+
+###  http://www.w3id.org/elementary#IOModule
+:IOModule rdf:type owl:Class ;
+          rdfs:subClassOf :AutomationHardwareConcept ;
+          rdfs:comment "A modular hardware component that provides a set of input and/or output points for an Automation Controller, allowing for flexible expansion of I/O capabilities. Often used with 'Modular Automation Controllers'." .
+
+###  http://www.w3id.org/elementary#IndirectCoupling
+:IndirectCoupling rdf:type owl:Class ;
+                  rdfs:subClassOf :MechanicalConnection ;
+                  rdfs:comment "A mechanical connection where power or motion is transmitted between components through intermediate elements (e.g., belts, gears, fluids), rather than direct rigid contact. This often allows for flexibility, speed changes, or isolation." .
+
+###  http://www.w3id.org/elementary#InletConnectionPoint
+:InletConnectionPoint rdf:type owl:Class ;
+                      rdfs:subClassOf :ConnectionPoint ;
+                      rdfs:label "Inlet" ;
+                      rdfs:comment "A specialized connection point on a component that serves as the entry point for a substance or energy flow. For example, the 'Inlet' of a 'Heating Coil' for hot water, or the 'Inlet' of a 'Fan' for return air." .
+
+###  http://www.w3id.org/elementary#Input
+:Input rdf:type owl:Class ;
+       rdfs:subClassOf :Datapoint ;
+       rdfs:comment "A datapoint that represents information or data received by a control program from sensors, other programs, or external systems. Inputs are crucial for the program to perceive the current state of the controlled environment. Examples: 'Zone Temperature', 'Outdoor Air Humidity'." .
+
+###  http://www.w3id.org/elementary#InputSignalConnectionPoint
+:InputSignalConnectionPoint rdf:type owl:Class ;
+                            rdfs:subClassOf :SignalConnectionPoint ;
+                            rdfs:comment "A specialized connection point on an Automation Hardware Concept (e.g., a controller) specifically configured to receive incoming electrical or communication signals. This is where sensors or other controllers connect to provide data." .
+
+###  http://www.w3id.org/elementary#InternalConnection
+:InternalConnection rdf:type owl:Class ;
+                    rdfs:subClassOf :Connection ;
+                    rdfs:comment "A connection that exists entirely within the boundaries of a single system or component, linking its internal sub-components. For example, the wiring between a 'Fan Motor' and its 'Variable Frequency Drive' within an AHU." .
+
+###  http://www.w3id.org/elementary#Limit
+:Limit rdf:type owl:Class ;
+       rdfs:subClassOf :Parameter ;
+       rdfs:comment "A parameter that defines a boundary or constraint on the acceptable range of a value, often used to ensure safe operation or prevent undesirable conditions. Examples include 'High Limit', 'Low Limit', or 'Rate Limit' for temperature, pressure, or flow." .
+
+###  http://www.w3id.org/elementary#Liquid
+:Liquid rdf:type owl:Class ;
+        rdfs:subClassOf :Fluid ;
+        rdfs:comment "A state of matter that has a definite volume but takes the shape of its container, with particles that are closely packed but can move past one another. In HVAC, 'Water' (chilled, hot, condenser) and 'Liquid Refrigerant' are common examples." .
+
+###  http://www.w3id.org/elementary#LowLimit
+:LowLimit rdf:type owl:Class ;
+          rdfs:subClassOf :Limit ;
+          rdfs:comment "A parameter that defines the minimum permissible value for a process variable or control output. If the value falls below this limit, an alarm or control action is typically triggered. For example, 'Low Limit for Chilled Water Supply Temperature' to prevent coil freezing." .
+
+###  http://www.w3id.org/elementary#MagneticConnection
+:MagneticConnection rdf:type owl:Class ;
+                    rdfs:subClassOf :Connection ;
+                    rdfs:comment "A connection that involves magnetic forces or fields for coupling or interaction between components. While less common for bulk energy transfer in HVAC, it's relevant for 'Magnetic Bearings' in some advanced chillers or for 'Inductive Sensors'." .
+
+###  http://www.w3id.org/elementary#MainsPoweredDevice
+:MainsPoweredDevice rdf:type owl:Class ;
+                    rdfs:subClassOf :PoweredDevice ;
+                    rdfs:comment "An active component that draws its operational power directly from the main electrical supply (e.g., 120V, 240V, 480V AC). Most large HVAC equipment like 'Chillers', 'Boilers', and 'Air Handling Units' are mains powered." .
+
+###  http://www.w3id.org/elementary#MaintenanceGoal
+:MaintenanceGoal rdf:type owl:Class ;
+                 rdfs:subClassOf :Goal ;
+                 rdfs:comment "A specific type of goal related to ensuring the upkeep, repair, or continued optimal operation and longevity of a system. For example, 'Minimize Equipment Downtime' or 'Extend Chiller Lifespan'." .
+
+###  http://www.w3id.org/elementary#MassTransfer
+:MassTransfer rdf:type owl:Class ;
+              rdfs:subClassOf :PhysicalMechanism ;
+              rdfs:comment "A physical mechanism involving the movement of mass from one location to another, often across a phase boundary or within a fluid. In HVAC, this occurs in 'Humidifiers' (water vapor into air) or 'Dehumidifiers' (water vapor out of air)." .
+
+###  http://www.w3id.org/elementary#MeasurementConnectionPoint
+:MeasurementConnectionPoint rdf:type owl:Class ;
+                            owl:equivalentClass :MeasurementPort ;
+                            rdfs:subClassOf :ConnectionPoint ;
+                            rdfs:comment "A specialized connection point on a component designed for the attachment of sensors or measurement devices to monitor a specific process variable. For example, a 'Thermowell' on a pipe for a temperature sensor." .
+
+###  http://www.w3id.org/elementary#MeasurementPort
+:MeasurementPort rdf:type owl:Class ;
+                 rdfs:subClassOf :ConnectionPoint ;
+                 rdfs:comment "A specialized connection point on a component designed for the attachment of sensors or measurement devices to monitor a specific process variable. For example, a 'Pressure Tap' on a duct for a static pressure sensor." .
+
+###  http://www.w3id.org/elementary#MeasurementUnit
+:MeasurementUnit rdf:type owl:Class ;
+                 rdfs:subClassOf :PhysicalProcessConcept ;
+                 rdfs:comment "A standard quantity used to express the magnitude of a physical quantity, providing context and scale to numerical values. Examples include 'Degrees Celsius', 'Pascals', 'Liters per Second', or 'Kilowatts'." .
+
+###  http://www.w3id.org/elementary#MechanicalAction
+:MechanicalAction rdf:type owl:Class ;
+                  rdfs:subClassOf :EnergySource ;
+                  rdfs:comment "Energy derived from physical movement, force, or work done by mechanical means. This can be an input (e.g., a hand crank) or an output (e.g., fan rotation) in a system. In HVAC, it's often the output of an electric motor." .
+
+###  http://www.w3id.org/elementary#MechanicalConnection
+:MechanicalConnection rdf:type owl:Class ;
+                      rdfs:subClassOf :Connection ;
+                      rdfs:comment "A connection specifically designed for the transfer of mechanical force, motion, or structural support between components. This includes mounting brackets, shafts, belts, and gears. For example, a 'Fan's Mounting to an AHU Frame'." .
+
+###  http://www.w3id.org/elementary#MechanicalCoupling
+:MechanicalCoupling rdf:type owl:Class ;
+                    rdfs:subClassOf :EnergyTransfer ;
+                    rdfs:comment "The physical mechanism for transferring mechanical energy between components, either directly or indirectly. Examples include 'Belt Drives' or 'Gear Trains' in HVAC equipment." .
+
+###  http://www.w3id.org/elementary#MechanicalPotential
+:MechanicalPotential rdf:type owl:Class ;
+                     rdfs:subClassOf :EnergySource ;
+                     rdfs:comment "Stored energy due to the position or configuration of an object, capable of doing mechanical work. For example, 'Water in an elevated tank' has mechanical potential energy that can drive a turbine." .
+
+###  http://www.w3id.org/elementary#MitigationAction
+:MitigationAction rdf:type owl:Class ;
+                  rdfs:subClassOf :FaultDetectionConcept ;
+                  rdfs:comment "A specific action or procedure taken to reduce the severity, likelihood, or impact of a detected fault or risk. For example, 'Opening an Exhaust Damper' to mitigate high CO2 levels, or 'Shutting Down a Chiller' on high pressure alarm." .
+
+###  http://www.w3id.org/elementary#ModularAutomationController
+:ModularAutomationController rdf:type owl:Class ;
+                             rdfs:subClassOf :AutomationController ;
+                             rdfs:comment "A type of Automation Controller designed with a central processing unit and expandable input/output (I/O) modules. This allows for flexible configuration and scalability to match specific application requirements, common in larger HVAC systems." .
+
+###  http://www.w3id.org/elementary#MultistateInput
+:MultistateInput rdf:type owl:Class ;
+                 rdfs:subClassOf :Input ;
+                 rdfs:comment "A type of input datapoint that represents multiple discrete states, rather than just two (binary) or continuous (analog). Examples include 'Fan Speed' (Off, Low, Medium, High), 'Mode Selection' (Heat, Cool, Auto), or 'Filter Condition' (Clean, Moderate, Dirty)." .
+
+###  http://www.w3id.org/elementary#MultistateOutput
+:MultistateOutput rdf:type owl:Class ;
+                  rdfs:subClassOf :Output ;
+                  rdfs:comment "A type of output datapoint that commands a device to one of several discrete states. Examples include 'Fan Speed Command' (Off, Stage 1, Stage 2), or 'Boiler Firing Rate' (Off, Low Fire, High Fire)." .
+
+###  http://www.w3id.org/elementary#NetworkCommunicationInterface
+:NetworkCommunicationInterface rdf:type owl:Class ;
+                               rdfs:subClassOf :ControllerHardwareInterface ;
+                               rdfs:comment "A physical interface on an Automation Controller specifically designed for exchanging data with other network-enabled devices or systems using various communication protocols (e.g., Ethernet, BACnet MS/TP, Modbus RTU). Examples: 'RJ45 Ethernet Port', 'RS-485 Terminal Block'." .
+
+###  http://www.w3id.org/elementary#NetworkComponent
+:NetworkComponent rdf:type owl:Class ;
+                  rdfs:subClassOf :Component ;
+                  rdfs:comment "A component that is part of a communication network, facilitating the transmission, routing, or processing of data between connected devices. In HVAC, examples include 'Routers', 'Switches', 'Gateways', and 'DDC Controllers' themselves." .
+
+###  http://www.w3id.org/elementary#NetworkLink
+:NetworkLink rdf:type owl:Class ;
+             rdfs:subClassOf :NetworkComponent ;
+             rdfs:comment "A physical or logical connection between two network components, serving as the pathway for data exchange. Examples include 'Ethernet Cables', 'Fiber Optic Cables', or 'Wireless Connections'." .
+
+###  http://www.w3id.org/elementary#NetworkTopology
+:NetworkTopology rdf:type owl:Class ;
+                 rdfs:subClassOf :Topology ;
+                 rdfs:comment "The arrangement and interconnection pattern of the various elements (e.g., nodes, links) within a communication network. Common topologies include 'Star', 'Bus', 'Ring', or 'Mesh', each with implications for reliability and performance." .
+
+###  http://www.w3id.org/elementary#NonFunctionalRequirement
+:NonFunctionalRequirement rdf:type owl:Class ;
+                          rdfs:subClassOf :Requirement ;
+                          rdfs:comment "A requirement that specifies criteria used to judge the operation of a system, rather than specific behaviors. These describe *how well* the system performs. Examples include 'System Response Time < 5 seconds', 'System Uptime > 99.9%', or 'Data Security Compliance'." .
+
+###  http://www.w3id.org/elementary#NuclearFission
+:NuclearFission rdf:type owl:Class ;
+                rdfs:subClassOf :ChemicalReaction ;
+                rdfs:comment "A nuclear reaction in which a heavy atomic nucleus splits into two or more smaller nuclei, releasing a tremendous amount of energy. While not directly part of typical HVAC, it's a fundamental energy conversion process at power plants that supply electricity to HVAC systems." .
+
+###  http://www.w3id.org/elementary#NuclearFuel
+:NuclearFuel rdf:type owl:Class ;
+             rdfs:subClassOf :Fuel ;
+             rdfs:comment "Material that can undergo nuclear reactions (e.g., fission) to produce energy. Primarily used in nuclear power plants, which are indirect energy sources for HVAC systems." .
+
+###  http://www.w3id.org/elementary#NuclearFusion
+:NuclearFusion rdf:type owl:Class ;
+               rdfs:subClassOf :ChemicalReaction ;
+               rdfs:comment "A nuclear reaction in which two or more light atomic nuclei combine to form a heavier nucleus, releasing a large amount of energy. Currently a research area for future energy generation, not directly in HVAC." .
+
+###  http://www.w3id.org/elementary#Offset
+:Offset rdf:type owl:Class ;
+        rdfs:subClassOf :Parameter ;
+        rdfs:comment "A parameter that defines a fixed numerical adjustment or shift applied to a value. It can be used to calibrate sensors or adjust setpoints. For example, a 'Zone Temperature Sensor Offset' of +1.0°C to match a reference thermometer." .
+
+###  http://www.w3id.org/elementary#OutletConnectionPoint
+:OutletConnectionPoint rdf:type owl:Class ;
+                       rdfs:subClassOf :ConnectionPoint ;
+                       rdfs:label "Outlet" ;
+                       rdfs:comment "A specialized connection point on a component that serves as the exit point for a substance or energy flow. For example, the 'Outlet' of a 'Cooling Coil' for chilled water return, or the 'Outlet' of a 'Duct' into a zone." .
+
+###  http://www.w3id.org/elementary#Output
+:Output rdf:type owl:Class ;
+        rdfs:subClassOf :Datapoint ;
+        rdfs:comment "A datapoint that represents information or commands generated by a control program and sent to actuators, other programs, or external systems. Outputs are how the program influences the controlled environment. Examples: 'Valve Position Command', 'Fan Speed Command'." .
+
+###  http://www.w3id.org/elementary#OutputSignalConnectionPoint
+:OutputSignalConnectionPoint rdf:type owl:Class ;
+                             rdfs:subClassOf :SignalConnectionPoint ;
+                             rdfs:comment "A specialized connection point on an Automation Hardware Concept (e.g., a controller) specifically configured to send outgoing electrical or communication signals. This is where actuators or other controllers connect to receive commands." .
+
+###  http://www.w3id.org/elementary#Parameter
+:Parameter rdf:type owl:Class ;
+           rdfs:subClassOf :Datapoint ;
+           rdfs:comment "A configurable value or setting that influences the behavior of a control program or system but is typically not a direct input or output from the physical process. Parameters are often set during commissioning or configuration. Examples: 'PID Gain (Kp)', 'Deadband', 'Time Delay'." .
+
+###  http://www.w3id.org/elementary#PassiveComponent
+:PassiveComponent rdf:type owl:Class ;
+                  rdfs:subClassOf :Component ;
+                  rdfs:comment "A component that does not actively process or transform energy or signals, but rather stores, transmits, or dissipates them without requiring an external power source for its primary function. Examples in HVAC include 'Ducts', 'Pipes', 'Filters', 'Heat Exchangers (without pumps/fans)', and 'Insulation'." .
+
+###  http://www.w3id.org/elementary#PhysicalMechanism
+:PhysicalMechanism rdf:type owl:Class ;
+                   rdfs:subClassOf :QualitativeModel ,
+                                   [ owl:intersectionOf ( :PhysicalMechanism
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hasDependentVariable ;
+                                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :ProcessVariable
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ,
+                                   [ owl:intersectionOf ( :PhysicalMechanism
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :hasIndependentVariable ;
+                                                            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                                            owl:onClass :ProcessVariable
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+                   rdfs:comment "The underlying physical principle or method by which a component or system operates and effects changes in physical quantities. Understanding mechanisms is key to modeling and control. Examples include 'Heat Transfer', 'Mass Transfer', 'Energy Conversion', and 'Force Transfer'." .
+
+###  http://www.w3id.org/elementary#PhysicalProcess
+:PhysicalProcess rdf:type owl:Class ;
+                 rdfs:subClassOf :QualitativeModel ;
+                 rdfs:comment "A series of physical changes, transformations, or actions that occur in a system, involving the flow or interaction of matter and energy. In HVAC, examples include the 'Air Conditioning Process', 'Heating Process', or 'Refrigeration Cycle'." .
+
+###  http://www.w3id.org/elementary#PhysicalProcessConcept
+:PhysicalProcessConcept rdf:type owl:Class ;
+                        rdfs:comment "A fundamental, top-level concept encompassing all entities, principles, and characteristics related to physical processes and phenomena within electro-mechanical systems. This includes substances, energy, quantities, states, and mechanisms." .
+
+###  http://www.w3id.org/elementary#PhysicalProcessModel
+:PhysicalProcessModel rdf:type owl:Class ;
+                      rdfs:subClassOf :PhysicalProcessConcept ;
+                      rdfs:comment "A representation or abstraction of a physical process, used to understand, predict, or simulate its behavior. These models can be qualitative or quantitative. For example, a 'Psychrometric Chart' is a physical process model for air properties." .
+
+###  http://www.w3id.org/elementary#PhysicalProcessTopology
+:PhysicalProcessTopology rdf:type owl:Class ;
+                         rdfs:subClassOf :Topology ;
+                         rdfs:comment "The spatial or functional arrangement and interconnection of elements within a physical process, describing how substances and energy flow through the system. Examples include 'Piping Topology' for hydronic systems or 'Ductwork Topology' for air distribution." .
+
+###  http://www.w3id.org/elementary#PhysicalQuantity
+:PhysicalQuantity rdf:type owl:Class ;
+                  rdfs:subClassOf :PhysicalProcessConcept ;
+                  rdfs:comment "A property of a phenomenon, body, or substance that can be quantified by measurement. These are the fundamental measurable characteristics of physical systems. Examples in HVAC are 'Temperature', 'Pressure', 'Flow Rate', 'Humidity', and 'Energy'." .
+
+###  http://www.w3id.org/elementary#PhysicalState
+:PhysicalState rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalProcessConcept ;
+               rdfs:comment "The condition of a substance or system at a particular time, characterized by its properties and behavior. For substances, this refers to states of matter (e.g., 'Solid', 'Liquid', 'Gas', 'Plasma')." .
+
+###  http://www.w3id.org/elementary#PhysicalStuff
+:PhysicalStuff rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalProcessConcept ;
+               rdfs:comment "A general term for any physical material (substance) or energy involved in a process or handled by a component. This serves as a broad category for what systems interact with. Examples include 'Air', 'Water', 'Thermal Energy', 'Electrical Energy'." .
+
+###  http://www.w3id.org/elementary#PhysicalVariable
+:PhysicalVariable rdf:type owl:Class ;
+                  owl:equivalentClass :ProcessVariable ;
+                  rdfs:subClassOf :PhysicalProcessConcept ;
+                  rdfs:comment "A measurable characteristic of a physical process or system whose value can change over time or with conditions. These are the dynamic properties that control systems monitor and manipulate. Examples: 'Zone Air Temperature', 'Chilled Water Pressure', 'Fan Motor Current'." .
+
+###  http://www.w3id.org/elementary#Pipe
+:Pipe rdf:type owl:Class ;
+      rdfs:subClassOf :SubstanceConveyor ;
+      rdfs:comment "A passive component, typically cylindrical, designed to convey liquids or gases under pressure within a hydronic or refrigerant system. Pipes form the fluid distribution network in HVAC." .
+
+###  http://www.w3id.org/elementary#PipingTopology
+:PipingTopology rdf:type owl:Class ;
+                rdfs:subClassOf :PhysicalProcessTopology ;
+                rdfs:comment "The arrangement and interconnection of pipes, valves, and other hydronic components within a system. This describes how water or refrigerant flows through the system, including supply, return, and branch lines." .
+
+###  http://www.w3id.org/elementary#Plasma
+:Plasma rdf:type owl:Class ;
+        rdfs:subClassOf :Substance ;
+        rdfs:comment "A state of matter consisting of ionized gas, where atoms have been stripped of some of their electrons, resulting in a mixture of ions and free electrons. While not common in conventional HVAC, it's relevant for specialized applications like 'Plasma Air Purification'." .
+
+###  http://www.w3id.org/elementary#Port
+:Port rdf:type owl:Class ;
+      rdfs:subClassOf :SystemDesignConcept ;
+      rdfs:label "Port" ;
+      rdfs:comment "A specific interface or opening on a component where connections can be made for the transfer of material, energy, or signals. It defines the boundary of interaction for a component. This is synonymous with 'ConnectionPoint'." .
+
+###  http://www.w3id.org/elementary#PoweredDevice
+:PoweredDevice rdf:type owl:Class ;
+               rdfs:subClassOf :ActiveComponent ;
+               rdfs:comment "An active component that requires an external power source (e.g., electrical mains, battery) to operate and perform its function. Most active HVAC equipment falls into this category." .
+
+###  http://www.w3id.org/elementary#ProcessAction
+:ProcessAction rdf:type owl:Class ;
+               rdfs:subClassOf :PhysicalProcessConcept ;
+               rdfs:comment "A discrete event or activity that occurs within a physical process, often triggered by a control system or environmental conditions. For example, 'Heating', 'Cooling', 'Humidification', or 'Air Filtration'." .
+
+###  http://www.w3id.org/elementary#ProcessPathway
+:ProcessPathway rdf:type owl:Class ;
+                owl:equivalentClass :Stream ;
+                rdfs:subClassOf :PhysicalProcessConcept ;
+                rdfs:comment "The route or channel through which substances or energy flow in a process. This describes the physical path taken by a 'Stream'. For example, 'Ductwork' for air, or 'Piping' for water." .
+
+###  http://www.w3id.org/elementary#ProcessPosition
+:ProcessPosition rdf:type owl:Class ;
+                 rdfs:subClassOf :PhysicalProcessConcept ;
+                 rdfs:comment "A specific location or point within a physical process flow or system layout. This helps define where a measurement is taken, where an action occurs, or where a component is situated relative to the flow. Examples: 'Inlet', 'Outlet', 'Downstream', 'Upstream'." .
+
+###  http://www.w3id.org/elementary#ProcessSimulationModel
+:ProcessSimulationModel rdf:type owl:Class ;
+                        rdfs:subClassOf :PhysicalProcessModel ;
+                        rdfs:comment "A computational model specifically designed to simulate the dynamic behavior of a physical process under various operating conditions. Used for design, analysis, and optimization of HVAC systems. Examples: 'TRNSYS Model of a Chiller', 'EnergyPlus Airflow Model'." .
+
+###  http://www.w3id.org/elementary#ProcessVariable
+:ProcessVariable rdf:type owl:Class ;
+                 rdfs:subClassOf :PhysicalProcessConcept ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasProcessPosition ;
+                                   owl:someValuesFrom :ProcessPosition
+                                 ] ;
+                 rdfs:comment "A measurable characteristic of a physical process or system whose value can change over time or with conditions. These are the dynamic properties that control systems monitor and manipulate. Examples: 'Zone Air Temperature', 'Chilled Water Pressure', 'Fan Motor Current'." .
+
+###  http://www.w3id.org/elementary#ProgramCommunicationInterface
+:ProgramCommunicationInterface rdf:type owl:Class ;
+                               rdfs:subClassOf :ProgramInterface ;
+                               rdfs:comment "An interface of a control program specifically designed for exchanging data or messages with other control programs, building management systems, or external software applications. This enables coordinated control and data sharing." .
+
+###  http://www.w3id.org/elementary#ProgramInterface
+:ProgramInterface rdf:type owl:Class ;
+                  rdfs:subClassOf :AutomationSoftwareConcept ;
+                  rdfs:comment "The defined points of interaction for a control program, through which it receives inputs, sends outputs, and allows for parameter configuration. This abstracts the interaction with the program's logic. Examples include 'Datapoints' for I/O and 'Parameters' for settings." .
+
+###  http://www.w3id.org/elementary#ProgramModel
+:ProgramModel rdf:type owl:Class ;
+              rdfs:subClassOf :AutomationSoftwareConcept ;
+              rdfs:comment "A representation or abstraction that describes the internal behavior, logic, or structure of a control program. This helps in understanding, documenting, and simulating the program's operation. Examples include 'Finite State Machines' or 'Sequences of Operation'." .
+
+###  http://www.w3id.org/elementary#ProgramSimulationModel
+:ProgramSimulationModel rdf:type owl:Class ;
+                        rdfs:subClassOf :ProgramModel ;
+                        rdfs:comment "A mock-up or virtual representation of a control program, designed to simulate its behavior without requiring actual hardware. Used for testing, debugging, and validating control logic before deployment. For example, a 'Software-in-the-Loop Simulation' of a DDC program." .
+
+###  http://www.w3id.org/elementary#ProtocolGateway
+:ProtocolGateway rdf:type owl:Class ;
+                 rdfs:subClassOf :AutomationHardwareConcept ;
+                 rdfs:comment "A specialized hardware device that translates communication protocols between different networks or devices, enabling interoperability. For example, converting BACnet/IP to Modbus RTU, allowing different manufacturers' equipment to communicate." .
+
+###  http://www.w3id.org/elementary#QualitativeModel
+:QualitativeModel rdf:type owl:Class ;
+                  rdfs:subClassOf :PhysicalProcessModel ;
+                  rdfs:comment "A model that describes the behavior of a system or process in terms of qualities, states, or relationships, rather than precise numerical values. It focuses on 'what happens' rather than 'how much'. For example, a 'Fault Tree Analysis' is a qualitative model." .
+
+###  http://www.w3id.org/elementary#RateLimit
+:RateLimit rdf:type owl:Class ;
+           rdfs:subClassOf :Limit ;
+           rdfs:comment "A parameter that defines the maximum permissible rate of change for a process variable or control output. Used to prevent rapid fluctuations or protect equipment. For example, 'Rate Limit for Temperature Change' (e.g., 2°C per hour) to avoid thermal shock." .
+
+###  http://www.w3id.org/elementary#Regulation
+:Regulation rdf:type owl:Class ;
+            rdfs:subClassOf :RequirementsConcept ;
+            rdfs:comment "A rule or directive imposed by an authority (e.g., government, industry body), often having legal force, that governs system design, operation, or performance. Compliance with regulations is a critical requirement. Examples: 'ASHRAE 90.1 Energy Standard', 'Building Codes'." .
+
+###  http://www.w3id.org/elementary#Repeater
+:Repeater rdf:type owl:Class ;
+          rdfs:subClassOf :NetworkComponent ;
+          rdfs:comment "A network component that receives a signal, regenerates it to its original strength, and retransmits it, extending the reach of a network segment. Used to overcome signal degradation over long cable runs in building networks." .
+
+###  http://www.w3id.org/elementary#Requirement
+:Requirement rdf:type owl:Class ;
+             rdfs:subClassOf :RequirementsConcept ;
+             rdfs:comment "A condition or capability needed by a user to solve a problem or achieve an objective, or a condition or capability that must be met or possessed by a system or system component to satisfy a contract, standard, specification, or other formally imposed document. Requirements drive system design." .
+
+###  http://www.w3id.org/elementary#RequirementsConcept
+:RequirementsConcept rdf:type owl:Class ;
+                     rdfs:comment "A fundamental, top-level concept encompassing all entities, principles, and artifacts related to the definition, analysis, and management of system requirements, including goals, agents, and various types of requirements." .
+
+###  http://www.w3id.org/elementary#Router
+:Router rdf:type owl:Class ;
+        rdfs:subClassOf :NetworkComponent ;
+        rdfs:comment "A network component that forwards data packets between different computer networks, acting as a traffic director. In larger building automation networks, routers connect different subnetworks or segments." .
+
+###  http://www.w3id.org/elementary#SamplingPoint
+:SamplingPoint rdf:type owl:Class ;
+               rdfs:subClassOf :PassiveComponent ;
+               rdfs:comment "A specific location in a system (e.g., a duct, a pipe) where a representative sample of a substance or signal can be extracted for measurement or analysis. Often involves a 'Probe' or 'Tap'. For example, a 'Return Air Sampling Point' for CO2 measurement." .
+
+###  http://www.w3id.org/elementary#Sensor
+:Sensor rdf:type owl:Class ;
+        rdfs:subClassOf :AutomationPeripheral ;
+        rdfs:comment "A device that detects and responds to some type of input from the physical environment (e.g., temperature, pressure, flow) and converts it into an electrical signal that can be read by an Automation Controller. These are the 'eyes and ears' of the control system." .
+
+###  http://www.w3id.org/elementary#SensoryInterface
+:SensoryInterface rdf:type owl:Class ;
+                  rdfs:subClassOf :AutomationHardwareConcept ,
+                                  :ConnectionPoint ;
+                  rdfs:comment "A hardware interface or connection point specifically designed to receive input signals from sensors, translating physical phenomena into electrical data for the Automation Controller. For example, a 'Thermistor Input Terminal' on a DDC." .
+
+###  http://www.w3id.org/elementary#SequenceOfOperation
+:SequenceOfOperation rdf:type owl:Class ;
+                     rdfs:subClassOf :ProgramModel ;
+                     rdfs:comment "A detailed, step-by-step description of the logical actions and conditions that govern how an HVAC system or component should operate to achieve its control objectives. This is a crucial document for programming and commissioning." .
+
+###  http://www.w3id.org/elementary#Setpoint
+:Setpoint rdf:type owl:Class ;
+          rdfs:subClassOf :Parameter ;
+          rdfs:comment "A parameter that defines the desired target value for a controlled process variable. The control program aims to maintain the process variable at or near this setpoint. Examples: 'Zone Temperature Setpoint' (23°C), 'Duct Static Pressure Setpoint' (100 Pa)." .
+
+###  http://www.w3id.org/elementary#SignalConnectionPoint
+:SignalConnectionPoint rdf:type owl:Class ;
+                       rdfs:subClassOf :AutomationHardwareConcept ,
+                                       :ConnectionPoint ;
+                       rdfs:comment "A general connection point on an Automation Hardware Concept specifically for the transmission or reception of electrical or communication signals. This serves as a broad category for both input and output signal interfaces." .
+
+###  http://www.w3id.org/elementary#SignalConverter
+:SignalConverter rdf:type owl:Class ;
+                 rdfs:subClassOf :AutomationHardwareConcept ;
+                 rdfs:comment "A hardware device that transforms an electrical signal from one type to another (e.g., analog to digital, voltage to current, frequency to voltage). Used to ensure compatibility between different devices in an automation system." .
+
+###  http://www.w3id.org/elementary#Sink
+:Sink rdf:type owl:Class ;
+      rdfs:subClassOf :Component ;
+      rdfs:comment "A component or entity that receives or absorbs substances or energy from a system, often as a final destination or for dissipation. In HVAC, the 'Outdoor Environment' is a heat sink for cooling, and 'Exhaust Fans' act as air sinks." .
+
+###  http://www.w3id.org/elementary#SolarEnergy
+:SolarEnergy rdf:type owl:Class ;
+             rdfs:subClassOf :EnergySource ;
+             rdfs:comment "Energy derived from the sun's radiation. Can be harvested directly (e.g., solar thermal collectors, PV panels) or indirectly (e.g., passive solar gain) to contribute to heating or electricity in buildings." .
+
+###  http://www.w3id.org/elementary#Solid
+:Solid rdf:type owl:Class ;
+       rdfs:subClassOf :Substance ;
+       rdfs:comment "A state of matter characterized by particles arranged in a rigid structure, giving it a definite shape and volume. In HVAC, 'Metals' (for ducts, pipes, coils) and 'Insulation Materials' are common solids." .
+
+###  http://www.w3id.org/elementary#Source
+:Source rdf:type owl:Class ;
+        rdfs:subClassOf :Component ;
+        rdfs:comment "A component or entity that provides or generates substances or energy for a system. In HVAC, 'Boilers' are heat sources, 'Outdoor Air Intakes' are air sources, and the 'Electrical Grid' is an electrical energy source." .
+
+###  http://www.w3id.org/elementary#SpecificationRequirement
+:SpecificationRequirement rdf:type owl:Class ;
+                          rdfs:subClassOf :Requirement ;
+                          rdfs:comment "A detailed and precise requirement, often expressed quantitatively, that forms part of a formal specification document. These requirements are typically verifiable and measurable. For example, 'The chiller shall have a COP of at least 6.0 at full load'." .
+
+###  http://www.w3id.org/elementary#StateLabel
+:StateLabel rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcessConcept ;
+            rdfs:comment "A descriptive tag or identifier that characterizes a particular condition or status of a physical entity or process. State labels provide qualitative information. Examples: 'Occupied', 'Unoccupied', 'Heating Mode', 'Cooling Mode', 'Alarm', 'Normal'." .
+
+###  http://www.w3id.org/elementary#Stereotype
+:Stereotype rdf:type owl:Class ;
+            rdfs:subClassOf :SystemDesignConcept ;
+            rdfs:comment "A predefined classification or pattern that describes the typical characteristics, behavior, or role of a component or system. Stereotypes help categorize and simplify the modeling of complex systems. For example, a 'VAV Box' might have a stereotype of 'Terminal Unit'." .
+
+###  http://www.w3id.org/elementary#StereotypicalComponent
+:StereotypicalComponent rdf:type owl:Class ;
+                        rdfs:subClassOf :Component ;
+                        rdfs:comment "A component that represents a common or typical pattern of design and function within a class of systems. It embodies the standard features and behaviors expected of components of its type. For example, a 'Standard Single Duct VAV Box'." .
+
+###  http://www.w3id.org/elementary#Stream
+:Stream rdf:type owl:Class ;
+        rdfs:subClassOf :PhysicalProcessConcept ;
+        rdfs:label "Stream" ;
+        rdfs:comment "A continuous flow of a substance (e.g., air, water, refrigerant) or energy (e.g., heat) through a system. Streams are fundamental to understanding mass and energy balance in HVAC systems. Examples: 'Supply Air Stream', 'Chilled Water Stream'." .
+
+###  http://www.w3id.org/elementary#StreamJoiner
+:StreamJoiner rdf:type owl:Class ;
+              rdfs:subClassOf :PassiveComponent ;
+              rdfs:label "Joiner" ;
+              rdfs:comment "A passive component that combines multiple incoming streams of substance or energy into a single outgoing stream. For example, a 'Mixing Box' in an AHU combines outdoor air and return air streams." .
+
+###  http://www.w3id.org/elementary#StreamKind
+:StreamKind rdf:type owl:Class ;
+            rdfs:subClassOf :PhysicalProcessConcept ;
+            rdfs:comment "A classification for the type or nature of the substance or energy flowing in a stream. This helps define the properties and characteristics of the flow. Examples: 'Air', 'Chilled Water', 'Hot Water', 'Refrigerant'." .
+
+###  http://www.w3id.org/elementary#StreamSplitter
+:StreamSplitter rdf:type owl:Class ;
+                rdfs:subClassOf :PassiveComponent ;
+                rdfs:label "Splitter" ;
+                rdfs:comment "A passive component that divides a single incoming stream of substance or energy into multiple outgoing streams. For example, a 'Duct Branch' splits a main supply air duct into several zone ducts." .
+
+###  http://www.w3id.org/elementary#SubSystem
+:SubSystem rdf:type owl:Class ;
+           rdfs:subClassOf :SystemDesignConcept ;
+           rdfs:comment "A smaller, self-contained system that is part of a larger system, often performing a specific set of functions independently. Subsystems can be hierarchical. For example, a 'Chiller Plant' is a subsystem of a 'Building HVAC System'." .
+
+###  http://www.w3id.org/elementary#Substance
+:Substance rdf:type owl:Class ;
+           rdfs:subClassOf :PhysicalStuff ;
+           rdfs:comment "Any material with a definite chemical composition and distinct physical properties. Substances are the carriers of energy and mass in HVAC systems. Examples: 'Water', 'Air', 'Refrigerant', 'Natural Gas'." .
+
+###  http://www.w3id.org/elementary#SubstanceConveyor
+:SubstanceConveyor rdf:type owl:Class ;
+                   rdfs:subClassOf :Connection ;
+                   rdfs:comment "A connection specifically designed for transporting substances (liquids or gases) between components. This includes 'Pipes' for hydronic systems and 'Ducts' for air distribution." .
+
+###  http://www.w3id.org/elementary#System
+:System rdf:type owl:Class ;
+        rdfs:subClassOf :SystemDesignConcept ;
+        rdfs:comment "A collection of interacting components organized to achieve a specific function or set of functions. A system has defined boundaries and interfaces with its environment. Examples: 'HVAC System', 'Building Automation System', 'Chiller Plant System'." .
+
+###  http://www.w3id.org/elementary#SystemDesignConcept
+:SystemDesignConcept rdf:type owl:Class ;
+                     rdfs:comment "A fundamental, top-level concept encompassing all entities, principles, and artifacts related to the design, structure, composition, and configuration of electro-mechanical systems. This includes components, connections, and topologies." .
+
+###  http://www.w3id.org/elementary#TemporalSpecification
+:TemporalSpecification rdf:type owl:Class ;
+                       rdfs:subClassOf :ProgramModel ;
+                       rdfs:comment "A detailed description of the timing constraints, sequences, delays, and scheduling requirements for a program's execution or a system's operation. Crucial for ensuring proper sequencing and avoiding conflicts. For example, 'Fan Start Delay of 30 seconds after Pump Start'." .
+
+###  http://www.w3id.org/elementary#ThermalConduction
+:ThermalConduction rdf:type owl:Class ;
+                   rdfs:subClassOf :HeatTransfer ;
+                   rdfs:comment "The physical mechanism of heat transfer through direct contact between particles, without macroscopic movement of the material. Occurs through walls of ducts, pipes, and heat exchanger fins." .
+
+###  http://www.w3id.org/elementary#ThermalConductor
+:ThermalConductor rdf:type owl:Class ;
+                  rdfs:subClassOf :ThermalConnection ;
+                  rdfs:comment "A material or component that facilitates the efficient transfer of thermal energy through conduction. Metals like copper and aluminum are good thermal conductors used in HVAC coils." .
+
+###  http://www.w3id.org/elementary#ThermalConnection
+:ThermalConnection rdf:type owl:Class ;
+                   rdfs:subClassOf :Connection ;
+                   rdfs:comment "A connection specifically designed for the transfer of thermal energy between components or substances. This includes heat exchanger surfaces, pipe walls, or insulation layers." .
+
+###  http://www.w3id.org/elementary#ThermalConvection
+:ThermalConvection rdf:type owl:Class ;
+                   rdfs:subClassOf :HeatTransfer ;
+                   rdfs:comment "The physical mechanism of heat transfer through the macroscopic movement of fluids (liquids or gases). This is the primary mode of heat transfer in air ducts and hydronic pipes." .
+
+###  http://www.w3id.org/elementary#ThermalRadiation
+:ThermalRadiation rdf:type owl:Class ;
+                  rdfs:subClassOf :HeatTransfer ;
+                  rdfs:comment "The physical mechanism of heat transfer through electromagnetic waves, which does not require a medium. Occurs between hot and cold surfaces, like a radiant panel heating a room." .
+
+###  http://www.w3id.org/elementary#Topology
+:Topology rdf:type owl:Class ;
+          rdfs:subClassOf :SystemDesignConcept ;
+          rdfs:comment "The arrangement and interconnection of elements within a system or network, defining their spatial or logical relationships. Examples include 'Piping Topology', 'Ductwork Topology', or 'Network Topology'." .
+
+###  http://www.w3id.org/elementary#UserInteractionInterface
+:UserInteractionInterface rdf:type owl:Class ;
+                          rdfs:subClassOf :ControllerHardwareInterface ;
+                          rdfs:comment "A hardware interface on an Automation Controller designed to facilitate direct interaction with a human operator. This includes physical controls like push buttons, dials, display screens, and indicator lights (LEDs) for local control and status indication." .
+
+###  http://www.w3id.org/elementary#Vapour
+:Vapour rdf:type owl:Class ;
+        rdfs:subClassOf :Fluid ;
+        rdfs:comment "A substance in the gas phase at a temperature lower than its critical temperature, meaning it can be condensed to a liquid by increasing pressure alone. 'Refrigerant Vapor' and 'Steam' are key examples in HVAC." .
+
+###  http://www.w3id.org/elementary#VariableComponent
+:VariableComponent rdf:type owl:Class ;
+                   rdfs:subClassOf :Component ;
+                   rdfs:comment "A component whose characteristics, configuration, or operational mode can change dynamically during system operation. This allows for flexibility and adaptability. For example, a 'Variable Air Volume (VAV) Box' or a 'Variable Speed Drive (VSD) Fan'." .
+
+###  http://www.w3id.org/elementary#VariableConfiguration
+:VariableConfiguration rdf:type owl:Class ;
+                       rdfs:subClassOf :SubSystem ;
+                       rdfs:comment "A specific arrangement or setup of components within a subsystem that can be selected or changed, enabling different operational modes or functionalities. For example, 'Economizer Mode' or 'Recirculation Mode' in an AHU." .
+
+###  http://www.w3id.org/elementary#Variant
+:Variant rdf:type owl:Class ;
+         rdfs:subClassOf :SystemDesignConcept ;
+         rdfs:comment "A specific version, alternative configuration, or optional feature of a system or component. Variants allow for customization and adaptation to different requirements or conditions. For example, a 'VAV Box with Reheat' is a variant of a 'Basic VAV Box'." .
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.w3id.org/elementary#across
+:across rdf:type owl:NamedIndividual ,
+                 :ProcessPosition ;
+        rdfs:comment "Indicates a position that spans or extends over an area or component, often implying a measurement or effect that represents an average or integral over that region. For example, 'Average Temperature across a Heat Exchanger'." .
+
+###  http://www.w3id.org/elementary#action-kind-actuation
+:action-kind-actuation rdf:type owl:NamedIndividual ,
+                                :AutomationActionKind ;
+                                rdfs:comment "Represents the category of actions involving physical manipulation or control exerted by an actuator on a physical system. For example, 'opening a valve' or 'starting a fan'." .
+
+###  http://www.w3id.org/elementary#action-kind-messaging
+:action-kind-messaging rdf:type owl:NamedIndividual ,
+                                :AutomationActionKind ;
+                                rdfs:comment "Represents the category of actions involving the exchange of structured data or information between automation components or systems. For example, 'sending a BACnet alarm notification'." .
+
+###  http://www.w3id.org/elementary#action-kind-sensing
+:action-kind-sensing rdf:type owl:NamedIndividual ,
+                              :AutomationActionKind ;
+                              rdfs:comment "Represents the category of actions involving the detection, measurement, or monitoring of physical phenomena or system states using sensors. For example, 'reading a temperature value'." .
+
+###  http://www.w3id.org/elementary#aerosol
+:aerosol rdf:type owl:NamedIndividual ,
+                  :PhysicalState ;
+         rdfs:comment "A physical state where solid or liquid particles are finely dispersed and suspended in a gas. Relevant in HVAC for air quality, filtration, and humidification." .
+
+###  http://www.w3id.org/elementary#air
+:air rdf:type owl:NamedIndividual ,
+              :Gas ;
+     rdfs:comment "A specific instance of a gas, referring to atmospheric air, which is the primary fluid conveyed and conditioned in most HVAC systems." .
+
+###  http://www.w3id.org/elementary#analog_signal
+:analog_signal rdf:type owl:NamedIndividual ;
+               rdfs:comment "An individual representing a continuous electrical signal, typically a voltage or current, whose magnitude varies proportionally to the physical quantity it represents. Used for communicating sensor readings or actuator commands." .
+
+###  http://www.w3id.org/elementary#bypass
+:bypass rdf:type owl:NamedIndividual ,
+                 :ProcessPosition ;
+        rdfs:comment "Indicates a position where a flow of substance or energy can be diverted around a main path or component. For example, a 'Bypass Duct' around a coil." .
+
+###  http://www.w3id.org/elementary#chemical_energy
+:chemical_energy rdf:type owl:NamedIndividual ,
+                          :EnergyForm ;
+                          rdfs:comment "An individual representing chemical energy as a specific form of energy, typically released through combustion of fuels like natural gas or fuel oil in HVAC boilers." .
+
+###  http://www.w3id.org/elementary#chilled
+:chilled rdf:type owl:NamedIndividual ,
+                  :StateLabel ;
+         rdfs:comment "A state label indicating a reduced temperature, typically below ambient or a comfortable human temperature, implying a cooling process has occurred. For example, 'Chilled Water'." .
+
+###  http://www.w3id.org/elementary#co2_gas
+:co2_gas rdf:type owl:NamedIndividual ,
+                  :Gas ;
+         rdfs:comment "A specific instance of a gas, referring to carbon dioxide (CO2), an important indoor air quality parameter measured by HVAC systems." .
+
+###  http://www.w3id.org/elementary#coal
+:coal rdf:type owl:NamedIndividual ,
+               :Solid ;
+      rdfs:comment "A specific instance of a solid substance, referring to coal, a fossil fuel used as an energy source for some heating plants." .
+
+###  http://www.w3id.org/elementary#combustion
+:combustion rdf:type owl:NamedIndividual ,
+                     :ChemicalReaction ;
+                     rdfs:comment "An individual representing the chemical reaction of combustion, which is the primary heat generation process in boilers and furnaces." .
+
+###  http://www.w3id.org/elementary#compressed
+:compressed rdf:type owl:NamedIndividual ,
+                    :StateLabel ;
+            rdfs:comment "A state label indicating that a substance (typically a gas or fluid) is under increased pressure compared to its ambient state. For example, 'Compressed Air' or 'Compressed Refrigerant'." .
+
+###  http://www.w3id.org/elementary#concentration
+:concentration rdf:type owl:NamedIndividual ,
+                        :PhysicalQuantity ;
+                        rdfs:comment "A physical quantity representing the amount of a substance present in a given volume or mass of another substance. In HVAC, 'CO2 Concentration' is a key indoor air quality metric." .
+
+###  http://www.w3id.org/elementary#condensed
+:condensed rdf:type owl:NamedIndividual ,
+                   :StateLabel ;
+           rdfs:comment "A state label indicating that a gas or vapor has undergone a phase change to a liquid. For example, 'Condensed Water' on a cooling coil, or 'Condensed Refrigerant' in a condenser." .
+
+###  http://www.w3id.org/elementary#contained
+:contained rdf:type owl:NamedIndividual ,
+                    :ProcessPosition ;
+           rdfs:comment "Indicates a position within an enclosed space or container, implying that the substance or component is held within defined boundaries. For example, 'Air contained within a duct section'." .
+
+###  http://www.w3id.org/elementary#control_signal
+:control_signal rdf:type owl:NamedIndividual ;
+                rdfs:comment "An individual representing a general electrical or communication signal used by an automation system to command or regulate a device or process. This could be analog or digital." .
+
+###  http://www.w3id.org/elementary#digital_signal
+:digital_signal rdf:type owl:NamedIndividual ;
+                rdfs:comment "An individual representing a discrete electrical signal, typically having only two states (e.g., ON/OFF, HIGH/LOW). Used for communicating binary states or commands." .
+
+###  http://www.w3id.org/elementary#effort
+:effort rdf:type owl:NamedIndividual ,
+                 :Effort ;
+        rdfs:comment "A general individual representing the concept of effort, which is a generalized force or potential that drives a flow or change. Examples include 'Pressure' or 'Voltage'." .
+
+###  http://www.w3id.org/elementary#electrical-charge
+:electrical-charge rdf:type owl:NamedIndividual ,
+                            :PhysicalQuantity ;
+                            rdfs:comment "A physical quantity representing the fundamental property of matter that experiences a force when placed in an electromagnetic field. Forms the basis of electrical energy." .
+
+###  http://www.w3id.org/elementary#electrical_arc
+:electrical_arc rdf:type owl:NamedIndividual ,
+                         :Plasma ;
+                        rdfs:comment "A specific instance of plasma, referring to an electrical breakdown of a gas that produces a prolonged electrical discharge. Can occur in electrical faults or specialized air purification." .
+
+###  http://www.w3id.org/elementary#electrical_energy
+:electrical_energy rdf:type owl:NamedIndividual ,
+                            :EnergyForm ;
+                            rdfs:comment "An individual representing electrical energy as a specific form of energy, commonly used to power most active HVAC components like fans, pumps, and compressors." .
+
+###  http://www.w3id.org/elementary#electrical_power
+:electrical_power rdf:type owl:NamedIndividual ,
+                           :EnergyForm ;
+                           rdfs:comment "An individual representing electrical power, which is the rate at which electrical energy is transferred or consumed. A key metric for energy consumption in HVAC systems." .
+
+###  http://www.w3id.org/elementary#electrostatic_force
+:electrostatic_force rdf:type owl:NamedIndividual ,
+                              :Effort ;
+                             rdfs:comment "An individual representing the force exerted between electrically charged particles. Relevant in HVAC for electrostatic air filters or static electricity issues." .
+
+###  http://www.w3id.org/elementary#emulsion
+:emulsion rdf:type owl:NamedIndividual ,
+                   :PhysicalState ;
+          rdfs:comment "A physical state where one liquid is dispersed in another immiscible liquid. Less common in HVAC, but could be relevant for specialized fluid mixtures or lubricants." .
+
+###  http://www.w3id.org/elementary#energy
+:energy rdf:type owl:NamedIndividual ,
+                 :PhysicalQuantity ;
+        rdfs:comment "A general individual representing the concept of energy as a fundamental physical quantity, the capacity to do work or produce heat, central to all HVAC processes." .
+
+###  http://www.w3id.org/elementary#flow-rate
+:flow-rate rdf:type owl:NamedIndividual ,
+                    :PhysicalQuantity ;
+                    rdfs:comment "A physical quantity representing the volume or mass of a fluid passing through a point per unit time. Critical in HVAC for air distribution (CFM, L/s) and hydronic systems (GPM, L/s)." .
+
+###  http://www.w3id.org/elementary#force
+:force rdf:type owl:NamedIndividual ;
+       rdfs:comment "A general individual representing the concept of force, a push or pull that can cause an object to accelerate or deform. In HVAC, this includes air pressure, water pressure, or mechanical forces from fans/pumps." .
+
+###  http://www.w3id.org/elementary#fuel
+:fuel rdf:type owl:NamedIndividual ,
+               :Substance ;
+      rdfs:comment "A general individual representing the concept of fuel as a substance, which can be combusted to release chemical energy for heating purposes in HVAC." .
+
+###  http://www.w3id.org/elementary#gas
+:gas rdf:type owl:NamedIndividual ,
+              :PhysicalState ;
+     rdfs:comment "A general individual representing the physical state of gas, characterized by particles that are widely dispersed and move randomly. Air and refrigerant vapor are common gases in HVAC." .
+
+###  http://www.w3id.org/elementary#gas-liquid-solution
+:gas-liquid-solution rdf:type owl:NamedIndividual ,
+                              :PhysicalState ;
+                             rdfs:comment "A physical state where a gas is dissolved in a liquid. Relevant in HVAC for dissolved gases in hydronic systems or refrigerant mixtures." .
+
+###  http://www.w3id.org/elementary#generic_effort
+:generic_effort rdf:type owl:NamedIndividual ,
+                         :Effort ;
+                        rdfs:comment "A generic individual representing any type of effort or generalized force that drives a process or flow within an electro-mechanical system." .
+
+###  http://www.w3id.org/elementary#generic_energy
+:generic_energy rdf:type owl:NamedIndividual ,
+                         :Energy ;
+                        rdfs:comment "A generic individual representing any type of energy, serving as a placeholder when the specific form of energy is not yet determined or is broadly applicable." .
+
+###  http://www.w3id.org/elementary#generic_fluid
+:generic_fluid rdf:type owl:NamedIndividual ,
+                        :Fluid ;
+                       rdfs:comment "A generic individual representing any type of fluid (liquid or gas), used when the specific fluid composition is not yet known or is broadly applicable." .
+
+###  http://www.w3id.org/elementary#generic_gas
+:generic_gas rdf:type owl:NamedIndividual ,
+                      :Gas ;
+                     rdfs:comment "A generic individual representing any type of gas, used when the specific gas composition is not yet known or is broadly applicable." .
+
+###  http://www.w3id.org/elementary#generic_liquid
+:generic_liquid rdf:type owl:NamedIndividual ,
+                         :Liquid ;
+                        rdfs:comment "A generic individual representing any type of liquid, used when the specific liquid composition is not yet known or is broadly applicable." .
+
+###  http://www.w3id.org/elementary#generic_physical_stuff
+:generic_physical_stuff rdf:type owl:NamedIndividual ,
+                                 :PhysicalStuff ;
+                                rdfs:comment "A generic individual representing any type of physical material or energy, serving as a broad placeholder for physical entities." .
+
+###  http://www.w3id.org/elementary#generic_solid
+:generic_solid rdf:type owl:NamedIndividual ,
+                        :Solid ;
+                       rdfs:comment "A generic individual representing any type of solid substance, used when the specific solid material is not yet known or is broadly applicable." .
+
+###  http://www.w3id.org/elementary#glycol
+:glycol rdf:type owl:NamedIndividual ,
+                 :Liquid ;
+        rdfs:comment "A specific instance of a liquid, referring to glycol, often used as an antifreeze additive in hydronic HVAC systems." .
+
+###  http://www.w3id.org/elementary#gravitational_force
+:gravitational_force rdf:type owl:NamedIndividual ,
+                              :Effort ;
+                             rdfs:comment "An individual representing the force of attraction between masses, which influences fluid flow in vertical pipes and requires pump head calculations in HVAC." .
+
+###  http://www.w3id.org/elementary#high-pressure
+:high-pressure rdf:type owl:NamedIndividual ,
+                        :StateLabel ;
+                       rdfs:comment "A state label indicating a condition of elevated pressure within a system, often monitored for safety or operational control. For example, 'High Refrigerant Discharge Pressure'." .
+
+###  http://www.w3id.org/elementary#high-temperature
+:high-temperature rdf:type owl:NamedIndividual ,
+                           :StateLabel ;
+                  owl:sameAs :hot ;
+                  rdfs:comment "A state label indicating a condition of elevated temperature within a system, often monitored for safety or operational control. For example, 'High Hot Water Supply Temperature'." .
+
+###  http://www.w3id.org/elementary#hot
+:hot rdf:type owl:NamedIndividual ,
+              :StateLabel ;
+     rdfs:comment "A state label indicating a condition of elevated temperature, implying a heating process has occurred or is desired. For example, 'Hot Water'." .
+
+###  http://www.w3id.org/elementary#inflow
+:inflow rdf:type owl:NamedIndividual ,
+                 :ProcessPosition ;
+        owl:sameAs :inlet ;
+        rdfs:comment "Indicates a position where a substance or energy enters a system or component, representing the incoming flow. This is synonymous with 'Inlet'." .
+
+###  http://www.w3id.org/elementary#inlet
+:inlet rdf:type owl:NamedIndividual ,
+                :ProcessPosition ;
+       rdfs:comment "Indicates a position where a substance or energy enters a system or component, representing the incoming flow. This is synonymous with 'Inflow'." .
+
+###  http://www.w3id.org/elementary#kinetic_energy
+:kinetic_energy rdf:type owl:NamedIndividual ,
+                         :EnergyForm ;
+                        rdfs:comment "An individual representing kinetic energy, the energy of motion. In HVAC, air moving through ducts or water flowing through pipes possesses kinetic energy." .
+
+###  http://www.w3id.org/elementary#length
+:length rdf:type owl:NamedIndividual ,
+                 :PhysicalQuantity ;
+        rdfs:comment "A physical quantity representing the extent of something along its greatest dimension. Used for sizing ducts, pipes, and calculating pressure drops or heat losses." .
+
+###  http://www.w3id.org/elementary#liquid
+:liquid rdf:type owl:NamedIndividual ,
+                 :PhysicalState ;
+        rdfs:comment "A general individual representing the physical state of liquid, characterized by a definite volume but no definite shape. Water and liquid refrigerant are common liquids in HVAC." .
+
+###  http://www.w3id.org/elementary#low-pressure
+:low-pressure rdf:type owl:NamedIndividual ,
+                       :StateLabel ;
+                      rdfs:comment "A state label indicating a condition of reduced pressure within a system, often monitored for safety or operational control. For example, 'Low Refrigerant Suction Pressure'." .
+
+###  http://www.w3id.org/elementary#low-temperature
+:low-temperature rdf:type owl:NamedIndividual ,
+                          :StateLabel ;
+                         rdfs:comment "A state label indicating a condition of reduced temperature within a system, often monitored for safety or operational control. For example, 'Low Outdoor Air Temperature'." .
+
+###  http://www.w3id.org/elementary#luminosity
+:luminosity rdf:type owl:NamedIndividual ,
+                     :PhysicalQuantity ;
+                     rdfs:comment "A physical quantity representing the total amount of light emitted by a source. Relevant in HVAC for lighting control and daylight harvesting strategies." .
+
+###  http://www.w3id.org/elementary#magnetic_force
+:magnetic_force rdf:type owl:NamedIndividual ,
+                         :Effort ;
+                        rdfs:comment "An individual representing the force exerted by magnetic fields. Relevant in HVAC for magnetic levitation bearings in some chillers or for electromagnetic valves." .
+
+###  http://www.w3id.org/elementary#mass
+:mass rdf:type owl:NamedIndividual ,
+               :PhysicalQuantity ;
+      rdfs:comment "A physical quantity representing the amount of matter in an object. Important for mass flow rate calculations in HVAC, especially for air and water." .
+
+###  http://www.w3id.org/elementary#mechanical_energy
+:mechanical_energy rdf:type owl:NamedIndividual ,
+                            :EnergyForm ;
+                            rdfs:comment "An individual representing mechanical energy, the sum of kinetic and potential energy. In HVAC, fans and pumps convert electrical energy into mechanical energy of moving fluids." .
+
+###  http://www.w3id.org/elementary#mechanical_force
+:mechanical_force rdf:type owl:NamedIndividual ,
+                           :Effort ;
+                           rdfs:comment "An individual representing a force that causes or resists mechanical motion or deformation. Examples include the force exerted by a fan on air or a pump on water." .
+
+###  http://www.w3id.org/elementary#mechanical_power
+:mechanical_power rdf:type owl:NamedIndividual ,
+                           :EnergyForm ;
+                           rdfs:comment "An individual representing mechanical power, the rate at which mechanical energy is transferred or converted. For example, the power delivered by a motor to a fan shaft." .
+
+###  http://www.w3id.org/elementary#momentum
+:momentum rdf:type owl:NamedIndividual ,
+                   :PhysicalQuantity ;
+          rdfs:comment "A physical quantity representing the product of an object's mass and velocity. Relevant in fluid dynamics for understanding forces exerted by moving air or water." .
+
+###  http://www.w3id.org/elementary#n2_gas
+:n2_gas rdf:type owl:NamedIndividual ,
+                 :Gas ;
+        rdfs:comment "A specific instance of a gas, referring to nitrogen gas (N2), a common component of air." .
+
+###  http://www.w3id.org/elementary#oil
+:oil rdf:type owl:NamedIndividual ,
+              :Liquid ,
+              :Substance ;
+     rdfs:comment "A specific instance of a liquid substance, referring to oil, used as a lubricant in compressors or as a fuel in some boilers." .
+
+###  http://www.w3id.org/elementary#outlet
+:outlet rdf:type owl:NamedIndividual ,
+                 :ProcessPosition ;
+        owl:sameAs :outlfow ;
+        rdfs:comment "Indicates a position where a substance or energy exits a system or component, representing the outgoing flow. This is synonymous with 'Outflow'." .
+
+###  http://www.w3id.org/elementary#outlfow
+:outlfow rdf:type owl:NamedIndividual ,
+                  :ProcessPosition ;
+         rdfs:comment "Indicates a position where a substance or energy exits a system or component, representing the outgoing flow. This is synonymous with 'Outlet'." .
+
+###  http://www.w3id.org/elementary#photons
+:photons rdf:type owl:NamedIndividual ,
+                  :Energy ;
+         rdfs:comment "An individual representing photons, elementary particles of light, as a form of energy. Relevant for solar energy harvesting and lighting in buildings." .
+
+###  http://www.w3id.org/elementary#plasma
+:plasma rdf:type owl:NamedIndividual ,
+                 :PhysicalState ;
+        rdfs:comment "A general individual representing the physical state of plasma, an ionized gas. Relevant for specialized air purification technologies." .
+
+###  http://www.w3id.org/elementary#potential_energy
+:potential_energy rdf:type owl:NamedIndividual ,
+                           :EnergyForm ;
+                           rdfs:comment "An individual representing potential energy, which is stored energy due to position or state. In HVAC, water at a height has gravitational potential energy, and compressed refrigerant has pressure potential energy." .
+
+###  http://www.w3id.org/elementary#power
+:power rdf:type owl:NamedIndividual ,
+                :PhysicalQuantity ;
+       rdfs:comment "A physical quantity representing the rate at which work is done or energy is transferred. Key for sizing equipment and calculating energy consumption in HVAC (e.g., electrical power, thermal power)." .
+
+###  http://www.w3id.org/elementary#pressure
+:pressure rdf:type owl:NamedIndividual ,
+                   :PhysicalQuantity ;
+          rdfs:comment "A physical quantity representing the force applied perpendicular to the surface of an object per unit area. Critical in HVAC for fluid flow, fan/pump performance, and refrigerant cycles." .
+
+###  http://www.w3id.org/elementary#pressurization
+:pressurization rdf:type owl:NamedIndividual ,
+                         :ElectroMechanicalConversion ;
+                        rdfs:comment "An individual representing the process of increasing pressure, often achieved through electro-mechanical means like pumps or compressors. Essential for moving fluids and refrigerants in HVAC." .
+
+###  http://www.w3id.org/elementary#refrigerant
+:refrigerant rdf:type owl:NamedIndividual ,
+                      :Fluid ;
+             rdfs:comment "A specific instance of a fluid, referring to a refrigerant substance, which is a working fluid used in refrigeration cycles to absorb and reject heat." .
+
+###  http://www.w3id.org/elementary#refrigerant_gas
+:refrigerant_gas rdf:type owl:NamedIndividual ,
+                          :Gas ;
+                         rdfs:comment "A specific instance of a gas, referring to refrigerant in its gaseous (vapor) state, as found in the evaporator and condenser of a refrigeration cycle." .
+
+###  http://www.w3id.org/elementary#refrigerant_liquid
+:refrigerant_liquid rdf:type owl:NamedIndividual ,
+                             :Liquid ;
+                            rdfs:comment "A specific instance of a liquid, referring to refrigerant in its liquid state, as found after the condenser and before the expansion valve in a refrigeration cycle." .
+
+###  http://www.w3id.org/elementary#refrigerant_vapour
+:refrigerant_vapour rdf:type owl:NamedIndividual ,
+                             :Vapour ;
+                            rdfs:comment "A specific instance of vapour, referring to refrigerant in its vaporous state. This is a common state in the refrigeration cycle." .
+
+###  http://www.w3id.org/elementary#saturated
+:saturated rdf:type owl:NamedIndividual ,
+                    :StateLabel ;
+           rdfs:comment "A state label indicating that a substance (e.g., air, refrigerant) holds the maximum amount of another substance (e.g., water vapor) or is at its phase change temperature for a given pressure. For example, 'Saturated Air' or 'Saturated Refrigerant'." .
+
+###  http://www.w3id.org/elementary#signal-communication-message
+:signal-communication-message rdf:type owl:NamedIndividual ,
+                                       :ElectricalSignalKind ;
+                                      rdfs:comment "An electrical signal kind representing a communication message, where information is encoded and transmitted electrically, often using serial protocols like BACnet or Modbus." .
+
+###  http://www.w3id.org/elementary#signal-continuous-analog-value
+:signal-continuous-analog-value rdf:type owl:NamedIndividual ,
+                                         :ElectricalSignalKind ;
+                                        rdfs:comment "An electrical signal kind representing a continuous analog value, such as a voltage (0-10V) or current (4-20mA), used to transmit proportional sensor readings or actuator commands." .
+
+###  http://www.w3id.org/elementary#signal-multistate-value
+:signal-multistate-value rdf:type owl:NamedIndividual ,
+                                  :ElectricalSignalKind ;
+                                 rdfs:comment "An electrical signal kind representing a multistate discrete value, where the signal can take on several distinct values, often encoded as a series of digital pulses or specific voltage levels." .
+
+###  http://www.w3id.org/elementary#singal-binary-value
+:singal-binary-value rdf:type owl:NamedIndividual ,
+                              :ElectricalSignalKind ;
+                             rdfs:comment "An electrical signal kind representing a binary (two-state) value, such as ON/OFF or TRUE/FALSE, typically implemented with a voltage presence/absence or contact closure." .
+
+###  http://www.w3id.org/elementary#solid
+:solid rdf:type owl:NamedIndividual ,
+                :PhysicalState ;
+       rdfs:comment "A general individual representing the physical state of solid, characterized by a definite shape and volume. Metals, insulation, and building materials are examples of solids in HVAC." .
+
+###  http://www.w3id.org/elementary#solid-liquid-mixture
+:solid-liquid-mixture rdf:type owl:NamedIndividual ,
+                               :PhysicalState ;
+                              rdfs:comment "A physical state where solid particles are dispersed within a liquid. Relevant in HVAC for slurries or fluids with suspended contaminants." .
+
+###  http://www.w3id.org/elementary#solid-mixture
+:solid-mixture rdf:type owl:NamedIndividual ,
+                        :PhysicalState ;
+                       rdfs:comment "A physical state where multiple solid substances are combined or intermingled. Relevant for composite materials in HVAC components." .
+
+###  http://www.w3id.org/elementary#solid_material
+:solid_material rdf:type owl:NamedIndividual ,
+                         :Substance ;
+                        rdfs:comment "A general individual representing any solid substance, serving as a placeholder for materials like metals, plastics, or insulation." .
+
+###  http://www.w3id.org/elementary#solution
+:solution rdf:type owl:NamedIndividual ,
+                   :PhysicalState ;
+          rdfs:comment "A physical state where one or more substances are uniformly dispersed in another substance at a molecular level. Relevant for glycol-water solutions in hydronic systems." .
+
+###  http://www.w3id.org/elementary#steam
+:steam rdf:type owl:NamedIndividual ,
+                :Vapour ;
+       rdfs:comment "A specific instance of vapour, referring to water in its gaseous state, commonly used as a heat transfer medium in heating systems or for humidification." .
+
+###  http://www.w3id.org/elementary#subcooled
+:subcooled rdf:type owl:NamedIndividual ,
+                    :StateLabel ;
+           rdfs:comment "A state label indicating that a liquid is at a temperature below its saturation temperature for a given pressure, meaning it is entirely liquid and below its boiling point. For example, 'Subcooled Liquid Refrigerant'." .
+
+###  http://www.w3id.org/elementary#superheated
+:superheated rdf:type owl:NamedIndividual ,
+                      :StateLabel ;
+                     rdfs:comment "A state label indicating that a vapor is at a temperature above its saturation temperature for a given pressure, meaning it is entirely gaseous and above its boiling point. For example, 'Superheated Refrigerant Vapor'." .
+
+###  http://www.w3id.org/elementary#temperature
+:temperature rdf:type owl:NamedIndividual ,
+                      :PhysicalQuantity ;
+             rdfs:comment "A physical quantity representing the degree or intensity of heat present in a substance or object. It is a fundamental measurement in HVAC for comfort, process control, and energy calculations." .
+
+###  http://www.w3id.org/elementary#thermal_energy
+:thermal_energy rdf:type owl:NamedIndividual ,
+                         :EnergyForm ;
+                        rdfs:comment "An individual representing thermal energy, which is the internal energy of a system due to the kinetic energy of its particles. It is the primary form of energy transferred in heating and cooling processes." .
+
+###  http://www.w3id.org/elementary#time
+:time rdf:type owl:NamedIndividual ,
+               :PhysicalQuantity ;
+      rdfs:comment "A physical quantity representing the continuous progress of existence and events. Crucial in HVAC for scheduling, sequencing, and dynamic system analysis." .
+
+###  http://www.w3id.org/elementary#torque
+:torque rdf:type owl:NamedIndividual ,
+                 :PhysicalQuantity ;
+        rdfs:comment "A physical quantity representing the rotational equivalent of linear force, causing an object to rotate. Relevant in HVAC for motors driving fans and pumps." .
+
+###  http://www.w3id.org/elementary#torsional_force
+:torsional_force rdf:type owl:NamedIndividual ;
+                 rdfs:comment "An individual representing a force that causes twisting or rotation around an axis. This is the underlying force that produces torque in rotating machinery." .
+
+###  http://www.w3id.org/elementary#vapour
+:vapour rdf:type owl:NamedIndividual ,
+                 :PhysicalState ;
+        rdfs:comment "A general individual representing the physical state of vapour, a gaseous substance below its critical temperature that can be condensed by pressure alone. Refrigerant vapor and steam are common examples in HVAC." .
+
+###  http://www.w3id.org/elementary#water
+:water rdf:type owl:NamedIndividual ,
+                :Liquid ;
+       rdfs:comment "A specific instance of a liquid, referring to water (H2O), which is a ubiquitous heat transfer medium in hydronic HVAC systems (chilled water, hot water, condenser water)." .
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Imports Wizard Entry" name="http://w3id.org/hvac-taxonomy" uri="file:/D:/Research/GitHubRepos/open-project/autonomous-buildings/hvac/hvac-taxonomy.owl.ttl"/>
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1772181724907" name="http://www.w3id.org/elmentary/applications/hvac" uri="brick-extensions.owl.xml"/>
-        <uri id="Automatically generated entry, Timestamp=1772181724907" name="shadowed:http://www.w3id.org/elmentary/applications/hvac" uri="experimental/hvac-v2.owl.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1778230551881" name="http://www.w3id.org/elmentary/applications/hvac" uri="brick-extensions.owl.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1778230551881" name="shadowed:http://www.w3id.org/elmentary/applications/hvac" uri="experimental/hvac-v2.owl.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1778230551881" name="shadowed:http://www.w3id.org/elmentary/applications/hvac" uri="hvac/brick-extensions.owl.xml"/>
+        <uri id="Automatically generated entry, Timestamp=1778230551881" name="shadowed:http://www.w3id.org/elmentary/applications/hvac" uri="hvac/experimental/hvac-v2.owl.xml"/>
     </group>
 </catalog>

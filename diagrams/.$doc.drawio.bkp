@@ -1,0 +1,77 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Page-1" id="lSrQT9b2Y5bB2pvLdznu">
+    <mxGraphModel dx="1840" dy="1084" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="AutomationConcept" vertex="1">
+          <mxGeometry height="40" width="160" x="620" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="PhysicalProcessConcept" vertex="1">
+          <mxGeometry height="40" width="160" x="420" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="SystemDesignConcept" vertex="1">
+          <mxGeometry height="40" width="160" x="220" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="RequirementsConcept" vertex="1">
+          <mxGeometry height="40" width="160" x="820" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Concepts to describe automation hardware, networks, and control programs" vertex="1">
+          <mxGeometry height="70" width="160" x="620" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Concepts to describe the construction topology of electro-mechanical systems" vertex="1">
+          <mxGeometry height="70" width="160" x="220" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Concepts to create qualitative description of physical processes" vertex="1">
+          <mxGeometry height="70" width="160" x="420" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Concepts to describe goal oriented requirements" vertex="1">
+          <mxGeometry height="70" width="160" x="820" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=20;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;fontStyle=1" value="Elementary" vertex="1">
+          <mxGeometry height="40" width="760" x="220" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-10" edge="1" parent="1" source="5qFJZ2nLrnKJVhX7r8CK-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="5qFJZ2nLrnKJVhX7r8CK-14" value="described by">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-11" edge="1" parent="1" source="5qFJZ2nLrnKJVhX7r8CK-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#006600;fontColor=#006600;" target="5qFJZ2nLrnKJVhX7r8CK-21" value="achieved by">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Goal" vertex="1">
+          <mxGeometry height="25" width="101.5" x="450" y="355.05999999999995" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-13" edge="1" parent="1" source="5qFJZ2nLrnKJVhX7r8CK-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fillColor=#fff2cc;strokeColor=#d6b656;dashed=1;strokeWidth=2;" target="5qFJZ2nLrnKJVhX7r8CK-18" value="refers to">
+          <mxGeometry relative="1" x="-0.0942" y="-13" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-14" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="Goal Defintion" vertex="1">
+          <mxGeometry height="28" width="101.5" x="450" y="420.05999999999995" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-15" edge="1" parent="1" source="5qFJZ2nLrnKJVhX7r8CK-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=diamond;endFill=0;" target="5qFJZ2nLrnKJVhX7r8CK-19">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="PhysicalMechanism" vertex="1">
+          <mxGeometry height="26" width="123" x="622" y="355.05999999999995" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-17" edge="1" parent="1" source="5qFJZ2nLrnKJVhX7r8CK-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=diamond;endFill=0;" target="5qFJZ2nLrnKJVhX7r8CK-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="PhysicalVariable" vertex="1">
+          <mxGeometry height="25" width="126" x="620.5" y="421.55999999999995" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" value="PhysicalProces" vertex="1">
+          <mxGeometry height="26" width="123" x="622" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-20" edge="1" parent="1" source="5qFJZ2nLrnKJVhX7r8CK-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=1;strokeColor=#000000;" target="5qFJZ2nLrnKJVhX7r8CK-19" value="manages">
+          <mxGeometry relative="1" x="-0.1713" y="13" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5qFJZ2nLrnKJVhX7r8CK-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="System" vertex="1">
+          <mxGeometry height="26.06" width="101.5" x="450.0000000000001" y="290" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
