@@ -265,4 +265,27 @@ So, given an _integrated_ knowledge graph like the one above, it is now easy to 
 
 ## Physical Mechanism: How do we capture common sense physics behind components and systems?
 
+With mathematical equations, of course. That would be certainly provide much more beyond _common sense_. A mathematical model that represents the near exact functioning of a partcular component would however need parameterization (to capture the components sizing and dynamics). This is more often than not an extensive work. But, for many cases, especially those where only need causal graphs with perhaps a bit of idea on dynamics, we could do with a much more generic or qualitative model of physics. I came up with two ways to do this: (1) describe the physical mechanism in terms of variables and their dependency, and (2) create functional mockup unit of simulation of generic components and describe its interfaces. The latter can capture general dynamic responses. The former can be encoded in to the knowledge graph and does not require any execution engine or solver. Let me briefly describe these two things.
+
+### Qualitative Model of Physical Processes and Mechanisms
+Lets resort to visuals again. The key concepts required to describe physics underlying a electro-mechanical component are:
+![alt text](images/physical-concepts.png)
+
+There is already some semantics captured by the _has variable_ relationship. Independent variables are those that influence the outcome of the mechanism. Manipulated variable is a specific kind that can be externally manipulated. The outcome is reflected by the change of the dependent variable. Mechanisms can be linked with one another such that "stuff" (a nice term that covers substance, energy, and force) flows between them.
+
+Applying these concepts to a simple process where oil is fired up to heat water in pipes of boiler, the graph would look like:
+![alt text](images/physical-concepts-example.png)
+
+Elementary also allows conditions for the mechanism to be expressed. For example:
+![alt text](images/physical-concepts-expressivity.png){width=40%}
+
+So far, we have discussed only the physics part. The qualitative model can be "linked" to the structural model by linking the variables to the physical ports where they can be observed or manipulated. Again, example:
+![alt text](images/physical-linking-to-component.png){width=20%}
+
+Once you have a component and its underlying physics, you can reason about interaction between connected components by chaining the dependent and independent variables dealing with same stuff. For example:
+
+![alt text](images/physical-concepts-chaining.png){width=40%}
+
+You might have a nagging thought: do you need to do this for every component instance in your system? Well, not, and thats the beauty of the approach. You can describe a _stereotypical_ component using above approach. In fact, a physical mechanism is even more generic -- it can be used by muliple component types. The _stereotypical_ component can be stored in a library and then every real component of that class can be _automatically_ associated to the stereotpye. I have create an extensive library for heating, ventilation, and air-conditioning components. 
+
 ## Automation: How can we describe standard control and coordination strategies?

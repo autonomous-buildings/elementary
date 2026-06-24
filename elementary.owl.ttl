@@ -963,6 +963,11 @@ owl:topObjectProperty owl:inverseOf :measures .
                      rdfs:subPropertyOf :faultProperty .
 
 
+###  http://www.w3id.org/elementary#hasGoalRelationSpecification
+:hasGoalRelationSpecification rdf:type owl:DatatypeProperty ;
+                              rdfs:subPropertyOf :requirementProperty .
+
+
 ###  http://www.w3id.org/elementary#hasStateSpecifiation
 :hasStateSpecifiation rdf:type owl:DatatypeProperty ;
                       rdfs:subPropertyOf :requirementProperty ;
