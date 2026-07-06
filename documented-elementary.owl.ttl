@@ -51,7 +51,7 @@
 #################################################################
 
 ###  http://www.w3.org/2002/07/owl#topObjectProperty
-owl:topObjectProperty owl:inverseOf :measures .
+owl:topObjectProperty owl:inverseOf :measures.
 
 ###  http://www.w3id.org/elementary#achieves
 :achieves rdf:type owl:ObjectProperty ;

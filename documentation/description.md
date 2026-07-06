@@ -1,16 +1,19 @@
 <h1> Elementary</h1>
+<h2>An Ontology to Model Electro-mechanical Systems and their Functioning</h2>
+(Written in a casual manner by a casual human)
 
-_An Ontology to Model Electro-mechanical Systems and their Functioning_
 
 [TOC]
 
 ## What is this about?
 
-Electro-mechanical systems in industrial applications are inter-connected components that process substance and energy in a coordinated manner. Traditionally, descriptions of such systems, usually diagrams and texts, have been created to solely cater for human understanding. With the age of AI-assisted autonomy dawning on the industry, the question arises as to how we can make this knowledge accessible to also _intelligent artificial agents_. Or, should we just let such agents (including language agents) _discover_ the system on their own and _learn_ to control it? The latter option sounds attractive because it is almost engineering-free. Except that it is riddled with lack of accuracy, reliability, safety, and explainability. Instead of being forced to choose between heavily engineered (and purely reactive) software programs and creative agents based on language/vision models, I advocate making expert-created knowledge encoded in a _machine-understandable_ manner available to both logically reasoning and generative agents. Of course, curation of such knowledge is not so obvious and where possible, it is often expensive. Which is why I show that even basic qualitative descriptions that can be automatically synthesized out of existing sources bring significant benefit to AI agents which are then spared of creatively probabilistic acts. I am quite sure that the astounding capabilities of current day LLMs is on your mind. I will take time to show that I am not talking of knowledge-informed approach as being _disjoint_ from AI methods, but contrarily, that it is a very integral part of AI that is currently missing.
+Electro-mechanical systems in are inter-connected components that process substance and energy in a coordinated manner. This could be anything ranging from a humble electric kettle to a power plant. Traditionally, descriptions of such systems, usually diagrams and texts, have been created to solely cater for human understanding. With the age of AI-assisted autonomy dawning on the industry, the question arises as to how we can make this knowledge accessible to also _intelligent artificial agents_. Or, should we just let such agents (including language agents) _discover_ the system on their own and _learn_ to control it? The latter option sounds attractive because it is almost engineering-free. Except we all know that it is riddled with lack of accuracy, reliability, safety, and explainability. Instead of being forced to choose between heavily engineered (and purely reactive) software programs and creative agents based on language/vision models, I advocate a middle path of making expert-created knowledge encoded in a _machine-understandable_ manner available to both logically reasoning and generative agents. Of course, curation of such knowledge is not so obvious, and where possible, it is often expensive. Which is why I show that even basic qualitative descriptions that can be automatically synthesized out of existing sources bring significant benefit to AI agents which are then spared of creatively probabilistic acts. I am quite sure that the astounding capabilities of current day LLMs is on your mind. I will take time to show that I am not talking of knowledge-informed approach as being _disjoint_ from or versus AI methods, but contrarily, that it can be a very integral part of AI (and this is currently missing).
 
-**Elementary** is an ontology that helps model such knowledge. It is based on the Semantic Web standards which has a proven background in industrial applications. The name is inspired by Conan Doyle's fictional character of Sherlock Holmes, who tells his friend Watson that happenings can be explained on the basis of elementary facts (the phrase first appears in the story "A study in Scarlet"). When it comes to the physical world, elementary facts are invaluable in working out mysteries.
+**Elementary** is an ontology that helps model such knowledge. It is based on the Semantic Web standards which has a proven background in industrial applications. The name Elementary is inspired by Conan Doyle's fictional character of Sherlock Holmes, who impresses upon his friend Watson that happenings can be explained on the basis of _elementary_ facts (the phrase first appears in the story "A study in Scarlet"). In "The Adventure of the Blue Carbuncle", Holmes deduces a stranger’s entire personality, financial status, and lifestyle just by looking at a lost, battered felt hat. When it comes to the physical world in which machines operate, elementary facts are indeed invaluable in working out mysteries.
 
-In principle, knowledge modeled by Elementary consists of three parts:
+I claim (on good grounds) that the knowledge we need has to include at least four aspects: (1) Requirements, i.e., what needs to be accomplished, (2) system design description, i.e., what was built to accomplish the goals, (3) physical principles (underlying the system), and (4) the description of how the system's function in automated towards achieving the requirements. I am talking about knowledge required to automate / operate the system and not design and build it. I found most people nodding in agreement to 1, 2, and 4, and generally frowning on mention of 3. It turns out that physics is the easiest of all and it makes other things even more easier.
+
+Therefore, in principle, knowledge modeled by Elementary consists of fource parts:
 
 ![alt text](images/overview.png)
 
@@ -286,6 +289,167 @@ Once you have a component and its underlying physics, you can reason about inter
 
 ![alt text](images/physical-concepts-chaining.png){width=40%}
 
-You might have a nagging thought: do you need to do this for every component instance in your system? Well, not, and thats the beauty of the approach. You can describe a _stereotypical_ component using above approach. In fact, a physical mechanism is even more generic -- it can be used by muliple component types. The _stereotypical_ component can be stored in a library and then every real component of that class can be _automatically_ associated to the stereotpye. I have create an extensive library for heating, ventilation, and air-conditioning components. 
+This is actually pretty useful. Given a knowledge graph that describes the topology of a complex electro-mechanical system, you can examine the inter-connections and know what is happening. I built a little tool to visualize this. In the screenshot below, I am examining the process relation between a motor and a fan it drives (I know, this is terribly simple, but trying to work your way through a complex example is not what you want):
+![alt text](images/physical-concepts-chaining-tool.png){width=40%}
+On the right pane you see the automated inference which says that if you increase the electrical power input to the motor it will result in change in air flow rate and pressure.
+
+All this is very generic. You take the knowledge graph of the system, take a library of stereotypes, and viola: you have the ability to reason about the physical processes. For those who think that this must involve horrific inference rules, relax. The knowledge graph query is nothing more than:
+
+```sparql
+PREFIX elem: <http://www.w3id.org/elementary#>
+select * where {
+    #What is the process relation between two components c1 and c2?
+    ?c1 elem:hasStereotype ?s1. ?c2 elem:hasStereotype ?s2.
+    {?c1 elem:feeds ?c2} UNION {!c1 elem:hasUpstreamEffectOn ?c2}.
+    ?s1 elem:hasPhysicalMechanism ?pm1. ?s2 elem:hasPhysicalMechanism ?pm2.
+    ?pm1 elem:hasDependentVariable ?s1dv.
+    ?pm2 elem:hasIndependentVariable ?s2iv.
+    ?s1dv elem:dealsWithStuff ?common_s.
+    ?s1dv elem:hasQuantity ?common_q.
+    ?s2iv elem:dealsWithStuff ?common_s.
+    ?s2iv elem:hasQuantity ?common_q
+}
+```
+
+At this point, you might have a nagging thought: do you need to do this for every component instance in your system? Well, not, and thats the beauty of the approach. You can describe a _stereotypical_ component using the concepts in Elementary. In fact, physical mechanisms are even more generic -- a mechanism can be used by muliple component types. The _stereotypical_ component can be stored in a library and then every real component of that class can be _automatically_ associated to the stereotpye. One such library that I created is for heating, ventilation, and air-conditioning components. 
+
+It is nice that you can get causal graphs. But we all know that is only a model of static behaviour. We could do dynamics if we can nicely encode (and solve) differential equations in RDF. I will leave that as an exercise to a proper nerd. Let me take to you a rather cheap solution. You can do all that maths nicely in a software program. Thats called a simulation model. You can make the simulation model portable by generating what is called as a _Functional Mockup Unit_ (FMU).
+
+Here is a FMU written in Python (the compiled FMU can be loaded and run in any FMI compliant host):
+
+_Note:_ I find the class name ``Fmi2Slave`` very parochial and insensitive. The community behind pythonfmu recognized this but chose to keep it so that it is consistent with the legacy FMI2.0 specification.
+
+```python
+from pythonfmu import Fmi2Slave, Fmi2Causality, Fmi2Variability, Real
+
+class GenericFan(Fmi2Slave):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        
+        # --- PARAMETERS (Fixed during simulation) ---
+        self.max_flow_m3s = 5.0      # Maximum volumetric flow rate (m³/s)
+        self.max_power_w = 1200.0    # Peak power consumption at max flow (W)
+        self.air_density = 1.2       # Air density (kg/m³)
+        self.fan_efficiency = 0.65   # Combined fan and motor efficiency (0-1)
+
+        # Register Parameters
+        self.register_variable(Real("max_flow_m3s", causality=Fmi2Causality.parameter, variability=Fmi2Variability.tunable))
+        self.register_variable(Real("max_power_w", causality=Fmi2Causality.parameter, variability=Fmi2Variability.tunable))
+        self.register_variable(Real("air_density", causality=Fmi2Causality.parameter, variability=Fmi2Variability.tunable))
+        self.register_variable(Real("fan_efficiency", causality=Fmi2Causality.parameter, variability=Fmi2Variability.tunable))
+
+        # --- INPUTS (Provided by external environment) ---
+        self.control_signal = 0.0    # Control signal bounded between 0.0 and 1.0
+        self.mass_flow_in = 0.0      # Incoming air mass flow rate from system (kg/s)
+
+        # Register Inputs
+        self.register_variable(Real("control_signal", causality=Fmi2Causality.input))
+        self.register_variable(Real("mass_flow_in", causality=Fmi2Causality.input))
+
+        # --- OUTPUTS (Calculated by the FMU) ---
+        self.volumetric_flow = 0.0   # Current volume flow (m³/s)
+        self.power_consumption = 0.0 # Electrical power draw (W)
+        self.pressure_rise = 0.0     # Pressure difference generated by fan (Pa)
+
+        # Register Outputs
+        self.register_variable(Real("volumetric_flow", causality=Fmi2Causality.output))
+        self.register_variable(Real("power_consumption", causality=Fmi2Causality.output))
+        self.register_variable(Real("pressure_rise", causality=Fmi2Causality.output))
+
+    def do_step(self, current_time: float, step_size: float) -> bool:
+        # 1. Enforce control signal physical boundaries
+        ctrl = max(0.0, min(1.0, self.control_signal))
+        
+        # 2. Calculate Volumetric Flow Rate based on control setting
+        self.volumetric_flow = ctrl * self.max_flow_m3s
+        
+        # 3. Calculate Power Consumption (cubically scales with control/speed)
+        self.power_consumption = (ctrl ** 3) * self.max_power_w
+        
+        # 4. Calculate Pressure Rise (P = (Power * Efficiency) / Volumetric Flow)
+        # Avoid division by zero when the fan is completely off
+        if self.volumetric_flow > 0.001:
+            useful_fluid_power = self.power_consumption * self.fan_efficiency
+            self.pressure_rise = useful_fluid_power / self.volumetric_flow
+        else:
+            self.pressure_rise = 0.0
+            
+        return True
+
+```
+Such a code can be compiled and distributed. It can be consumed by clients on different platforms. Example:
+```python
+from fmpy import simulate_fmu, dump
+
+# Print metadata structure contained in the FMU
+dump('GenericFan.fmu')
+
+# Run a quick 10-second simulation loop with a fixed 50% fan speed control input
+result = simulate_fmu(
+    'GenericFan.fmu',
+    stop_time=10.0,
+    step_size=1.0,
+    input_data={'control_signal': (0.5)}
+)
+
+# Display the performance outputs at the final simulated time step
+print(f"Time: {result[-1]['time']}s")
+print(f"Volumetric Flow: {result[-1]['volumetric_flow']} m3/s")
+print(f"Power Draw: {result[-1]['power_consumption']} W")
+print(f"Pressure Rise: {result[-1]['pressure_rise']} Pa")
+
+
+![alt text](images/simulation-interface-variables.png)
+
+```
+
+An FMU can be described using the FMUOntology. Here is an RDF snippet for our ``GenericFan``:
+
+```turtle
+### --- FMU MODEL CLASS DECLARATION ---
+ex:FanModel a fmuo:FMUModel ;
+    rdfs:label "Fan Simulation Model" ;
+    fmuo:hasVariable 
+        ex:max_flow_m3s, ex:max_power_w, ex:air_density, ex:fan_efficiency,
+        ex:control_signal, ex:mass_flow_in,
+        ex:volumetric_flow, ex:power_consumption, ex:pressure_rise .
+
+
+### --- PARAMETERS (Tunable Parameters) ---
+ex:max_flow_m3s a fmuo:Variable ;
+    rdfs:label "max_flow_m3s" ;
+    rdfs:comment "Maximum volumetric flow rate" ;
+    fmuo:hasCausality fmi:parameter ;
+    fmuo:hasVariability fmi:tunable ;
+    fmuo:hasDataType xsd:double ;
+    fmuo:hasUnit "m3/s" ;
+    fmuo:hasValue 5.0 .
+```
+
+If we take half a step back, we can see that an FMU is a sort of a stereotypical description of the mechanism. And we can see that it has the interface variables with semantics same as a physical mechanism. With an ontology-based description, one can easily match an FMU in a libary to physical mechanism at hand.
+
+The value of having even a partially accurate simulation model is that one can check if the _trajectory_ of a control program is right before trying it on the physical system:
+
+![alt text](images/simulation-switch.png)
 
 ## Automation: How can we describe standard control and coordination strategies?
+
+Just to remind you of the background to this part: we dont want to rely on generative AI to create the control program for a given scenario (i.e., the requirements and the system built for the purpose). Generative AI does work _decently good_ for things like room thermostat, but begins to waver once you have inter-connected sub-systems that may need to coordinate too. Unlike regular software vibe coding, you really dont have much chance of refining the code in iterations -- you wouldnt dare to deploy the first code suggestion on the real machine (and you wouldnt have or trust a simulator).
+
+That said, over the past decades control application engineers have developed tons of standard control strategies and tested them out. Such standard strategies are sort of patterns that can be applied with slight reconfiguration and parametrization to suit an actual instance of the electro-mechanical system. For example, there are standard _function blocks_ for motion control applications. So if I have a conveyor belt to control, I would just pick a standard block from a library (like [this](https://autonomylogic.com/) one). But _how_ would I decide to pick one of these? I would look at the description of the block (its control algorithm) and its interfaces and match to the conveyor sub-system that I have. If only this process were also machine-understandable, we could have intelligent artificial agents doing the same. Right now, such _function blocks_ have the regular documentation for human experts. Not bad for LLMs, but then there is the question what _facts_ are used for reasoning about the match of a _function block_ to a given sub-system. A machine-understandable description based on logical formalization would make things both deterministic and explainable.
+
+So, here is the idea: designers of standard control programs would describe their program in the context of an _abstract system_ they have in mind. This description would be based on a formal language, and this is what is supported by the ontological concepts in Elementary. Now, given such a semantic description, we can match the control program to an actual _instance_ of a system. In other words, it matching based on semantic rules.
+
+I think I need to use the explain-by-example method. Suppose that a control program designer is creating a control logic for combustion control of generic boilers. He or she would have something like this in mind:
+![alt text](images/controls-abstract-system.png)
+
+Such diagrams may also include causal relationships (the + ~ in the above diagram is a notation to indicate positive non-linear influence). Elementary enables us to model such knowledge. Describing the _abstract system_ is a one-time activity. Now, to link the descritpion of the control program to the abstract system, the program designer does two thing: (1) declares the goal in terms of the _physical variables_ associated with the abstract systems, and (2) asserts the relationship of the inputs and outputs of the programs to sensors and actuators respectively. Lets look at this diagrammatically:
+
+![alt text](images/controls-linking.png)
+
+What do we get out of this? First, there is a better machine-understandable explanation of the what the program does (perhaps even a better human-understandable explanation). Second, if you have a system at hand which _in principle_ is same as the abstract system, then you can reason about the match of the control program. Say, you have a boiler burner with variable speed fuel pump instead of a valve for controlling the amount of fuel feed. You can still use the program because its intention is to control the fuel feed rate and therefore it does not matter if that is via a modulating valve or a pump. In other words, we are matching based on the physical principle managed by the sub-system and the physical role of the sensors and actuators attached to it.
+
+## Integration
+
+## Outlook
