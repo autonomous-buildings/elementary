@@ -1,0 +1,567 @@
+@prefix : <http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy> .
+
+<http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy> rdf:type owl:Ontology ;
+                                                             owl:imports <http://www.w3id.org/elementary> .
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.w3id.org/elementary#ActiveComponent
+<http://www.w3id.org/elementary#ActiveComponent> rdf:type owl:Class .
+
+
+###  http://www.w3id.org/elementary#Actuator
+<http://www.w3id.org/elementary#Actuator> rdf:type owl:Class .
+
+
+###  http://www.w3id.org/elementary#Component
+<http://www.w3id.org/elementary#Component> rdf:type owl:Class .
+
+
+###  http://www.w3id.org/elementary#Conduit
+<http://www.w3id.org/elementary#Conduit> rdf:type owl:Class .
+
+
+###  http://www.w3id.org/elementary#Sensor
+<http://www.w3id.org/elementary#Sensor> rdf:type owl:Class .
+
+
+###  http://www.w3id.org/elementary#System
+<http://www.w3id.org/elementary#System> rdf:type owl:Class .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#AxialFan
+:AxialFan rdf:type owl:Class ;
+          rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Fan> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#AxialFlowPump
+:AxialFlowPump rdf:type owl:Class ;
+               rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Pump> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#CentrifugalFan
+:CentrifugalFan rdf:type owl:Class ;
+                rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Fan> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#CentrifugalPump
+:CentrifugalPump rdf:type owl:Class ;
+                 rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Pump> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#ControlDamper
+:ControlDamper rdf:type owl:Class ;
+               rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Damper> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#ControlValve
+:ControlValve rdf:type owl:Class ;
+              rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Valve> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#ElectroMechanicalActuator
+:ElectroMechanicalActuator rdf:type owl:Class ;
+                           rdfs:subClassOf <http://www.w3id.org/elementary#Actuator> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#Electromagnet
+:Electromagnet rdf:type owl:Class ;
+               rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#ElectromotiveComponent> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#Expander
+:Expander rdf:type owl:Class ;
+          rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#FlowControlComponent> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#FlowMeasurementComponent
+:FlowMeasurementComponent rdf:type owl:Class ;
+                          rdfs:subClassOf <http://www.w3id.org/elementary#PassiveComponent> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#FourWayValve
+:FourWayValve rdf:type owl:Class ;
+              rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Valve> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#OrificePlate
+:OrificePlate rdf:type owl:Class ;
+              rdfs:subClassOf :FlowMeasurementComponent .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#PitotTube
+:PitotTube rdf:type owl:Class ;
+           rdfs:subClassOf :FlowMeasurementComponent .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#ReciprocatingPump
+:ReciprocatingPump rdf:type owl:Class ;
+                   rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Pump> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#Reducer
+:Reducer rdf:type owl:Class ;
+         rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#FlowControlComponent> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#ShutOffDamper
+:ShutOffDamper rdf:type owl:Class ;
+               rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Damper> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#ShutOffValve
+:ShutOffValve rdf:type owl:Class ;
+              rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Valve> .
+
+
+###  http://www.w3id.org/elementary/domains/hvac/hvac-taxonomy#VapourInjectionCompressor
+:VapourInjectionCompressor rdf:type owl:Class ;
+                           rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Compressor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#AbsoluteHumiditySensor
+<http://www.w3id.org/hvac-taxonomy#AbsoluteHumiditySensor> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HumiditySensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#AirCooledCondenser
+<http://www.w3id.org/hvac-taxonomy#AirCooledCondenser> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Condenser> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#AirFilter
+<http://www.w3id.org/hvac-taxonomy#AirFilter> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Filter> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#AirHandlingUnit
+<http://www.w3id.org/hvac-taxonomy#AirHandlingUnit> rdf:type owl:Class ;
+                                                    rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#PrimarySystem> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#AirToAirHeatExchanger
+<http://www.w3id.org/hvac-taxonomy#AirToAirHeatExchanger> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#AirWaterHeatExchanger
+<http://www.w3id.org/hvac-taxonomy#AirWaterHeatExchanger> rdf:type owl:Class ;
+                                                          owl:equivalentClass <http://www.w3id.org/hvac-taxonomy#Coil> ;
+                                                          rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Battery
+<http://www.w3id.org/hvac-taxonomy#Battery> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#EnergyConversionComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#BeltDrive
+<http://www.w3id.org/hvac-taxonomy#BeltDrive> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#PowerTransferComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Boiler
+<http://www.w3id.org/hvac-taxonomy#Boiler> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#PrimarySystem> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#BoilerTube
+<http://www.w3id.org/hvac-taxonomy#BoilerTube> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Burner
+<http://www.w3id.org/hvac-taxonomy#Burner> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#EnergyConversionComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Charger
+<http://www.w3id.org/hvac-taxonomy#Charger> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#EnergyConversionComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#ChilledCeiling
+<http://www.w3id.org/hvac-taxonomy#ChilledCeiling> rdf:type owl:Class ;
+                                                   owl:equivalentClass <http://www.w3id.org/hvac-taxonomy#ColdDeck> ;
+                                                   rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Chiller
+<http://www.w3id.org/hvac-taxonomy#Chiller> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#PrimarySystem> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Coil
+<http://www.w3id.org/hvac-taxonomy#Coil> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#ColdDeck
+<http://www.w3id.org/hvac-taxonomy#ColdDeck> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Compressor
+<http://www.w3id.org/hvac-taxonomy#Compressor> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#PressurizationComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Condenser
+<http://www.w3id.org/hvac-taxonomy#Condenser> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#ConditionedSpace
+<http://www.w3id.org/hvac-taxonomy#ConditionedSpace> rdf:type owl:Class ;
+                                                     rdfs:subClassOf <http://www.w3id.org/elementary#Container> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#CoolingTower
+<http://www.w3id.org/hvac-taxonomy#CoolingTower> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#CurrentSensor
+<http://www.w3id.org/hvac-taxonomy#CurrentSensor> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Damper
+<http://www.w3id.org/hvac-taxonomy#Damper> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#FlowControlComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Dehumidifier
+<http://www.w3id.org/hvac-taxonomy#Dehumidifier> rdf:type owl:Class ;
+                                                 rdfs:subClassOf <http://www.w3id.org/elementary#ActiveComponent> ,
+                                                                 <http://www.w3id.org/hvac-taxonomy#SubstanceTransferComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#DifferentialPressureSensor
+<http://www.w3id.org/hvac-taxonomy#DifferentialPressureSensor> rdf:type owl:Class ;
+                                                               rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#PressureSensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#DirectExpansionCoil
+<http://www.w3id.org/hvac-taxonomy#DirectExpansionCoil> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Evaporator> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#DistanceSensor
+<http://www.w3id.org/hvac-taxonomy#DistanceSensor> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#DistributionSystem
+<http://www.w3id.org/hvac-taxonomy#DistributionSystem> rdf:type owl:Class ;
+                                                       rdfs:subClassOf <http://www.w3id.org/elementary#System> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Duct
+<http://www.w3id.org/hvac-taxonomy#Duct> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://www.w3id.org/elementary#Conduit> ,
+                                                         <http://www.w3id.org/hvac-taxonomy#SubstanceTransferComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Economizer
+<http://www.w3id.org/hvac-taxonomy#Economizer> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#ElectricHeater
+<http://www.w3id.org/hvac-taxonomy#ElectricHeater> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#EnergyConversionComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#ElectricalPowerControlComponent
+<http://www.w3id.org/hvac-taxonomy#ElectricalPowerControlComponent> rdf:type owl:Class ;
+                                                                    rdfs:subClassOf <http://www.w3id.org/elementary#Actuator> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#ElectricalTransformer
+<http://www.w3id.org/hvac-taxonomy#ElectricalTransformer> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#PowerTransferComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#ElectromotiveComponent
+<http://www.w3id.org/hvac-taxonomy#ElectromotiveComponent> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://www.w3id.org/elementary#ActiveComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#EnergyConversionComponent
+<http://www.w3id.org/hvac-taxonomy#EnergyConversionComponent> rdf:type owl:Class ;
+                                                              rdfs:subClassOf <http://www.w3id.org/elementary#ActiveComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#EnergyRecoveryWheel
+<http://www.w3id.org/hvac-taxonomy#EnergyRecoveryWheel> rdf:type owl:Class ;
+                                                        rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#AirToAirHeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Evaporator
+<http://www.w3id.org/hvac-taxonomy#Evaporator> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#ExpansionValve
+<http://www.w3id.org/hvac-taxonomy#ExpansionValve> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#PhaseChangeComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Fan
+<http://www.w3id.org/hvac-taxonomy#Fan> rdf:type owl:Class ;
+                                        rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#PressurizationComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#FanCoilUnit
+<http://www.w3id.org/hvac-taxonomy#FanCoilUnit> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#TerminalSystem> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Filter
+<http://www.w3id.org/hvac-taxonomy#Filter> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#FilterationComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#FilterationComponent
+<http://www.w3id.org/hvac-taxonomy#FilterationComponent> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.w3id.org/elementary#PassiveComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#FlowControlComponent
+<http://www.w3id.org/hvac-taxonomy#FlowControlComponent> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.w3id.org/elementary#PassiveComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#FlowSensor
+<http://www.w3id.org/hvac-taxonomy#FlowSensor> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#GasSensor
+<http://www.w3id.org/hvac-taxonomy#GasSensor> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#HeatExchanger
+<http://www.w3id.org/hvac-taxonomy#HeatExchanger> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatTransferComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#HeatTransferComponent
+<http://www.w3id.org/hvac-taxonomy#HeatTransferComponent> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://www.w3id.org/elementary#ActiveComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#HeatedCeiling
+<http://www.w3id.org/hvac-taxonomy#HeatedCeiling> rdf:type owl:Class ;
+                                                  owl:equivalentClass <http://www.w3id.org/hvac-taxonomy#HotDeck> ;
+                                                  rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#HotDeck
+<http://www.w3id.org/hvac-taxonomy#HotDeck> rdf:type owl:Class ;
+                                            rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Humidifier
+<http://www.w3id.org/hvac-taxonomy#Humidifier> rdf:type owl:Class ;
+                                               rdfs:subClassOf <http://www.w3id.org/elementary#ActiveComponent> ,
+                                                               <http://www.w3id.org/hvac-taxonomy#SubstanceTransferComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#HumiditySensor
+<http://www.w3id.org/hvac-taxonomy#HumiditySensor> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#LevelSensor
+<http://www.w3id.org/hvac-taxonomy#LevelSensor> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#DistanceSensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#LightSensor
+<http://www.w3id.org/hvac-taxonomy#LightSensor> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#LinearActuator
+<http://www.w3id.org/hvac-taxonomy#LinearActuator> rdf:type owl:Class ;
+                                                   rdfs:subClassOf :ElectroMechanicalActuator .
+
+
+###  http://www.w3id.org/hvac-taxonomy#LinearDrive
+<http://www.w3id.org/hvac-taxonomy#LinearDrive> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Motor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Motor
+<http://www.w3id.org/hvac-taxonomy#Motor> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#ElectromotiveComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#OilFilter
+<http://www.w3id.org/hvac-taxonomy#OilFilter> rdf:type owl:Class ;
+                                              rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Filter> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#ParticleSensor
+<http://www.w3id.org/hvac-taxonomy#ParticleSensor> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#PhaseChangeComponent
+<http://www.w3id.org/hvac-taxonomy#PhaseChangeComponent> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.w3id.org/elementary#ActiveComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#PhotovoltaicPanel
+<http://www.w3id.org/hvac-taxonomy#PhotovoltaicPanel> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#EnergyConversionComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Pipe
+<http://www.w3id.org/hvac-taxonomy#Pipe> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://www.w3id.org/elementary#Conduit> ,
+                                                         <http://www.w3id.org/hvac-taxonomy#SubstanceTransferComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#PowerSensor
+<http://www.w3id.org/hvac-taxonomy#PowerSensor> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#PowerTransferComponent
+<http://www.w3id.org/hvac-taxonomy#PowerTransferComponent> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://www.w3id.org/elementary#PassiveComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#PressureSensor
+<http://www.w3id.org/hvac-taxonomy#PressureSensor> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#PressurizationComponent
+<http://www.w3id.org/hvac-taxonomy#PressurizationComponent> rdf:type owl:Class ;
+                                                            rdfs:subClassOf <http://www.w3id.org/elementary#ActiveComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#PrimarySystem
+<http://www.w3id.org/hvac-taxonomy#PrimarySystem> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://www.w3id.org/elementary#System> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Pump
+<http://www.w3id.org/hvac-taxonomy#Pump> rdf:type owl:Class ;
+                                         rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#PressurizationComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#RadiantUnit
+<http://www.w3id.org/hvac-taxonomy#RadiantUnit> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#TerminalSystem> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Radiator
+<http://www.w3id.org/hvac-taxonomy#Radiator> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HeatExchanger> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#RefrigerantFilter
+<http://www.w3id.org/hvac-taxonomy#RefrigerantFilter> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Filter> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#RelativeHumiditySensor
+<http://www.w3id.org/hvac-taxonomy#RelativeHumiditySensor> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#HumiditySensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Relay
+<http://www.w3id.org/hvac-taxonomy#Relay> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#ElectricalPowerControlComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#RotaryActuator
+<http://www.w3id.org/hvac-taxonomy#RotaryActuator> rdf:type owl:Class ;
+                                                   rdfs:subClassOf :ElectroMechanicalActuator .
+
+
+###  http://www.w3id.org/hvac-taxonomy#RotaryMotor
+<http://www.w3id.org/hvac-taxonomy#RotaryMotor> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Motor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#SolarIrradiationSensor
+<http://www.w3id.org/hvac-taxonomy#SolarIrradiationSensor> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#SubstanceTransferComponent
+<http://www.w3id.org/hvac-taxonomy#SubstanceTransferComponent> rdf:type owl:Class ;
+                                                               rdfs:subClassOf <http://www.w3id.org/elementary#Component> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Switch
+<http://www.w3id.org/hvac-taxonomy#Switch> rdf:type owl:Class ;
+                                           rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#ElectricalPowerControlComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#TemperatureSensor
+<http://www.w3id.org/hvac-taxonomy#TemperatureSensor> rdf:type owl:Class ;
+                                                      rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#TerminalSystem
+<http://www.w3id.org/hvac-taxonomy#TerminalSystem> rdf:type owl:Class ;
+                                                   rdfs:subClassOf <http://www.w3id.org/elementary#System> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#ThreeWayValve
+<http://www.w3id.org/hvac-taxonomy#ThreeWayValve> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Valve> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#TwoWayValve
+<http://www.w3id.org/hvac-taxonomy#TwoWayValve> rdf:type owl:Class ;
+                                                rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Valve> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#Valve
+<http://www.w3id.org/hvac-taxonomy#Valve> rdf:type owl:Class ;
+                                          rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#FlowControlComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#VariableAirVolumeUnit
+<http://www.w3id.org/hvac-taxonomy#VariableAirVolumeUnit> rdf:type owl:Class ;
+                                                          rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#TerminalSystem> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#VariableFrequencyDrive
+<http://www.w3id.org/hvac-taxonomy#VariableFrequencyDrive> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#ElectricalPowerControlComponent> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#VoltageSensor
+<http://www.w3id.org/hvac-taxonomy#VoltageSensor> rdf:type owl:Class ;
+                                                  rdfs:subClassOf <http://www.w3id.org/elementary#Sensor> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#WaterChillngEvaporator
+<http://www.w3id.org/hvac-taxonomy#WaterChillngEvaporator> rdf:type owl:Class ;
+                                                           rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Evaporator> .
+
+
+###  http://www.w3id.org/hvac-taxonomy#WaterCooledCondenser
+<http://www.w3id.org/hvac-taxonomy#WaterCooledCondenser> rdf:type owl:Class ;
+                                                         rdfs:subClassOf <http://www.w3id.org/hvac-taxonomy#Condenser> .
+
+
+###  Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi
