@@ -7,27 +7,49 @@
 
 ## What is this about?
 
-Electro-mechanical systems in are inter-connected components that process substance and energy in a coordinated manner. This could be anything ranging from a humble electric kettle to a power plant. Traditionally, descriptions of such systems, usually diagrams and texts, have been created to solely cater for human understanding. With the age of AI-assisted autonomy dawning on the industry, the question arises as to how we can make this knowledge accessible to also _intelligent artificial agents_. Or, should we just let such agents (including language agents) _discover_ the system on their own and _learn_ to control it? The latter option sounds attractive because it is almost engineering-free. Except we all know that it is riddled with lack of accuracy, reliability, safety, and explainability. Instead of being forced to choose between heavily engineered (and purely reactive) software programs and creative agents based on language/vision models, I advocate a middle path of making expert-created knowledge encoded in a _machine-understandable_ manner available to both logically reasoning and generative agents. Of course, curation of such knowledge is not so obvious, and where possible, it is often expensive. Which is why I show that even basic qualitative descriptions that can be automatically synthesized out of existing sources bring significant benefit to AI agents which are then spared of creatively probabilistic acts. I am quite sure that the astounding capabilities of current day LLMs is on your mind. I will take time to show that I am not talking of knowledge-informed approach as being _disjoint_ from or versus AI methods, but contrarily, that it can be a very integral part of AI (and this is currently missing).
+Electro-mechanical systems in are inter-connected components that process substance, effort, and energy in a coordinated manner. This could be anything ranging from a humble electric kettle to a power plant. Traditionally, descriptions of such systems, usually diagrams and texts, have been created to solely cater for human understanding (yes, I will come to LLMs). Quite often such artifacts of knowledge may be incorrect or incomplete, which in most cases, needs to be compensated by the engineering skills of the reader. With the age of AI-assisted autonomy dawning on the industry, the question arises as to how we can make this knowledge accessible to also _intelligent artificial agents_. Or, should we just let such agents (including language agents) _discover_ the system on their own and _learn_ to control it? The latter option sounds attractive because it is almost engineering-free. Except we all know that it is riddled with lack of accuracy, reliability, safety, and explainability. Instead of being forced to choose between heavily engineered (and purely reactive) software programs and creative agents based on language/vision models, I advocate a middle path of making expert-created knowledge encoded in a _machine-understandable_ manner available to both logically reasoning and generative agents. Of course, curation of such knowledge is not so obvious, and where possible, it is often expensive. Which is why I show that even basic qualitative descriptions that can be automatically synthesized out of existing sources bring significant benefit to AI agents which are then spared of creatively probabilistic acts. I am quite sure that the astounding capabilities of current day LLMs is on your mind. I will take time to show that I am not talking of knowledge-informed approach as being _disjoint_ from or versus AI methods, but contrarily, that it can be a very integral part of AI (and this is currently missing).
 
-**Elementary** is an ontology that helps model such knowledge. It is based on the Semantic Web standards which has a proven background in industrial applications. The name Elementary is inspired by Conan Doyle's fictional character of Sherlock Holmes, who impresses upon his friend Watson that happenings can be explained on the basis of _elementary_ facts (the phrase first appears in the story "A study in Scarlet"). In "The Adventure of the Blue Carbuncle", Holmes deduces a stranger’s entire personality, financial status, and lifestyle just by looking at a lost, battered felt hat. When it comes to the physical world in which machines operate, elementary facts are indeed invaluable in working out mysteries.
+**Elementary** is an ontology that helps model such knowledge for AI. It is based on the Semantic Web standards which has a proven record in supporting industrial applications. The name Elementary is inspired by Conan Doyle's fictional character of Sherlock Holmes, who impresses upon his friend Watson that events and observations can be explained on the basis of _elementary_ facts (the phrase first appears in the story "A study in Scarlet"). In "The Adventure of the Blue Carbuncle", Holmes deduces a stranger’s entire personality, financial status, and lifestyle just by looking at a lost, battered felt hat. When it comes to the physical world in which machines operate, elementary facts are indeed invaluable in working out what often looks mysterious.
 
-I claim (on good grounds) that the knowledge we need has to include at least four aspects: (1) Requirements, i.e., what needs to be accomplished, (2) system design description, i.e., what was built to accomplish the goals, (3) physical principles (underlying the system), and (4) the description of how the system's function in automated towards achieving the requirements. I am talking about knowledge required to automate / operate the system and not design and build it. I found most people nodding in agreement to 1, 2, and 4, and generally frowning on mention of 3. It turns out that physics is the easiest of all and it makes other things even more easier.
+I claim (on good grounds) that the knowledge we need has to include at least four aspects: (1) Requirements, i.e., what needs to be accomplished, (2) system design description, i.e., what was built to accomplish the goals, (3) physical principles (underlying the system), and (4) the description of how the system's function is automated towards achieving the requirements. I am talking about knowledge required to automate / operate the system and not design and build it. I found most people nodding in agreement to 1, 2, and 4, and generally frowning on mention of 3. But it turns out that physics is the easiest of all and it makes other things even more easier.
 
-Therefore, in principle, knowledge modeled by Elementary consists of fource parts:
+Therefore, in principle, knowledge modeled by Elementary consists of four parts:
 
 ![alt text](images/overview.png)
 
-Semantic modeling in classical engineering industrial domains has been more or less focussed around describing only the system design part. This is only a _part_ of the required knowledge. I will explain why we need a much more comprehensive inter-connected knowledge of the system that also inlcudes requirements (why was it built in the first place), its automation (how are the components controlled), and (at least) some idea of the underlying physical principles (why it does what it does).
+The four parts inter-link to form the _holistic knowledge_ of the system (oh, how I detest myself for using the word _holistic_). 
+![alt text](images/overview-abstract-relationships.png){width=40%}
 
-Further to merely providing a vocabulary to describing the four principal aspects, Elementary also provides concepts to inter-link them:
+First, I think it will be easier if I tell you that there are actually _three conceptions of systems_ involved (of which only one is real): (1) the system as conceived by the requirements engineer ("the comfort conditions in the building shall be maintained by an air-condition system which.."), (2) the system that is actually built (and hopefully it _resembles_ the conceived system), and (3) an abstract notion of system against which a standard control logic (for a library) is created ("this program is intended to control the air flow through a fan coil unit"). The automation engineer tries to match / customize (3) against (2) in the background of (1), or might need to create a new program that is suitable for (2) in the background of (3).
+
+For those who like to think in terms of _personas_, think about (1) as requirements engineer, (2) as system designer/constructor, and (3) the automation programmer (we know _this_ person well)
+
+This picture might be easier to digest. Please spend few minutes here:
+
+![alt text](images/overview-integration-relationships.png){width=40%}
+
+It is important to note that the requirements engineer has also an intuition about how a system could potentially be controlled (doesnt specify exactly how, but does know, for example, that the light level in a room can be controlled on the basis of a light sensor). The matching of a standard control program, or creation of a new one, involves matching the _abstract system_ to the _real system_ while making sure that the required behaviour is covered.
+
+Semantic modeling in classical engineering industrial domains has been more or less focussed around describing only the system design part. This is only a _part_ of the required knowledge. In the following sections I will explain more in detail as to why we need a much more comprehensive inter-connected knowledge of the system that also inlcudes requirements (why was it built in the first place), its automation (how are the components controlled), and (at least) some idea of the underlying physical principles (why it does what it does).
+
+Since inter-linking is such an important need, other than providing a vocabulary for expressing the four principal aspects, Elementary also provides concepts to inter-link them:
 
 ![alt text](images/overview-relationships.png)
 
 By inter-linking the individual concepts, we allow a system designer to express **how** a system is constructed, **what** is does **physically**, how is this related to the requirements, and finally, the role of the automation system in achieving the goals.
 
-## How should an integrated knowledge look like
+### Do you need to read everything in this document?
+I have sectioned this document according to the four elementary aspects. You can jump to any of them and they shold make sense standalone. Within a section, the first part is general - this should give you a good idea about why and how the concepts have been designed the way they are. Then I dive in to details with example RDF and SPARQL queries. You can skip this if you dont want to know the nuts and bolts. 
 
-Elementary provides the core concepts to describe what you are dealing with (i.e., the electro-mechanical system, its requirements, and therefore, the automation needs). The concepts are equally well applicable to both simple and complex systems. Let us consider a real-life system with medium complexity. The figure below is the schematic of a system called the Air Handling Unit (bear with me on this).
+I suck at writing good text. But I think I am cereberally compensated by the visual cortex, so you will see a lot of diagrams. I know that is not formal and all, but what the heck, you will get the whole load of formality in the ontology.
+
+## How would description of System Design look like?
+
+Elementary provides the core concepts to describe what you are dealing with (i.e., the electro-mechanical system, its requirements, and therefore, the automation needs). The concepts are equally well applicable to both simple and complex systems. 
+
+![alt text](images/system-classes.png){width=30%}
+
+Let us consider a real-life system with medium complexity. The figure below is the schematic of a system called the Air Handling Unit (bear with me on this).
 ![alt text](images/ahu.png)
 
 Here is a quite good AI-generated description of the figure above:
@@ -53,12 +75,13 @@ The topology of this system can be expressed using the Semantic Web language. He
 ```turtle
 @prefix rdf:   <http://w3.org> .
 @prefix rdfs:  <http://w3.org> .
-@prefix brick: <https://brickschema.org> .
+@prefix brick: <https://brickschema.org> . # Consider this as the HVAC ontology
 @prefix ex:    <http://example.org> .
+@prefix elem: <http://w3id.org/elementary#>
 
 ### --- System & Location Composition ---
 
-ex:Main_AHU a brick:Air_Handling_Unit ;
+ex:Main_AHU a brick:Air_Handling_Unit, elem:System ;
     rdfs:label "Air Handling Unit" ;
     brick:feeds ex:Office_Zone .
 
@@ -69,34 +92,34 @@ ex:Office_Zone a brick:HVAC_Zone ;
 ### --- Equipment Components ---
 
 # Dampers
-ex:Outdoor_Damper a brick:Outdoor_Damper ;
+ex:Outdoor_Damper a brick:Outdoor_Damper, elem:Component ;
     rdfs:label "Outdoor Air Damper" ;
     brick:isPartOf ex:Main_AHU .
 
-ex:Exhaust_Damper a brick:Exhaust_Damper ;
+ex:Exhaust_Damper a brick:Exhaust_Damper, elem:Component ;
     rdfs:label "Exhaust Air Damper" ;
     brick:isPartOf ex:Main_AHU .
 
 # Filter
-ex:Air_Filter a brick:Air_Filter ;
+ex:Air_Filter a brick:Air_Filter, elem:Component ;
     rdfs:label "Fresh Air Filter" ;
     brick:isPartOf ex:Main_AHU .
 
 # Fans
-ex:Extract_Fan a brick:Return_Fan ;
+ex:Extract_Fan a brick:Return_Fan, elem:Component ;
     rdfs:label "Extract Air Fan" ;
     brick:isPartOf ex:Main_AHU .
 
-ex:Supply_Fan a brick:Supply_Fan ;
+ex:Supply_Fan a brick:Supply_Fan, elem:Component ;
     rdfs:label "Supply Air Fan" ;
     brick:isPartOf ex:Main_AHU .
 
 # Heating Components
-ex:Heating_Coil a brick:Heating_Coil ;
+ex:Heating_Coil a brick:Heating_Coil, elem:Component ;
     rdfs:label "Hot Water Heating Coil" ;
     brick:isPartOf ex:Main_AHU .
 
-ex:Hot_Water_Valve a brick:Hot_Water_Valve ;
+ex:Hot_Water_Valve a brick:Hot_Water_Valve, elem:Component ;
     rdfs:label "Hot Water Control Valve" ;
     brick:controls ex:Heating_Coil .
 
@@ -104,16 +127,16 @@ ex:Hot_Water_Valve a brick:Hot_Water_Valve ;
 ### --- Airflow and Fluid Topologies ---
 
 # Outside Air Intake and Filtration Path
-ex:Outdoor_Damper brick:feedsAir ex:Air_Filter .
-ex:Air_Filter     brick:feedsAir ex:Heating_Coil .
+ex:Outdoor_Damper elem:feeds ex:Air_Filter .
+ex:Air_Filter     elem:feeds ex:Heating_Coil .
 
 # Extract and Recirculation Loop
-ex:Office_Zone   brick:feedsAir ex:Extract_Fan .
-ex:Extract_Fan   brick:feedsAir ex:Exhaust_Damper , ex:Heating_Coil . # Split path to exhaust and mixing point
+ex:Office_Zone   elem:feeds ex:Extract_Fan .
+ex:Extract_Fan   elem:feeds ex:Exhaust_Damper , ex:Heating_Coil . # Split path to exhaust and mixing point
 
 # Supply Path
-ex:Heating_Coil  brick:feedsAir ex:Supply_Fan .
-ex:Supply_Fan    brick:feedsAir ex:Office_Zone .
+ex:Heating_Coil  elem:feeds ex:Supply_Fan .
+ex:Supply_Fan    elem:feeds ex:Office_Zone .
 ```
 
 The nice thing about a Knowledge Graph based on a formal ontology is that it can be queried using a structured language. This is what a SPARQL query for listing out all kind of fans and things they feed into looks like:
@@ -143,13 +166,13 @@ WHERE {
 ORDER BY ?fanName
 ```
 
-This is really nice, right? But now we want more. For example, how do we know which components are actively responsible for achieving heating in the conditioned space? What role does the exhaust air damper plays on the air pressure in the space? Under a given state, what will happen when the supply fan speed is increased? What is the best way to improve the air quality while not compromising energy consumption? 
+This is really nice, right? You have a knowledge modeled in formal model against which you can throw semantic queries. But we want more. For example, how do we know which components are actively responsible for achieving heating in the conditioned space? What role does the exhaust air damper plays on the air pressure in the space? Under a given state of the system, what will happen when the supply fan speed is increased? What is the best way to improve the air quality while not compromising energy consumption? 
 
-#### An Interlude: So, good LLMs and we are done?
+#### An Interlude: what about LLMs?
 
 Not surprisingly, once we have a validated topological description like the above one, the ever-improving LLMs are impressive in answering such questions. But the well-known trouble is that they are not reliable. Unless of course they have seen each possible combination of configuration and possible states - something which we cant expect to happen unless the system descriptions, run time data, and the underlying physical principles are made available to the LLMs. Moreover, notice that some expert had to validate the above topology description. Though we reduced the required manual engineering, we did not achieve autonomy.
 
-I know that at this point it is **not** conclusive that LLMs on their own cannot do the job. I doubt I would be able to or want to conclude that way. Instead, I would like to show that with rather low effort, we can massively help LLMs and benefit in the larger context.
+I know that at this point it is **not** conclusive that LLMs on their own cannot do the job. I doubt I would be able to or want to conclude that way. Instead, I would like to show that with rather low effort, we can massively help LLMs and benefit in the larger context. We will come to Graph RAGs later in the Outlook section.
 
 ### System design sounds ok, but why do we need the other parts?
 
@@ -159,7 +182,7 @@ Kettles apart, when it comes to industrial systems, the sizes and complexities b
 
 I think it will be easier if I tell you how, other than system design, you can also model requirements, automation, and physics, and interlink the descriptions. Then it will be rather easy to see what it can it do. Either on its own, or when coupled with AI methods.
 
-## Requirements : How can we describe requirementsin a _machine understandable_ manner?
+## Requirements : How can we describe requirements in a _machine understandable_ manner?
 
 This a can of worms. Mostly because requirements are imprecise and incomplete to begin with and are only alright after the system has been built, operated, and ready to be decomissioned. I am talking of requirements for electro-mechanical systems. So, software engineers, remember the virtual world is **much** more controlled. But my view is a bit too sweeping -- there are domains where requirements are ultra precise. Just take aeronautical or medical domain as an example. Life safety seems to be the driver. They even have arcane formal verifications in place. But thats the Mercedes Benz end of the spectrum. For systems like the one for heating in your building, or the air handling unit in our example, you would be lucky to find any sort of requirement. My approach is: have an ontology to describe requirements and then then have AI agents interpret, question the source, and then synthesise the formal model. More on this a bit later, but first the model.
 
@@ -179,9 +202,9 @@ If you are, like me, too lazy to load the ontology in [Protege](https://protege.
 
 I think the _structural_ part related to describing the requirements, goals, and their inter-relationships are not hard to understand. But what is crucial for our vision of achieving autonomous systems is the _goal specification_ part. That is, how do we formally specify a goal in terms of the physical variables and state of the components? This is a rabbit hole and we dont have Alice kinds in engineering. There are tons of standards that address this need: Signal Temporal Language (STL), Temporal Logic of Actions (TLA), Metric Temporal Language (MTL), Timed Computation Tree Logic, KAOS Assertion Language, etc. Each of these have at least something very interesting and unique which will further out objective. But the question is: what kind of tooling is required to integrate their use in to existing engineering practices? We know that most of our requirements are text, and in some cases, augmented with semi-formal diagrams like UML. So, things like STL, TLA, et al are nice, but we hit a roadblock because requirements engineering tools used in practice dont care about formal representation and standard grammar.
 
-#### Ok, now we let loose the LLMs
+#### Ok, _now_ we let loose the LLMs
 
-Trying to goal specifications seemed like a dead end, until quite recently when I realized how good LLMs are getting at reasoning about requirements text. Not surprsing because requirements texts are quite close to be being _controlled natural language_ ([the work](https://attempto.ifi.uzh.ch/site/pubs/papers/doctoral_thesis_kuhn.pdf) by Tobias Kuhn is worth reading). I think this makes it super nice for the attention layers. I took a set of real-life requirements (120 of them of different qualities) and ran them through GPT5.2 and asked it to first translate them to CNL and then after manual inspection ti each of STL, TLA, and MLA. Manual check of the intermediate outputs revealed no errors. I mean, it just worked! The LLM even indicated incomplete and ambiguous input. Take for example:
+Trying to extract and model goal specifications seemed like a dead end, until quite recently when I realized how good LLMs are getting at reasoning about requirements text. Not surprsing because requirements texts are quite close to be being _controlled natural language_ ([the work](https://attempto.ifi.uzh.ch/site/pubs/papers/doctoral_thesis_kuhn.pdf) by Tobias Kuhn is worth reading). I think this makes it super nice for the attention layers. I took a set of real-life requirements (120 of them of different qualities) and ran them through GPT5.2 and asked it to first translate them to CNL and then after manual inspection of each of STL, TLA, and MLA found that it work _well_ (the stuff that did not work as expected were anyway ambigous in the sourc text). I mean, it just worked in a practical sense! The LLM even indicated incomplete and ambiguous input. Take for example:
 
 > Consider this requirement created by human expert. Translate this to controlled natural language: "The air handling unit should respond to changing air demands by considering a combination of signals from the supply pressure sensor and the air flow demand from the VAVs. The AHU should maintain a minimum supply pressure even if VAV demand is low. If the VAV demand goes to zero, then the AHU should go in economy mode"
 
@@ -268,7 +291,7 @@ So, given an _integrated_ knowledge graph like the one above, it is now easy to 
 
 ## Physical Mechanism: How do we capture common sense physics behind components and systems?
 
-With mathematical equations, of course. That would be certainly provide much more beyond _common sense_. A mathematical model that represents the near exact functioning of a partcular component would however need parameterization (to capture the components sizing and dynamics). This is more often than not an extensive work. But, for many cases, especially those where only need causal graphs with perhaps a bit of idea on dynamics, we could do with a much more generic or qualitative model of physics. I came up with two ways to do this: (1) describe the physical mechanism in terms of variables and their dependency, and (2) create functional mockup unit of simulation of generic components and describe its interfaces. The latter can capture general dynamic responses. The former can be encoded in to the knowledge graph and does not require any execution engine or solver. Let me briefly describe these two things.
+With mathematical equations, of course. That would be certainly provide much more beyond _common sense_. A mathematical model that represents the near exact functioning of a partcular component would however need parameterization (to capture the components sizing and dynamics). This is more often than not an extensive work. But, for many cases, especially those where only need causal graphs with perhaps a bit of idea on dynamics, we could do with a much more generic or qualitative model of physics. I came up with two ways to do this: (1) describe the physical mechanism in terms of variables and their dependency, and/or (2) create functional mockup unit of simulation of generic components and describe its interfaces. The latter can capture general dynamic responses. The former can be encoded in to the knowledge graph and does not require any execution engine or solver. Let me briefly describe these two things.
 
 ### Qualitative Model of Physical Processes and Mechanisms
 Lets resort to visuals again. The key concepts required to describe physics underlying a electro-mechanical component are:
@@ -312,6 +335,8 @@ select * where {
 ```
 
 At this point, you might have a nagging thought: do you need to do this for every component instance in your system? Well, not, and thats the beauty of the approach. You can describe a _stereotypical_ component using the concepts in Elementary. In fact, physical mechanisms are even more generic -- a mechanism can be used by muliple component types. The _stereotypical_ component can be stored in a library and then every real component of that class can be _automatically_ associated to the stereotpye. One such library that I created is for heating, ventilation, and air-conditioning components. 
+
+### Reduced Order Model of Physical Processes and Mechanisms
 
 It is nice that you can get causal graphs. But we all know that is only a model of static behaviour. We could do dynamics if we can nicely encode (and solve) differential equations in RDF. I will leave that as an exercise to a proper nerd. Let me take to you a rather cheap solution. You can do all that maths nicely in a software program. Thats called a simulation model. You can make the simulation model portable by generating what is called as a _Functional Mockup Unit_ (FMU).
 
@@ -433,6 +458,13 @@ The value of having even a partially accurate simulation model is that one can c
 
 ![alt text](images/simulation-switch.png)
 
+### Who creates these models of commond physical processes?
+
+
+### How can the model of physical process be integrated to system design?
+
+Now that you can have an integrated model of the structure _and_ behavior of your system, can we use this to describe what the automation programmer had in mind?
+
 ## Automation: How can we describe standard control and coordination strategies?
 
 Just to remind you of the background to this part: we dont want to rely on generative AI to create the control program for a given scenario (i.e., the requirements and the system built for the purpose). Generative AI does work _decently good_ for things like room thermostat, but begins to waver once you have inter-connected sub-systems that may need to coordinate too. Unlike regular software vibe coding, you really dont have much chance of refining the code in iterations -- you wouldnt dare to deploy the first code suggestion on the real machine (and you wouldnt have or trust a simulator).
@@ -450,6 +482,94 @@ Such diagrams may also include causal relationships (the + ~ in the above diagra
 
 What do we get out of this? First, there is a better machine-understandable explanation of the what the program does (perhaps even a better human-understandable explanation). Second, if you have a system at hand which _in principle_ is same as the abstract system, then you can reason about the match of the control program. Say, you have a boiler burner with variable speed fuel pump instead of a valve for controlling the amount of fuel feed. You can still use the program because its intention is to control the fuel feed rate and therefore it does not matter if that is via a modulating valve or a pump. In other words, we are matching based on the physical principle managed by the sub-system and the physical role of the sensors and actuators attached to it.
 
-## Integration
+```turtle
+@prefix ex:   <http://example.org/burner-control-kg#> .
+@prefix elem: <http://w3id.org/elementary#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# System/controller/goal
+ex:BurnerControl a elem:ControlProgram ;
+  rdfs:label "Burner Control" ;
+  elem:hasGoal ex:MaintainHeat ;
+  elem:hasOutput ex:FuelValveCommand, ex:AirDamperCommand ;
+  elem:hasInput ex:FlameTemperature .
+
+ex:MaintainHeat a elem:Goal ;
+  elem:affectedVariable ex:HeatOutput;
+  elem:goalSpecification "Maintain heat output of the combustion";
+  ex:byMeansOf ex:Combustion .
+
+ex:FuelValveCommand a elem:Output ;
+  elem:modulates ex:FuelValve .
+
+ex:AirDamperCommand a elem:Output ;
+  elem:modulates ex:AirDamper .
+
+# Sensor and measured variable
+ex:TemperatureSensor a elem:Sensor ;
+  elem:hasQuantity qudt:Temperature;
+  elem:dealsWithStuff elem:gas;
+  elem:measures ex:FlameTemperature .
+
+ex:FlameTemperature a elem:PhysicalVariable ;
+  elem:hasQuantity qudt:Temperature;
+  elem:dealsWithStuff elem:gas;
+  elem:hasProcessPosition elem:outlet.
+
+ex:Damper a hvac:DamperActuator .
+
+ex:Valve a hvac:Valve ;
+
+# Process: Combustion and its variables
+hvac:stype_combustion a elem:PhysicalProcess ;
+  elem:hasIndependentVariable ex:AirFlowRate ;
+  elem:hasManipulatedVariable ex:FuelFlowRate ;
+  elem:hasDependentVariable ex:HeatOutput .
+
+ex:AirFlowRate a elem:PhysicalVariable ;
+  elem:hasQuantity qudt:VolumetricFlowRate;
+  elem:dealsWithStuff elem:air;
+  elem:hasProcessPosition elem:inlet.
+
+ex:FuelFlowRate a elem:PhysicalVariable ;
+  elem:hasQuantity qudt:VolumetricFlowRate;
+  elem:dealsWithStuff elem:oil;
+  elem:hasProcessPosition elem:inlet.
+
+ex:HeatOutput a elem:PhysicalVariable ;
+  elem:hasQuantity qudt:Enthalpy;
+  elem:dealsWithStuff elem:gas;
+  elem:hasProcessPosition elem:outlet.
+
+# Physical components / ports
+ex:Burner a elem:Component, hvac:Burner ;
+  elem:hasPort ex:AirInlet, ex:FuelInlet, ex:FlameOutlet .
+
+ex:AirInlet a elem:InletConnectionPort ;
+  elem:hasActuator ex:Damper .
+
+ex:FuelInlet a ex:InletConnectionPort ;
+  ex:hasActuator ex:Valve .
+
+ex:FlameOutlet a elem:OutletConnectionPort ;
+  ex:relatedVariable ex:HeatOutput .
+```
+
+## Integration in engineering and operation workflows
+
+Lets try to tie things together _practically_ now. So far I have put forward how requirements, system design, physical processes, and automation can be modeled using Semantic Web ontologies. You also saw how they can be interlinked: requirements refer to the _intended_ system and the _general_ physical process it manages, concrete system description is linked to more _precise_ physical process model, and description of automation programs, like requirements, are linked to the _abstract_ system and its processes. How would this work in engineering practice?
+
+### Generating knowledge graph from text and diagrams in system specification
+
+### Generating semantic descriptions of standard automation programs
+
+### Discovering datapoint objects and linking them to system description
+
+### Using the knowledge graph to find matching automation program for a given system (or sub-system)
+
+### Explaining the possible causation of an alarm event
+
+### Explaining / detecting anomalies in timeseries data
 
 ## Outlook
